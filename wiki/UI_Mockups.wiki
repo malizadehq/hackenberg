@@ -1,0 +1,9 @@
+#summary Links to UI-mockups
+
+= Introduction =
+
+Links to the UI mockups.
+
+= Details =
+
+[http://iphonemockup.lkmc.ch/?id=PBNALDDZOChkTAhjEfeNhjjBjffBbNNCOYCabDKAF&style=illustration Startup screen]
