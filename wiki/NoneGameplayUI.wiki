@@ -14,3 +14,9 @@ _Shown after startup_
 
 [http://iphonemockup.lkmc.ch/?id=TMLGTFPYWLPXXYZhajHdDPCOOmMDPQfjaEDGHTebc&style=illustration NewGame]
 _Main newgame menu with login and offline for [HotSeat]_
+
+[http://iphonemockup.lkmc.ch/?id=NkdThESOLmbjYORLMKagmYSTmDZACGDPFhhBkOPGN&style=illustration Play Offline]
+_Menu for offline play_
+
+[http://iphonemockup.lkmc.ch/?id=mQcZSOPASQOOMHBRRTmdecOCmbPfhQKeejQHLdHbG&style=illustration Start new offline game]
+_Basic menu for starting a new offline game_
