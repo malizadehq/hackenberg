@@ -24,4 +24,7 @@ _Basic menu for starting a new offline game_
 [http://iphonemockup.lkmc.ch/?id=SNbhZcAOgBALPEXgTgYPMLXENZCYmLEPWfMFXMRON&style=illustration Map Pick]
 _Choose a map?_
 
-[http://iphonemockup.lkmc.ch/?id=eHPRhLYPXhTmKBAdGYCEPQbcXHGegXQXegCYEYBbT&style=illustration Set Rules]
+[http://iphonemockup.lkmc.ch/?id=eHPRhLYPXhTmKBAdGYCEPQbcXHGegXQXegCYEYBbT&style=illustration Set Rules] _Set game rules_
+
+[http://iphonemockup.lkmc.ch/?id=RSQQFOakHkNfkfNaAEXZWEXDdPMSHmQaReBWFbSMX&style=illustration New Game Summary]
+_Shows a summary of the game u are about to start_
