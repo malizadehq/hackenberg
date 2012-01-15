@@ -6,6 +6,6 @@ Add your content here.
 
 = Details =
 
-= Linkes =
+= Links =
 
 * [UI_Mockups]
