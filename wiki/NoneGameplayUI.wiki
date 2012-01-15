@@ -1,0 +1,9 @@
+#summary None Gameplay menu mockups
+
+= Introduction =
+
+Any UI that is NOT part of the ingame goes here.
+
+= Details =
+
+[http://iphonemockup.lkmc.ch/?id=PBNALDDZOChkTAhjEfeNhjjBjffBbNNCOYCabDKAF&style=illustration StartupScreen]
