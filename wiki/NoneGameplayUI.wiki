@@ -20,3 +20,8 @@ _Menu for offline play_
 
 [http://iphonemockup.lkmc.ch/?id=mQcZSOPASQOOMHBRRTmdecOCmbPfhQKeejQHLdHbG&style=illustration Start new offline game]
 _Basic menu for starting a new offline game_
+
+[http://iphonemockup.lkmc.ch/?id=SNbhZcAOgBALPEXgTgYPMLXENZCYmLEPWfMFXMRON&style=illustration Map Pick]
+_Choose a map?_
+
+[http://iphonemockup.lkmc.ch/?id=eHPRhLYPXhTmKBAdGYCEPQbcXHGegXQXegCYEYBbT&style=illustration Set Rules]
