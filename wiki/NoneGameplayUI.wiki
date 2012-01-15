@@ -11,3 +11,6 @@ _The very first screens that shows once the app is loaded_
 
 [http://iphonemockup.lkmc.ch/?id=eRXFeWKfgdAZjPcYOOZmmgCQaXZOOcjDETGkAQdhG&style=illustration MainMenu]
 _Shown after startup_
+
+[http://iphonemockup.lkmc.ch/?id=TMLGTFPYWLPXXYZhajHdDPCOOmMDPQfjaEDGHTebc&style=illustration NewGame]
+_Main newgame menu with login and offline for [HotSeat]_
