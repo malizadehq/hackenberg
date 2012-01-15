@@ -7,3 +7,4 @@ Any UI that is NOT part of the ingame goes here.
 = Details =
 
 [http://iphonemockup.lkmc.ch/?id=PBNALDDZOChkTAhjEfeNhjjBjffBbNNCOYCabDKAF&style=illustration StartupScreen]
+_The very first screens that shows once the app is loaded_
