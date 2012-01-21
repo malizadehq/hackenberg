@@ -5,8 +5,11 @@ import java.util.Random;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.sun.opengl.impl.windows.BITMAPINFO;
 
 enum eTileState
 {
@@ -44,6 +47,9 @@ public class TileEditor implements ApplicationListener
 	
 	public void createTiles()
 	{
+		FileHandle fHandler = new FileHandle("res/maps/editor_map.png");
+		Pixmap newPixMap = new Pixmap(fHandler);
+		
 		for(int x = 0; x < TILES_WIDTH;x++)
 		{
 			for(int y = 0; y < TILES_HEIGHT;y++)
@@ -51,10 +57,9 @@ public class TileEditor implements ApplicationListener
 				objectTile newTile = null;
 				newTile = new objectTile(x,y);
 				
-				Random random = new Random();
-				float fRand = random.nextFloat();
+				int iPixelValue = newPixMap.getPixel(x, y);
 				
-				if(fRand > 0.75f)
+				if(iPixelValue > 0)
 					newTile.setTileType(1);
 				
 				if(newTile != null)
