@@ -31,6 +31,7 @@ public class TileEditor implements ApplicationListener
 	public static final int TILES_WIDTH		=	16;
 	public static final int TILES_HEIGHT	=	12;
 	
+	public int iDebugRender;
 	@Override
 	public void create() 
 	{
@@ -43,6 +44,7 @@ public class TileEditor implements ApplicationListener
 		
 		eCurTileState = eTileState.eTileState_Create;		
 		vText.add( new objectText("Creating Tiles..") );
+		iDebugRender = 0;
 	}
 	
 	public void createTiles()
@@ -50,20 +52,15 @@ public class TileEditor implements ApplicationListener
 		FileHandle fHandler = new FileHandle("res/maps/editor_map.png");
 		Pixmap newPixMap = new Pixmap(fHandler);
 		
-		for(int x = 0; x < TILES_WIDTH;x++)
+		for(int y = 0; y < TILES_HEIGHT;y++)
 		{
-			for(int y = 0; y < TILES_HEIGHT;y++)
+			for(int x = 0; x < TILES_WIDTH;x++)
 			{
-				objectTile newTile = null;
-				newTile = new objectTile(x,y);
-				
 				int iPixelValue = newPixMap.getPixel(x, y);
 				
-				if(iPixelValue > 0)
-					newTile.setTileType(1);
-				
-				if(newTile != null)
-					vTiles.add(newTile);
+				objectTile newTile = null;
+				newTile = new objectTile(x,TILES_HEIGHT-y-1,(iPixelValue > 0));
+				vTiles.add(newTile);
 			}
 		}
 	}
@@ -72,12 +69,16 @@ public class TileEditor implements ApplicationListener
 	{
 		for(int i = 0; i < vTiles.size();i++)
 		{
-			for(int j = 0; j < 8; j++)
+			if(vTiles.get(i).bIsLand)
 			{
-				vTiles.get(i).FriendIsLand( j,IsLand(FriendToIndex(i,j)) );
+				for(int j = 0; j < 4; j++)
+				{
+					vTiles.get(i).FriendIsLand( j,IsLand(FriendToIndex(i,j)) );
+				}
+				vTiles.get(i).FindMatchingTiles();
 			}
-			vTiles.get(i).FindMatchingTiles(i);
 		}
+
 	}
 	
 	public int	FriendToIndex(int iIndex,int iClock)
@@ -87,29 +88,16 @@ public class TileEditor implements ApplicationListener
 		switch(iClock)
 		{
 		case 0:
-		case 8:
 			iTestIndex = iIndex - TILES_WIDTH;
 			break;
 		case 1:
-			iTestIndex = iIndex - TILES_WIDTH + 1;
-			break;
-		case 2:
 			iTestIndex = iIndex + 1;
 			break;
-		case 3:
-			iTestIndex = iIndex + TILES_WIDTH + 1;
-			break;
-		case 4:
+		case 2:
 			iTestIndex = iIndex + TILES_WIDTH;
 			break;
-		case 5:
-			iTestIndex = iIndex + TILES_WIDTH - 1;
-			break;
-		case 6:
+		case 3:
 			iTestIndex = iIndex - 1;
-			break;
-		case 7:
-			iTestIndex = iIndex - TILES_WIDTH + 1;
 			break;
 		}
 		
@@ -122,7 +110,7 @@ public class TileEditor implements ApplicationListener
 	}
 	public int IsLand(int index)
 	{
-		if(vTiles.size() > index && index >= 0 && vTiles.get(index).getTileType() > 0)
+		if(vTiles.size() > index && index >= 0 && vTiles.get(index).bIsLand)
 			return 1;
 		
 		return 0;
