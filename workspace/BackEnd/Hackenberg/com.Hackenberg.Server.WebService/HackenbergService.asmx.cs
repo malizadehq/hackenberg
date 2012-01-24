@@ -14,7 +14,7 @@ namespace com.Hackenberg.Server.WebService
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
     // [System.Web.Script.Services.ScriptService]
-    public class Service1 : System.Web.Services.WebService
+    public class HackenbergService : System.Web.Services.WebService
     {
 
         [WebMethod]
