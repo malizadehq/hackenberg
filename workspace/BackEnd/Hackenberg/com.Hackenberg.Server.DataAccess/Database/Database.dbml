@@ -41,30 +41,6 @@
       <Association Name="User_Country" Member="Countries" ThisKey="Id" OtherKey="ControlledBy" Type="Country" />
     </Type>
   </Table>
-  <Table Name="dbo.Countries" Member="Countries">
-    <Type Name="Country">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="GameId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ControlledBy" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="Country_CountryForce" Member="CountryForces" ThisKey="Id" OtherKey="CountryId" Type="CountryForce" />
-      <Association Name="User_Country" Member="User" ThisKey="ControlledBy" OtherKey="Id" Type="User" IsForeignKey="true" />
-      <Association Name="Game_Country" Member="Game" ThisKey="GameId" OtherKey="Id" Type="Game" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Games" Member="Games">
-    <Type Name="Game">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Phase" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Turn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Game_Country" Member="Countries" ThisKey="Id" OtherKey="GameId" Type="Country" />
-      <Association Name="Game_GameRule" Member="GameRules" ThisKey="Id" OtherKey="GameId" Type="GameRule" />
-      <Association Name="Session_Game" Member="Session" ThisKey="SessionId" OtherKey="Id" Type="Session" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Rules" Member="Rules">
     <Type Name="Rule">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -77,8 +53,48 @@
     <Type Name="GameRule">
       <Column Name="RuleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="GameId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="Game_GameRule" Member="Game" ThisKey="GameId" OtherKey="Id" Type="Game" IsForeignKey="true" />
       <Association Name="Rule_GameRule" Member="Rule" ThisKey="RuleId" OtherKey="Id" Type="Rule" IsForeignKey="true" />
+      <Association Name="Game_GameRule" Member="Game" ThisKey="GameId" OtherKey="Id" Type="Game" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Countries" Member="Countries">
+    <Type Name="Country">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ControlledBy" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Country_CountryForce" Member="CountryForces" ThisKey="Id" OtherKey="CountryId" Type="CountryForce" />
+      <Association Name="Country_MapCountry" Member="MapCountries" ThisKey="Id" OtherKey="CountryId" Type="MapCountry" />
+      <Association Name="User_Country" Member="User" ThisKey="ControlledBy" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Maps" Member="Maps">
+    <Type Name="Map">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Map_MapCountry" Member="MapCountries" ThisKey="Id" OtherKey="MapId" Type="MapCountry" />
+      <Association Name="Map_Game" Member="Games" ThisKey="Id" OtherKey="MapId" Type="Game" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapCountries" Member="MapCountries">
+    <Type Name="MapCountry">
+      <Column Name="MapId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Country_MapCountry" Member="Country" ThisKey="CountryId" OtherKey="Id" Type="Country" IsForeignKey="true" />
+      <Association Name="Map_MapCountry" Member="Map" ThisKey="MapId" OtherKey="Id" Type="Map" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Games" Member="Games">
+    <Type Name="Game">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MapId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Phase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Turn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Game_GameRule" Member="GameRules" ThisKey="Id" OtherKey="GameId" Type="GameRule" />
+      <Association Name="Map_Game" Member="Map" ThisKey="MapId" OtherKey="Id" Type="Map" IsForeignKey="true" />
+      <Association Name="Session_Game" Member="Session" ThisKey="SessionId" OtherKey="Id" Type="Session" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
