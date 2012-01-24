@@ -65,6 +65,7 @@
       <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Country_CountryForce" Member="CountryForces" ThisKey="Id" OtherKey="CountryId" Type="CountryForce" />
       <Association Name="Country_MapCountry" Member="MapCountries" ThisKey="Id" OtherKey="CountryId" Type="MapCountry" />
+      <Association Name="Country_CountryStructure" Member="CountryStructures" ThisKey="Id" OtherKey="CountryId" Type="CountryStructure" />
       <Association Name="User_Country" Member="User" ThisKey="ControlledBy" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -95,6 +96,22 @@
       <Association Name="Game_GameRule" Member="GameRules" ThisKey="Id" OtherKey="GameId" Type="GameRule" />
       <Association Name="Map_Game" Member="Map" ThisKey="MapId" OtherKey="Id" Type="Map" IsForeignKey="true" />
       <Association Name="Session_Game" Member="Session" ThisKey="SessionId" OtherKey="Id" Type="Session" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Structures" Member="Structures">
+    <Type Name="Structure">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Effect" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Structure_CountryStructure" Member="CountryStructures" ThisKey="Id" OtherKey="StructureId" Type="CountryStructure" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CountryStructures" Member="CountryStructures">
+    <Type Name="CountryStructure">
+      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StructureId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Country_CountryStructure" Member="Country" ThisKey="CountryId" OtherKey="Id" Type="Country" IsForeignKey="true" />
+      <Association Name="Structure_CountryStructure" Member="Structure" ThisKey="StructureId" OtherKey="Id" Type="Structure" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

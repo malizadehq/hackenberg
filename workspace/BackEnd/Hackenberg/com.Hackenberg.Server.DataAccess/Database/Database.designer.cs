@@ -51,6 +51,9 @@ namespace com.Hackenberg.Server.DataAccess.Database
     partial void InsertGame(Game instance);
     partial void UpdateGame(Game instance);
     partial void DeleteGame(Game instance);
+    partial void InsertStructure(Structure instance);
+    partial void UpdateStructure(Structure instance);
+    partial void DeleteStructure(Structure instance);
     #endregion
 		
 		public DatabaseDataContext() : 
@@ -168,6 +171,22 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			get
 			{
 				return this.GetTable<Game>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Structure> Structures
+		{
+			get
+			{
+				return this.GetTable<Structure>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CountryStructure> CountryStructures
+		{
+			get
+			{
+				return this.GetTable<CountryStructure>();
 			}
 		}
 	}
@@ -1373,6 +1392,161 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Structures")]
+	public partial class Structure : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private string _Name;
+		
+		private string _Effect;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnEffectChanging(string value);
+    partial void OnEffectChanged();
+    #endregion
+		
+		public Structure()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Effect", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Effect
+		{
+			get
+			{
+				return this._Effect;
+			}
+			set
+			{
+				if ((this._Effect != value))
+				{
+					this.OnEffectChanging(value);
+					this.SendPropertyChanging();
+					this._Effect = value;
+					this.SendPropertyChanged("Effect");
+					this.OnEffectChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CountryStructures")]
+	public partial class CountryStructure
+	{
+		
+		private System.Guid _CountryId;
+		
+		private System.Guid _StructureId;
+		
+		public CountryStructure()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid CountryId
+		{
+			get
+			{
+				return this._CountryId;
+			}
+			set
+			{
+				if ((this._CountryId != value))
+				{
+					this._CountryId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StructureId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid StructureId
+		{
+			get
+			{
+				return this._StructureId;
+			}
+			set
+			{
+				if ((this._StructureId != value))
+				{
+					this._StructureId = value;
+				}
 			}
 		}
 	}
