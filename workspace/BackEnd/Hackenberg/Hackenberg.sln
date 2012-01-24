@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.WebService", "com.Hackenberg.Server.WebService\com.Hackenberg.Server.WebService.csproj", "{17259F85-D11F-4496-A57B-95376F8A7C34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.DataAccess", "com.Hackenberg.Server.DataAccess\com.Hackenberg.Server.DataAccess.csproj", "{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17259F85-D11F-4496-A57B-95376F8A7C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17259F85-D11F-4496-A57B-95376F8A7C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17259F85-D11F-4496-A57B-95376F8A7C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17259F85-D11F-4496-A57B-95376F8A7C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
