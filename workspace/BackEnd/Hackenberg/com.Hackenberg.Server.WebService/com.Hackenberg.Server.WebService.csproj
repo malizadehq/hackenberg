@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -53,6 +54,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DatabaseConnectionTest.aspx" />
     <Content Include="HackenbergService.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -63,6 +65,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseConnectionTest.aspx.cs">
+      <DependentUpon>DatabaseConnectionTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DatabaseConnectionTest.aspx.designer.cs">
+      <DependentUpon>DatabaseConnectionTest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HackenbergService.svc.cs">
       <DependentUpon>HackenbergService.svc</DependentUpon>
     </Compile>
@@ -71,6 +80,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\com.Hackenberg.Server.Common\com.Hackenberg.Server.Common.csproj">
+      <Project>{1985C620-3D2C-44A9-82CF-C9BDB88D3264}</Project>
+      <Name>com.Hackenberg.Server.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.Hackenberg.Server.DataAccess\com.Hackenberg.Server.DataAccess.csproj">
+      <Project>{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}</Project>
+      <Name>com.Hackenberg.Server.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.Hackenberg.Server.Interface\com.Hackenberg.Server.Interface.csproj">
+      <Project>{CAC02594-5446-444B-BE78-FA0D51DBB968}</Project>
+      <Name>com.Hackenberg.Server.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
