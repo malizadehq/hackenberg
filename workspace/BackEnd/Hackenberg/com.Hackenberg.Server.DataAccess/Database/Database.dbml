@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Hackenberg" Class="DatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Hackenberg" Class="HackenbergDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=HIQ-LUND-114\SQLEXPRESS;Initial Catalog=Hackenberg;Integrated Security=True" SettingsObjectName="com.Hackenberg.Server.DataAccess.Properties.Settings" SettingsPropertyName="HackenbergConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.CountryForces" Member="CountryForces">
     <Type Name="CountryForce">
-      <Column Name="ForceId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ForceId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Force_CountryForce" Member="Force" ThisKey="ForceId" OtherKey="Id" Type="Force" IsForeignKey="true" />
       <Association Name="Country_CountryForce" Member="Country" ThisKey="CountryId" OtherKey="Id" Type="Country" IsForeignKey="true" />
     </Type>
@@ -19,8 +19,8 @@
   </Table>
   <Table Name="dbo.SessionMembers" Member="SessionMembers">
     <Type Name="SessionMember">
-      <Column Name="SessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Session_SessionMember" Member="Session" ThisKey="SessionId" OtherKey="Id" Type="Session" IsForeignKey="true" />
       <Association Name="User_SessionMember" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
@@ -51,8 +51,8 @@
   </Table>
   <Table Name="dbo.GameRules" Member="GameRules">
     <Type Name="GameRule">
-      <Column Name="RuleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="GameId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RuleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GameId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Rule_GameRule" Member="Rule" ThisKey="RuleId" OtherKey="Id" Type="Rule" IsForeignKey="true" />
       <Association Name="Game_GameRule" Member="Game" ThisKey="GameId" OtherKey="Id" Type="Game" IsForeignKey="true" />
     </Type>
@@ -79,8 +79,8 @@
   </Table>
   <Table Name="dbo.MapCountries" Member="MapCountries">
     <Type Name="MapCountry">
-      <Column Name="MapId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MapId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Country_MapCountry" Member="Country" ThisKey="CountryId" OtherKey="Id" Type="Country" IsForeignKey="true" />
       <Association Name="Map_MapCountry" Member="Map" ThisKey="MapId" OtherKey="Id" Type="Map" IsForeignKey="true" />
     </Type>
@@ -108,8 +108,8 @@
   </Table>
   <Table Name="dbo.CountryStructures" Member="CountryStructures">
     <Type Name="CountryStructure">
-      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="StructureId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CountryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StructureId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Country_CountryStructure" Member="Country" ThisKey="CountryId" OtherKey="Id" Type="Country" IsForeignKey="true" />
       <Association Name="Structure_CountryStructure" Member="Structure" ThisKey="StructureId" OtherKey="Id" Type="Structure" IsForeignKey="true" />
     </Type>

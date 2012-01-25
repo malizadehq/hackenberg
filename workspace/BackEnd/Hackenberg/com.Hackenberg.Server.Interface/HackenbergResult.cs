@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace com.Hackenberg.Server.Interface
 {
     [DataContract(Namespace = "http://code.google.com/p/hackenberg/namespace/20120125", IsReference = false)]
-    class HackenbergResult<T> : HackenbergResultBase
+    public class HackenbergResult<T> : HackenbergResultBase
     {
         #region Properties
 

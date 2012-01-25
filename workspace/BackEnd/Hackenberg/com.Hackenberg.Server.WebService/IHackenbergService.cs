@@ -5,10 +5,12 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using com.Hackenberg.Server.Interface;
+using System.Net.Security;
 
 namespace com.Hackenberg.Server.WebService
 {
-    [ServiceContract]
+    [ServiceContract(Namespace = "http://code.google.com/p/hackenberg/namespace/20120125", ProtectionLevel=ProtectionLevel.None)]
     public interface IHackenbergService
     {
 
@@ -18,7 +20,17 @@ namespace com.Hackenberg.Server.WebService
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
+
         // TODO: Add your service operations here
+
+        /*
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        HackenbergResult<
+
+        VFCResult<SubDivisionList> GetSubDivisions(Guid session, Guid brandId);
+         */ 
     }
 
 
