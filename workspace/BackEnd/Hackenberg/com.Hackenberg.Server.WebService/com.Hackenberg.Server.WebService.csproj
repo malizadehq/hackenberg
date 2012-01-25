@@ -66,7 +66,7 @@
     <Compile Include="HackenbergService.svc.cs">
       <DependentUpon>HackenbergService.svc</DependentUpon>
     </Compile>
-    <Compile Include="HackenbergService.cs" />
+    <Compile Include="IHackenbergService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
