@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="com.Hackenberg.Server.WebService.Service1" CodeBehind="HackenbergService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="com.Hackenberg.Server.WebService.HackenbergService" CodeBehind="HackenbergService.svc.cs" %>
