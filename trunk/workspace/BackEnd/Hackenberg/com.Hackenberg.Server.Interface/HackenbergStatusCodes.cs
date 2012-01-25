@@ -22,6 +22,10 @@ namespace com.Hackenberg.Server.Interface
         [EnumMember]
         [Description("The operation was successfull.")]
         Ok = 0,
+
+        [EnumMember]
+        [Description("Session has timed out or is unknown.")]
+        InvalidSession = 1,
     }
 
 

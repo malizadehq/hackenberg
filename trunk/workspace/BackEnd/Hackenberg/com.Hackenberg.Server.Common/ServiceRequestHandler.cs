@@ -5,7 +5,12 @@ using System.Text;
 
 namespace com.Hackenberg.Server.Common
 {
-    class ServiceRequestHandler : RequestHandler
+    public class ServiceRequestHandler : RequestHandler
     {
+        public ServiceRequestHandler(Guid session)
+        {
+
+        }
+
     }
 }
