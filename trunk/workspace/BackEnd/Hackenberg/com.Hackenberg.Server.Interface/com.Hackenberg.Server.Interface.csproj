@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HackenbergResult.cs" />
+    <Compile Include="HackenbergResultBase.cs" />
     <Compile Include="HackenbergServiceException.cs" />
     <Compile Include="HackenbergStatusCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
