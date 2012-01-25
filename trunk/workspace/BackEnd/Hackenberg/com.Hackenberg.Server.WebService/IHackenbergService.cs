@@ -7,6 +7,8 @@ using System.ServiceModel.Web;
 using System.Text;
 using com.Hackenberg.Server.Interface;
 using System.Net.Security;
+using com.Hackenberg.Server.DataAccess.Database;
+using com.Hackenberg.DataModel.Users;
 
 namespace com.Hackenberg.Server.WebService
 {
@@ -22,15 +24,9 @@ namespace com.Hackenberg.Server.WebService
 
 
         // TODO: Add your service operations here
-
-        /*
-
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        HackenbergResult<
-
-        VFCResult<SubDivisionList> GetSubDivisions(Guid session, Guid brandId);
-         */ 
+        HackenbergResult<User> AddUser(string userName, string password);
     }
 
 

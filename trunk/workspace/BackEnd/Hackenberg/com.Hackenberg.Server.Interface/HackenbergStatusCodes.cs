@@ -26,6 +26,14 @@ namespace com.Hackenberg.Server.Interface
         [EnumMember]
         [Description("Session has timed out or is unknown.")]
         InvalidSession = 1,
+
+        [EnumMember]
+        [Description("A database operation went wrong.")]
+        DatabaseError = 100,
+
+        [EnumMember]
+        [Description("An internal code error occurred.")]
+        InternalError = 101,
     }
 
 

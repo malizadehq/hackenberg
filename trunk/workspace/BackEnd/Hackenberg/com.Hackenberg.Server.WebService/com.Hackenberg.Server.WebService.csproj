@@ -82,6 +82,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\com.Hackenberg.DataModel\com.Hackenberg.DataModel.csproj">
+      <Project>{1F874EED-3507-41F4-9BE0-4AFE32A109FB}</Project>
+      <Name>com.Hackenberg.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\com.Hackenberg.Server.Common\com.Hackenberg.Server.Common.csproj">
       <Project>{1985C620-3D2C-44A9-82CF-C9BDB88D3264}</Project>
       <Name>com.Hackenberg.Server.Common</Name>
