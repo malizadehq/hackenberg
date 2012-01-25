@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.WebSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.Common", "com.Hackenberg.Server.Common\com.Hackenberg.Server.Common.csproj", "{1985C620-3D2C-44A9-82CF-C9BDB88D3264}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.Interface", "com.Hackenberg.Server.Interface\com.Hackenberg.Server.Interface.csproj", "{CAC02594-5446-444B-BE78-FA0D51DBB968}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{1985C620-3D2C-44A9-82CF-C9BDB88D3264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1985C620-3D2C-44A9-82CF-C9BDB88D3264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1985C620-3D2C-44A9-82CF-C9BDB88D3264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAC02594-5446-444B-BE78-FA0D51DBB968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC02594-5446-444B-BE78-FA0D51DBB968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC02594-5446-444B-BE78-FA0D51DBB968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC02594-5446-444B-BE78-FA0D51DBB968}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
