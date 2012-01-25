@@ -30,9 +30,15 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertCountryForce(CountryForce instance);
+    partial void UpdateCountryForce(CountryForce instance);
+    partial void DeleteCountryForce(CountryForce instance);
     partial void InsertForce(Force instance);
     partial void UpdateForce(Force instance);
     partial void DeleteForce(Force instance);
+    partial void InsertSessionMember(SessionMember instance);
+    partial void UpdateSessionMember(SessionMember instance);
+    partial void DeleteSessionMember(SessionMember instance);
     partial void InsertSession(Session instance);
     partial void UpdateSession(Session instance);
     partial void DeleteSession(Session instance);
@@ -42,18 +48,27 @@ namespace com.Hackenberg.Server.DataAccess.Database
     partial void InsertRule(Rule instance);
     partial void UpdateRule(Rule instance);
     partial void DeleteRule(Rule instance);
+    partial void InsertGameRule(GameRule instance);
+    partial void UpdateGameRule(GameRule instance);
+    partial void DeleteGameRule(GameRule instance);
     partial void InsertCountry(Country instance);
     partial void UpdateCountry(Country instance);
     partial void DeleteCountry(Country instance);
     partial void InsertMap(Map instance);
     partial void UpdateMap(Map instance);
     partial void DeleteMap(Map instance);
+    partial void InsertMapCountry(MapCountry instance);
+    partial void UpdateMapCountry(MapCountry instance);
+    partial void DeleteMapCountry(MapCountry instance);
     partial void InsertGame(Game instance);
     partial void UpdateGame(Game instance);
     partial void DeleteGame(Game instance);
     partial void InsertStructure(Structure instance);
     partial void UpdateStructure(Structure instance);
     partial void DeleteStructure(Structure instance);
+    partial void InsertCountryStructure(CountryStructure instance);
+    partial void UpdateCountryStructure(CountryStructure instance);
+    partial void DeleteCountryStructure(CountryStructure instance);
     #endregion
 		
 		public HackenbergDatabaseDataContext() : 
@@ -192,18 +207,37 @@ namespace com.Hackenberg.Server.DataAccess.Database
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CountryForces")]
-	public partial class CountryForce
+	public partial class CountryForce : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _ForceId;
 		
 		private System.Guid _CountryId;
 		
+		private EntityRef<Force> _Force;
+		
+		private EntityRef<Country> _Country;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnForceIdChanging(System.Guid value);
+    partial void OnForceIdChanged();
+    partial void OnCountryIdChanging(System.Guid value);
+    partial void OnCountryIdChanged();
+    #endregion
+		
 		public CountryForce()
 		{
+			this._Force = default(EntityRef<Force>);
+			this._Country = default(EntityRef<Country>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ForceId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ForceId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid ForceId
 		{
 			get
@@ -214,12 +248,20 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			{
 				if ((this._ForceId != value))
 				{
+					if (this._Force.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnForceIdChanging(value);
+					this.SendPropertyChanging();
 					this._ForceId = value;
+					this.SendPropertyChanged("ForceId");
+					this.OnForceIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid CountryId
 		{
 			get
@@ -230,8 +272,104 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			{
 				if ((this._CountryId != value))
 				{
+					if (this._Country.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCountryIdChanging(value);
+					this.SendPropertyChanging();
 					this._CountryId = value;
+					this.SendPropertyChanged("CountryId");
+					this.OnCountryIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Force_CountryForce", Storage="_Force", ThisKey="ForceId", OtherKey="Id", IsForeignKey=true)]
+		public Force Force
+		{
+			get
+			{
+				return this._Force.Entity;
+			}
+			set
+			{
+				Force previousValue = this._Force.Entity;
+				if (((previousValue != value) 
+							|| (this._Force.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Force.Entity = null;
+						previousValue.CountryForces.Remove(this);
+					}
+					this._Force.Entity = value;
+					if ((value != null))
+					{
+						value.CountryForces.Add(this);
+						this._ForceId = value.Id;
+					}
+					else
+					{
+						this._ForceId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Force");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CountryForce", Storage="_Country", ThisKey="CountryId", OtherKey="Id", IsForeignKey=true)]
+		public Country Country
+		{
+			get
+			{
+				return this._Country.Entity;
+			}
+			set
+			{
+				Country previousValue = this._Country.Entity;
+				if (((previousValue != value) 
+							|| (this._Country.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Country.Entity = null;
+						previousValue.CountryForces.Remove(this);
+					}
+					this._Country.Entity = value;
+					if ((value != null))
+					{
+						value.CountryForces.Add(this);
+						this._CountryId = value.Id;
+					}
+					else
+					{
+						this._CountryId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Country");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -250,6 +388,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		private int _OffenceStrength;
 		
+		private EntitySet<CountryForce> _CountryForces;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -266,6 +406,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public Force()
 		{
+			this._CountryForces = new EntitySet<CountryForce>(new Action<CountryForce>(this.attach_CountryForces), new Action<CountryForce>(this.detach_CountryForces));
 			OnCreated();
 		}
 		
@@ -349,6 +490,199 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Force_CountryForce", Storage="_CountryForces", ThisKey="Id", OtherKey="ForceId")]
+		public EntitySet<CountryForce> CountryForces
+		{
+			get
+			{
+				return this._CountryForces;
+			}
+			set
+			{
+				this._CountryForces.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CountryForces(CountryForce entity)
+		{
+			this.SendPropertyChanging();
+			entity.Force = this;
+		}
+		
+		private void detach_CountryForces(CountryForce entity)
+		{
+			this.SendPropertyChanging();
+			entity.Force = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SessionMembers")]
+	public partial class SessionMember : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _SessionId;
+		
+		private System.Guid _UserId;
+		
+		private EntityRef<Session> _Session;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSessionIdChanging(System.Guid value);
+    partial void OnSessionIdChanged();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    #endregion
+		
+		public SessionMember()
+		{
+			this._Session = default(EntityRef<Session>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid SessionId
+		{
+			get
+			{
+				return this._SessionId;
+			}
+			set
+			{
+				if ((this._SessionId != value))
+				{
+					if (this._Session.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSessionIdChanging(value);
+					this.SendPropertyChanging();
+					this._SessionId = value;
+					this.SendPropertyChanged("SessionId");
+					this.OnSessionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Session_SessionMember", Storage="_Session", ThisKey="SessionId", OtherKey="Id", IsForeignKey=true)]
+		public Session Session
+		{
+			get
+			{
+				return this._Session.Entity;
+			}
+			set
+			{
+				Session previousValue = this._Session.Entity;
+				if (((previousValue != value) 
+							|| (this._Session.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Session.Entity = null;
+						previousValue.SessionMembers.Remove(this);
+					}
+					this._Session.Entity = value;
+					if ((value != null))
+					{
+						value.SessionMembers.Add(this);
+						this._SessionId = value.Id;
+					}
+					else
+					{
+						this._SessionId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Session");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_SessionMember", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.SessionMembers.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.SessionMembers.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -370,51 +704,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SessionMembers")]
-	public partial class SessionMember
-	{
-		
-		private System.Guid _SessionId;
-		
-		private System.Guid _UserId;
-		
-		public SessionMember()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid SessionId
-		{
-			get
-			{
-				return this._SessionId;
-			}
-			set
-			{
-				if ((this._SessionId != value))
-				{
-					this._SessionId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					this._UserId = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sessions")]
 	public partial class Session : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -422,6 +711,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _Id;
+		
+		private EntitySet<SessionMember> _SessionMembers;
 		
 		private EntitySet<Game> _Games;
 		
@@ -435,6 +726,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public Session()
 		{
+			this._SessionMembers = new EntitySet<SessionMember>(new Action<SessionMember>(this.attach_SessionMembers), new Action<SessionMember>(this.detach_SessionMembers));
 			this._Games = new EntitySet<Game>(new Action<Game>(this.attach_Games), new Action<Game>(this.detach_Games));
 			OnCreated();
 		}
@@ -456,6 +748,19 @@ namespace com.Hackenberg.Server.DataAccess.Database
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Session_SessionMember", Storage="_SessionMembers", ThisKey="Id", OtherKey="SessionId")]
+		public EntitySet<SessionMember> SessionMembers
+		{
+			get
+			{
+				return this._SessionMembers;
+			}
+			set
+			{
+				this._SessionMembers.Assign(value);
 			}
 		}
 		
@@ -492,6 +797,18 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		private void attach_SessionMembers(SessionMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.Session = this;
+		}
+		
+		private void detach_SessionMembers(SessionMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.Session = null;
+		}
+		
 		private void attach_Games(Game entity)
 		{
 			this.SendPropertyChanging();
@@ -517,6 +834,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		private string _Password;
 		
+		private EntitySet<SessionMember> _SessionMembers;
+		
 		private EntitySet<Country> _Countries;
 		
     #region Extensibility Method Definitions
@@ -533,6 +852,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public User()
 		{
+			this._SessionMembers = new EntitySet<SessionMember>(new Action<SessionMember>(this.attach_SessionMembers), new Action<SessionMember>(this.detach_SessionMembers));
 			this._Countries = new EntitySet<Country>(new Action<Country>(this.attach_Countries), new Action<Country>(this.detach_Countries));
 			OnCreated();
 		}
@@ -597,6 +917,19 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_SessionMember", Storage="_SessionMembers", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<SessionMember> SessionMembers
+		{
+			get
+			{
+				return this._SessionMembers;
+			}
+			set
+			{
+				this._SessionMembers.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Country", Storage="_Countries", ThisKey="Id", OtherKey="ControlledBy")]
 		public EntitySet<Country> Countries
 		{
@@ -630,6 +963,18 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		private void attach_SessionMembers(SessionMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_SessionMembers(SessionMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
 		private void attach_Countries(Country entity)
 		{
 			this.SendPropertyChanging();
@@ -655,6 +1000,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		private string _Effect;
 		
+		private EntitySet<GameRule> _GameRules;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -669,6 +1016,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public Rule()
 		{
+			this._GameRules = new EntitySet<GameRule>(new Action<GameRule>(this.attach_GameRules), new Action<GameRule>(this.detach_GameRules));
 			OnCreated();
 		}
 		
@@ -732,6 +1080,199 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rule_GameRule", Storage="_GameRules", ThisKey="Id", OtherKey="RuleId")]
+		public EntitySet<GameRule> GameRules
+		{
+			get
+			{
+				return this._GameRules;
+			}
+			set
+			{
+				this._GameRules.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_GameRules(GameRule entity)
+		{
+			this.SendPropertyChanging();
+			entity.Rule = this;
+		}
+		
+		private void detach_GameRules(GameRule entity)
+		{
+			this.SendPropertyChanging();
+			entity.Rule = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GameRules")]
+	public partial class GameRule : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _RuleId;
+		
+		private System.Guid _GameId;
+		
+		private EntityRef<Rule> _Rule;
+		
+		private EntityRef<Game> _Game;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRuleIdChanging(System.Guid value);
+    partial void OnRuleIdChanged();
+    partial void OnGameIdChanging(System.Guid value);
+    partial void OnGameIdChanged();
+    #endregion
+		
+		public GameRule()
+		{
+			this._Rule = default(EntityRef<Rule>);
+			this._Game = default(EntityRef<Game>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RuleId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid RuleId
+		{
+			get
+			{
+				return this._RuleId;
+			}
+			set
+			{
+				if ((this._RuleId != value))
+				{
+					if (this._Rule.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRuleIdChanging(value);
+					this.SendPropertyChanging();
+					this._RuleId = value;
+					this.SendPropertyChanged("RuleId");
+					this.OnRuleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid GameId
+		{
+			get
+			{
+				return this._GameId;
+			}
+			set
+			{
+				if ((this._GameId != value))
+				{
+					if (this._Game.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGameIdChanging(value);
+					this.SendPropertyChanging();
+					this._GameId = value;
+					this.SendPropertyChanged("GameId");
+					this.OnGameIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rule_GameRule", Storage="_Rule", ThisKey="RuleId", OtherKey="Id", IsForeignKey=true)]
+		public Rule Rule
+		{
+			get
+			{
+				return this._Rule.Entity;
+			}
+			set
+			{
+				Rule previousValue = this._Rule.Entity;
+				if (((previousValue != value) 
+							|| (this._Rule.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Rule.Entity = null;
+						previousValue.GameRules.Remove(this);
+					}
+					this._Rule.Entity = value;
+					if ((value != null))
+					{
+						value.GameRules.Add(this);
+						this._RuleId = value.Id;
+					}
+					else
+					{
+						this._RuleId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Rule");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Game_GameRule", Storage="_Game", ThisKey="GameId", OtherKey="Id", IsForeignKey=true)]
+		public Game Game
+		{
+			get
+			{
+				return this._Game.Entity;
+			}
+			set
+			{
+				Game previousValue = this._Game.Entity;
+				if (((previousValue != value) 
+							|| (this._Game.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Game.Entity = null;
+						previousValue.GameRules.Remove(this);
+					}
+					this._Game.Entity = value;
+					if ((value != null))
+					{
+						value.GameRules.Add(this);
+						this._GameId = value.Id;
+					}
+					else
+					{
+						this._GameId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Game");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -753,51 +1294,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GameRules")]
-	public partial class GameRule
-	{
-		
-		private System.Guid _RuleId;
-		
-		private System.Guid _GameId;
-		
-		public GameRule()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RuleId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid RuleId
-		{
-			get
-			{
-				return this._RuleId;
-			}
-			set
-			{
-				if ((this._RuleId != value))
-				{
-					this._RuleId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid GameId
-		{
-			get
-			{
-				return this._GameId;
-			}
-			set
-			{
-				if ((this._GameId != value))
-				{
-					this._GameId = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Countries")]
 	public partial class Country : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -811,6 +1307,12 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		private string _Name;
 		
 		private int _Points;
+		
+		private EntitySet<CountryForce> _CountryForces;
+		
+		private EntitySet<MapCountry> _MapCountries;
+		
+		private EntitySet<CountryStructure> _CountryStructures;
 		
 		private EntityRef<User> _User;
 		
@@ -830,6 +1332,9 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public Country()
 		{
+			this._CountryForces = new EntitySet<CountryForce>(new Action<CountryForce>(this.attach_CountryForces), new Action<CountryForce>(this.detach_CountryForces));
+			this._MapCountries = new EntitySet<MapCountry>(new Action<MapCountry>(this.attach_MapCountries), new Action<MapCountry>(this.detach_MapCountries));
+			this._CountryStructures = new EntitySet<CountryStructure>(new Action<CountryStructure>(this.attach_CountryStructures), new Action<CountryStructure>(this.detach_CountryStructures));
 			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
@@ -918,6 +1423,45 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CountryForce", Storage="_CountryForces", ThisKey="Id", OtherKey="CountryId")]
+		public EntitySet<CountryForce> CountryForces
+		{
+			get
+			{
+				return this._CountryForces;
+			}
+			set
+			{
+				this._CountryForces.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_MapCountry", Storage="_MapCountries", ThisKey="Id", OtherKey="CountryId")]
+		public EntitySet<MapCountry> MapCountries
+		{
+			get
+			{
+				return this._MapCountries;
+			}
+			set
+			{
+				this._MapCountries.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CountryStructure", Storage="_CountryStructures", ThisKey="Id", OtherKey="CountryId")]
+		public EntitySet<CountryStructure> CountryStructures
+		{
+			get
+			{
+				return this._CountryStructures;
+			}
+			set
+			{
+				this._CountryStructures.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Country", Storage="_User", ThisKey="ControlledBy", OtherKey="Id", IsForeignKey=true)]
 		public User User
 		{
@@ -971,6 +1515,42 @@ namespace com.Hackenberg.Server.DataAccess.Database
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_CountryForces(CountryForce entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = this;
+		}
+		
+		private void detach_CountryForces(CountryForce entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = null;
+		}
+		
+		private void attach_MapCountries(MapCountry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = this;
+		}
+		
+		private void detach_MapCountries(MapCountry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = null;
+		}
+		
+		private void attach_CountryStructures(CountryStructure entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = this;
+		}
+		
+		private void detach_CountryStructures(CountryStructure entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Maps")]
@@ -982,6 +1562,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		private System.Guid _Id;
 		
 		private string _Name;
+		
+		private EntitySet<MapCountry> _MapCountries;
 		
 		private EntitySet<Game> _Games;
 		
@@ -997,6 +1579,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public Map()
 		{
+			this._MapCountries = new EntitySet<MapCountry>(new Action<MapCountry>(this.attach_MapCountries), new Action<MapCountry>(this.detach_MapCountries));
 			this._Games = new EntitySet<Game>(new Action<Game>(this.attach_Games), new Action<Game>(this.detach_Games));
 			OnCreated();
 		}
@@ -1041,6 +1624,19 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Map_MapCountry", Storage="_MapCountries", ThisKey="Id", OtherKey="MapId")]
+		public EntitySet<MapCountry> MapCountries
+		{
+			get
+			{
+				return this._MapCountries;
+			}
+			set
+			{
+				this._MapCountries.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Map_Game", Storage="_Games", ThisKey="Id", OtherKey="MapId")]
 		public EntitySet<Game> Games
 		{
@@ -1074,6 +1670,18 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		private void attach_MapCountries(MapCountry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Map = this;
+		}
+		
+		private void detach_MapCountries(MapCountry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Map = null;
+		}
+		
 		private void attach_Games(Game entity)
 		{
 			this.SendPropertyChanging();
@@ -1088,18 +1696,37 @@ namespace com.Hackenberg.Server.DataAccess.Database
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MapCountries")]
-	public partial class MapCountry
+	public partial class MapCountry : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _MapId;
 		
 		private System.Guid _CountryId;
 		
+		private EntityRef<Country> _Country;
+		
+		private EntityRef<Map> _Map;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMapIdChanging(System.Guid value);
+    partial void OnMapIdChanged();
+    partial void OnCountryIdChanging(System.Guid value);
+    partial void OnCountryIdChanged();
+    #endregion
+		
 		public MapCountry()
 		{
+			this._Country = default(EntityRef<Country>);
+			this._Map = default(EntityRef<Map>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MapId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MapId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid MapId
 		{
 			get
@@ -1110,12 +1737,20 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			{
 				if ((this._MapId != value))
 				{
+					if (this._Map.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMapIdChanging(value);
+					this.SendPropertyChanging();
 					this._MapId = value;
+					this.SendPropertyChanged("MapId");
+					this.OnMapIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid CountryId
 		{
 			get
@@ -1126,8 +1761,104 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			{
 				if ((this._CountryId != value))
 				{
+					if (this._Country.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCountryIdChanging(value);
+					this.SendPropertyChanging();
 					this._CountryId = value;
+					this.SendPropertyChanged("CountryId");
+					this.OnCountryIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_MapCountry", Storage="_Country", ThisKey="CountryId", OtherKey="Id", IsForeignKey=true)]
+		public Country Country
+		{
+			get
+			{
+				return this._Country.Entity;
+			}
+			set
+			{
+				Country previousValue = this._Country.Entity;
+				if (((previousValue != value) 
+							|| (this._Country.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Country.Entity = null;
+						previousValue.MapCountries.Remove(this);
+					}
+					this._Country.Entity = value;
+					if ((value != null))
+					{
+						value.MapCountries.Add(this);
+						this._CountryId = value.Id;
+					}
+					else
+					{
+						this._CountryId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Country");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Map_MapCountry", Storage="_Map", ThisKey="MapId", OtherKey="Id", IsForeignKey=true)]
+		public Map Map
+		{
+			get
+			{
+				return this._Map.Entity;
+			}
+			set
+			{
+				Map previousValue = this._Map.Entity;
+				if (((previousValue != value) 
+							|| (this._Map.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Map.Entity = null;
+						previousValue.MapCountries.Remove(this);
+					}
+					this._Map.Entity = value;
+					if ((value != null))
+					{
+						value.MapCountries.Add(this);
+						this._MapId = value.Id;
+					}
+					else
+					{
+						this._MapId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Map");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -1149,6 +1880,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		private int _Turn;
 		
 		private string _Name;
+		
+		private EntitySet<GameRule> _GameRules;
 		
 		private EntityRef<Map> _Map;
 		
@@ -1174,6 +1907,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public Game()
 		{
+			this._GameRules = new EntitySet<GameRule>(new Action<GameRule>(this.attach_GameRules), new Action<GameRule>(this.detach_GameRules));
 			this._Map = default(EntityRef<Map>);
 			this._Session = default(EntityRef<Session>);
 			OnCreated();
@@ -1307,6 +2041,19 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Game_GameRule", Storage="_GameRules", ThisKey="Id", OtherKey="GameId")]
+		public EntitySet<GameRule> GameRules
+		{
+			get
+			{
+				return this._GameRules;
+			}
+			set
+			{
+				this._GameRules.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Map_Game", Storage="_Map", ThisKey="MapId", OtherKey="Id", IsForeignKey=true)]
 		public Map Map
 		{
@@ -1394,6 +2141,18 @@ namespace com.Hackenberg.Server.DataAccess.Database
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_GameRules(GameRule entity)
+		{
+			this.SendPropertyChanging();
+			entity.Game = this;
+		}
+		
+		private void detach_GameRules(GameRule entity)
+		{
+			this.SendPropertyChanging();
+			entity.Game = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Structures")]
@@ -1407,6 +2166,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		private string _Name;
 		
 		private string _Effect;
+		
+		private EntitySet<CountryStructure> _CountryStructures;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1422,6 +2183,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public Structure()
 		{
+			this._CountryStructures = new EntitySet<CountryStructure>(new Action<CountryStructure>(this.attach_CountryStructures), new Action<CountryStructure>(this.detach_CountryStructures));
 			OnCreated();
 		}
 		
@@ -1485,6 +2247,19 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Structure_CountryStructure", Storage="_CountryStructures", ThisKey="Id", OtherKey="StructureId")]
+		public EntitySet<CountryStructure> CountryStructures
+		{
+			get
+			{
+				return this._CountryStructures;
+			}
+			set
+			{
+				this._CountryStructures.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1504,21 +2279,52 @@ namespace com.Hackenberg.Server.DataAccess.Database
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_CountryStructures(CountryStructure entity)
+		{
+			this.SendPropertyChanging();
+			entity.Structure = this;
+		}
+		
+		private void detach_CountryStructures(CountryStructure entity)
+		{
+			this.SendPropertyChanging();
+			entity.Structure = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CountryStructures")]
-	public partial class CountryStructure
+	public partial class CountryStructure : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _CountryId;
 		
 		private System.Guid _StructureId;
 		
+		private EntityRef<Country> _Country;
+		
+		private EntityRef<Structure> _Structure;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCountryIdChanging(System.Guid value);
+    partial void OnCountryIdChanged();
+    partial void OnStructureIdChanging(System.Guid value);
+    partial void OnStructureIdChanged();
+    #endregion
+		
 		public CountryStructure()
 		{
+			this._Country = default(EntityRef<Country>);
+			this._Structure = default(EntityRef<Structure>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid CountryId
 		{
 			get
@@ -1529,12 +2335,20 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			{
 				if ((this._CountryId != value))
 				{
+					if (this._Country.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCountryIdChanging(value);
+					this.SendPropertyChanging();
 					this._CountryId = value;
+					this.SendPropertyChanged("CountryId");
+					this.OnCountryIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StructureId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StructureId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid StructureId
 		{
 			get
@@ -1545,8 +2359,104 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			{
 				if ((this._StructureId != value))
 				{
+					if (this._Structure.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStructureIdChanging(value);
+					this.SendPropertyChanging();
 					this._StructureId = value;
+					this.SendPropertyChanged("StructureId");
+					this.OnStructureIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CountryStructure", Storage="_Country", ThisKey="CountryId", OtherKey="Id", IsForeignKey=true)]
+		public Country Country
+		{
+			get
+			{
+				return this._Country.Entity;
+			}
+			set
+			{
+				Country previousValue = this._Country.Entity;
+				if (((previousValue != value) 
+							|| (this._Country.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Country.Entity = null;
+						previousValue.CountryStructures.Remove(this);
+					}
+					this._Country.Entity = value;
+					if ((value != null))
+					{
+						value.CountryStructures.Add(this);
+						this._CountryId = value.Id;
+					}
+					else
+					{
+						this._CountryId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Country");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Structure_CountryStructure", Storage="_Structure", ThisKey="StructureId", OtherKey="Id", IsForeignKey=true)]
+		public Structure Structure
+		{
+			get
+			{
+				return this._Structure.Entity;
+			}
+			set
+			{
+				Structure previousValue = this._Structure.Entity;
+				if (((previousValue != value) 
+							|| (this._Structure.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Structure.Entity = null;
+						previousValue.CountryStructures.Remove(this);
+					}
+					this._Structure.Entity = value;
+					if ((value != null))
+					{
+						value.CountryStructures.Add(this);
+						this._StructureId = value.Id;
+					}
+					else
+					{
+						this._StructureId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Structure");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
