@@ -5,12 +5,12 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
-namespace com.Hackenberg.DataModel.Maps
+namespace com.FOE.DataModel.Maps
 {
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Maps", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Maps", IsReference = false)]
     public class MapList : ObservableCollection<Map>
     {
     }
@@ -19,7 +19,7 @@ namespace com.Hackenberg.DataModel.Maps
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "map", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Maps")]
+    [DataContract(Name = "map", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Maps")]
     public class Map : NotifyPropertyChangedObject
     {
         #region Id(id) Property

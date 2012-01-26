@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using com.Hackenberg.Server.DataAccess.Database;
+using com.FOE.Server.DataAccess.Database;
 using System.Configuration;
-using com.Hackenberg.Server.Interface;
-using com.Hackenberg.Server.Common;
+using com.FOE.Server.Interface;
+using com.FOE.Server.Common;
 
-namespace com.Hackenberg.Server.WebService
+namespace com.FOE.Server.WebService
 {
     public partial class DatabaseConnectionTest : System.Web.UI.Page
     {
@@ -18,16 +18,16 @@ namespace com.Hackenberg.Server.WebService
             String ConnectionString = "?";
             try
             {
-                HackenbergDatabaseDataContext context = null;
+                FOEDatabaseDataContext context = null;
                 try
                 {
                     try
                     {
-                        context = new HackenbergDatabaseDataContext(ConfigurationManager.ConnectionStrings["HackenbergSQLServer"].ConnectionString);
+                        context = new FOEDatabaseDataContext(ConfigurationManager.ConnectionStrings["FOESQLServer"].ConnectionString);
                     }
                     catch (Exception)
                     {
-                        context = new HackenbergDatabaseDataContext();
+                        context = new FOEDatabaseDataContext();
                     }
                     ConnectionString = context.Connection.ConnectionString;
                     //commented out since the connecion string will contain userName and password for the remote DB server from now on. Not that good if thats made available publically.
@@ -43,10 +43,10 @@ namespace com.Hackenberg.Server.WebService
 
                 ServiceRequestHandler request = new ServiceRequestHandler(Guid.NewGuid());
             }
-            catch (HackenbergServiceException ex)
+            catch (FOEServiceException ex)
             {
                 // We know it is an invalid session
-                if (ex.Reason != HackenbergStatusCodes.InvalidSession)
+                if (ex.Reason != FOEStatusCodes.InvalidSession)
                 {
                     throw new Exception(ConnectionString, ex);
                     // If it is another error, throw the exception again

@@ -8,8 +8,8 @@
     <ProjectGuid>{1985C620-3D2C-44A9-82CF-C9BDB88D3264}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>com.Hackenberg.Server.Common</RootNamespace>
-    <AssemblyName>com.Hackenberg.Server.Common</AssemblyName>
+    <RootNamespace>com.FOE.Server.Common</RootNamespace>
+    <AssemblyName>com.FOE.Server.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,15 +47,15 @@
     <Compile Include="ServiceRequestHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\com.Hackenberg.DataModel\com.FOE.DataModel.csproj">
+    <ProjectReference Include="..\com.FOE.DataModel\com.FOE.DataModel.csproj">
       <Project>{1F874EED-3507-41F4-9BE0-4AFE32A109FB}</Project>
       <Name>com.FOE.DataModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\com.Hackenberg.Server.DataAccess\com.FOE.Server.DataAccess.csproj">
+    <ProjectReference Include="..\com.FOE.Server.DataAccess\com.FOE.Server.DataAccess.csproj">
       <Project>{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}</Project>
       <Name>com.FOE.Server.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\com.Hackenberg.Server.Interface\com.FOE.Server.Interface.csproj">
+    <ProjectReference Include="..\com.FOE.Server.Interface\com.FOE.Server.Interface.csproj">
       <Project>{CAC02594-5446-444B-BE78-FA0D51DBB968}</Project>
       <Name>com.FOE.Server.Interface</Name>
     </ProjectReference>

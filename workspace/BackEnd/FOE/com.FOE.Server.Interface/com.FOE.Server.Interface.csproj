@@ -8,8 +8,8 @@
     <ProjectGuid>{CAC02594-5446-444B-BE78-FA0D51DBB968}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>com.Hackenberg.Server.Interface</RootNamespace>
-    <AssemblyName>com.Hackenberg.Server.Interface</AssemblyName>
+    <RootNamespace>com.FOE.Server.Interface</RootNamespace>
+    <AssemblyName>com.FOE.Server.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

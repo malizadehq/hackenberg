@@ -5,15 +5,15 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using com.Hackenberg.Server.Common;
-using com.Hackenberg.Server.Interface;
+using com.FOE.Server.Common;
+using com.FOE.Server.Interface;
 using System.Diagnostics;
 using System.Data.SqlClient;
-using com.Hackenberg.DataModel.Users;
+using com.FOE.DataModel.Users;
 
-namespace com.Hackenberg.Server.WebService
+namespace com.FOE.Server.WebService
 {
-    public class HackenbergService : IHackenbergService
+    public class FOEService : IFOEService
     {
         #region Execute Helper Method
 
@@ -26,29 +26,29 @@ namespace com.Hackenberg.Server.WebService
         /// <param name="session"></param>
         /// <param name="executeDelegate"></param>
         /// <returns></returns>
-        private HackenbergResultBase Execute(Guid session, ExecuteDelegate executeDelegate)
+        private FOEResultBase Execute(Guid session, ExecuteDelegate executeDelegate)
         {
-            HackenbergResultBase result;
+            FOEResultBase result;
             try
             {
                 ServiceRequestHandler request = new ServiceRequestHandler(session);
                 executeDelegate(request);
-                result = new HackenbergResultBase();
+                result = new FOEResultBase();
             }
-            catch (HackenbergServiceException ex)
+            catch (FOEServiceException ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResultBase(ex);
+                result = new FOEResultBase(ex);
             }
             catch (SqlException ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResultBase(HackenbergStatusCodes.DatabaseError, ex.Message);
+                result = new FOEResultBase(FOEStatusCodes.DatabaseError, ex.Message);
             }
             catch (Exception ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResultBase(HackenbergStatusCodes.InternalError, ex.Message);
+                result = new FOEResultBase(FOEStatusCodes.InternalError, ex.Message);
             }
             return result;
         }
@@ -61,28 +61,28 @@ namespace com.Hackenberg.Server.WebService
         /// <param name="session"></param>
         /// <param name="executeDelegate"></param>
         /// <returns></returns>
-        private HackenbergResult<T> Execute<T>(Guid session, ExecuteDelegate<T> executeDelegate)
+        private FOEResult<T> Execute<T>(Guid session, ExecuteDelegate<T> executeDelegate)
         {
-            HackenbergResult<T> result;
+            FOEResult<T> result;
             try
             {
                 ServiceRequestHandler request = new ServiceRequestHandler(session);
-                result = new HackenbergResult<T>(executeDelegate(request));
+                result = new FOEResult<T>(executeDelegate(request));
             }
-            catch (HackenbergServiceException ex)
+            catch (FOEServiceException ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResult<T>(ex);
+                result = new FOEResult<T>(ex);
             }
             catch (SqlException ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResult<T>(HackenbergStatusCodes.DatabaseError, ex.Message);
+                result = new FOEResult<T>(FOEStatusCodes.DatabaseError, ex.Message);
             }
             catch (Exception ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResult<T>(HackenbergStatusCodes.InternalError, ex.Message);
+                result = new FOEResult<T>(FOEStatusCodes.InternalError, ex.Message);
             }
             return result;
         }
@@ -97,28 +97,28 @@ namespace com.Hackenberg.Server.WebService
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public HackenbergResult<User> AddUser(string userName, string password)
+        public FOEResult<User> AddUser(string userName, string password)
         {
-            HackenbergResult<User> result = new HackenbergResult<User>(HackenbergStatusCodes.Ok, HackenbergStatusCodes.Ok.ToDescriptionString());
+            FOEResult<User> result = new FOEResult<User>(FOEStatusCodes.Ok, FOEStatusCodes.Ok.ToDescriptionString());
             try
             {
                 ServiceRequestHandler requestHandler = new ServiceRequestHandler();
                 result.Result = requestHandler.AddUser(userName, password);
             }
-            catch (HackenbergServiceException ex)
+            catch (FOEServiceException ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResult<User>(ex);
+                result = new FOEResult<User>(ex);
             }
             catch (SqlException ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResult<User>(HackenbergStatusCodes.DatabaseError, ex.Message);
+                result = new FOEResult<User>(FOEStatusCodes.DatabaseError, ex.Message);
             }
             catch (Exception ex)
             {
                 Trace.TraceError("{0}", ex);
-                result = new HackenbergResult<User>(HackenbergStatusCodes.InternalError, ex.Message);
+                result = new FOEResult<User>(FOEStatusCodes.InternalError, ex.Message);
             }
             return result;
         }

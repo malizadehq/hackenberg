@@ -5,12 +5,12 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
-namespace com.Hackenberg.DataModel.Structures
+namespace com.FOE.DataModel.Structures
 {
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Structures", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Structures", IsReference = false)]
     public class StructureList : ObservableCollection<Structure>
     {
     }
@@ -19,7 +19,7 @@ namespace com.Hackenberg.DataModel.Structures
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "structure", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Structures")]
+    [DataContract(Name = "structure", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Structures")]
     public class Structure : NotifyPropertyChangedObject
     {
         #region Id(id) Property

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace com.Hackenberg.Server.WebService {
+namespace com.FOE.Server.WebService {
     
     
     public partial class DatabaseConnectionTest {

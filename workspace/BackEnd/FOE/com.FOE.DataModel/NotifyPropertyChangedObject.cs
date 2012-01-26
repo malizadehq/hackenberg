@@ -5,9 +5,9 @@ using System.Text;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace com.Hackenberg.DataModel
+namespace com.FOE.DataModel
 {
-    [DataContract(Namespace = "http://code.google.com/p/hackenberg/namespace/20120125/com.vfc.DataModel")]
+    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.vfc.DataModel")]
     public class NotifyPropertyChangedObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members
