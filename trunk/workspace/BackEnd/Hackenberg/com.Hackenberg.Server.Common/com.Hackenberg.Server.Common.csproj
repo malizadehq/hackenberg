@@ -32,7 +32,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +45,20 @@
     <Compile Include="RequestHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceRequestHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\com.Hackenberg.DataModel\com.Hackenberg.DataModel.csproj">
+      <Project>{1F874EED-3507-41F4-9BE0-4AFE32A109FB}</Project>
+      <Name>com.Hackenberg.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.Hackenberg.Server.DataAccess\com.Hackenberg.Server.DataAccess.csproj">
+      <Project>{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}</Project>
+      <Name>com.Hackenberg.Server.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.Hackenberg.Server.Interface\com.Hackenberg.Server.Interface.csproj">
+      <Project>{CAC02594-5446-444B-BE78-FA0D51DBB968}</Project>
+      <Name>com.Hackenberg.Server.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,12 +28,24 @@ namespace com.Hackenberg.Server.Interface
         InvalidSession = 1,
 
         [EnumMember]
+        [Description("Unknown user.")]
+        UnknownUser = 2,
+
+        [EnumMember]
+        [Description("User already exists.")]
+        UserAlreadyExists = 3,
+
+        [EnumMember]
         [Description("A database operation went wrong.")]
         DatabaseError = 100,
 
         [EnumMember]
         [Description("An internal code error occurred.")]
         InternalError = 101,
+
+        [EnumMember]
+        [Description("Invalid parameter value.")]
+        InvalidParameter = 102,
     }
 
 

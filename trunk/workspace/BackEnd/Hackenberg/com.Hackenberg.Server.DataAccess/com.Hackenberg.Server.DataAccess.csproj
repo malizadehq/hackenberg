@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.Hackenberg.Server.DataAccess</RootNamespace>
     <AssemblyName>com.Hackenberg.Server.DataAccess</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DB_User.cs" />
+    <Compile Include="Classes\FOEDataInclusion.cs" />
     <Compile Include="Database\Database.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -74,6 +77,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database Scripts\DatabaseUpdates.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\com.Hackenberg.DataModel\com.Hackenberg.DataModel.csproj">
+      <Project>{1F874EED-3507-41F4-9BE0-4AFE32A109FB}</Project>
+      <Name>com.Hackenberg.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.Hackenberg.Server.Interface\com.Hackenberg.Server.Interface.csproj">
+      <Project>{CAC02594-5446-444B-BE78-FA0D51DBB968}</Project>
+      <Name>com.Hackenberg.Server.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
