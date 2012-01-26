@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace com.Hackenberg.Server.Interface
+namespace com.FOE.Server.Interface
 {
-    [DataContract(Namespace = "http://code.google.com/p/hackenberg/namespace/20120125", IsReference = false, Name="HackenbergResult")]
-    public class HackenbergResultBase
+    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125", IsReference = false, Name="FOEResult")]
+    public class FOEResultBase
     {
         #region Properties
 
         [DataMember(Order = 0, IsRequired = true)]
-        public HackenbergStatusCodes Status { get; set; }
+        public FOEStatusCodes Status { get; set; }
 
         [DataMember(Order = 1, EmitDefaultValue = false)]
         public string Message { get; set; }
@@ -22,9 +22,9 @@ namespace com.Hackenberg.Server.Interface
         /// <summary>
         /// Sets Status to ok and message to null
         /// </summary>
-        public HackenbergResultBase()
+        public FOEResultBase()
         {
-            Status = HackenbergStatusCodes.Ok;
+            Status = FOEStatusCodes.Ok;
             Message = null;
         }
 
@@ -34,7 +34,7 @@ namespace com.Hackenberg.Server.Interface
         /// </summary>
         /// <param name="status"></param>
         /// <param name="message"></param>
-        public HackenbergResultBase(HackenbergStatusCodes status = HackenbergStatusCodes.Ok, string message = null)
+        public FOEResultBase(FOEStatusCodes status = FOEStatusCodes.Ok, string message = null)
         {
             Status = status;
             Message = message;
@@ -47,7 +47,7 @@ namespace com.Hackenberg.Server.Interface
         /// Exception instantiated result.
         /// </summary>
         /// <param name="exception"></param>
-        public HackenbergResultBase(HackenbergServiceException exception)
+        public FOEResultBase(FOEServiceException exception)
             : this(exception.Reason, exception.Message)
         {
         }
@@ -57,11 +57,11 @@ namespace com.Hackenberg.Server.Interface
         /// throws an exception if the result status differs from "Ok"
         /// </summary>
         /// <param name="result"></param>
-        public static void GetResult(HackenbergResultBase result)
+        public static void GetResult(FOEResultBase result)
         {
-            if (result.Status != HackenbergStatusCodes.Ok)
+            if (result.Status != FOEStatusCodes.Ok)
             {
-                throw new HackenbergServiceException(result.Status, result.Message);
+                throw new FOEServiceException(result.Status, result.Message);
             }
         }
     }

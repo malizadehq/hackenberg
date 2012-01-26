@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace com.Hackenberg.Server.Interface
+namespace com.FOE.Server.Interface
 {
-    [DataContract(Namespace = "http://code.google.com/p/hackenberg/namespace/20120125", IsReference = false)]
-    public class HackenbergResult<T> : HackenbergResultBase
+    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125", IsReference = false)]
+    public class FOEResult<T> : FOEResultBase
     {
         #region Properties
 
@@ -19,7 +19,7 @@ namespace com.Hackenberg.Server.Interface
         /// <summary>
         /// 
         /// </summary>
-        public HackenbergResult()
+        public FOEResult()
             : base()
         {
         }
@@ -31,7 +31,7 @@ namespace com.Hackenberg.Server.Interface
         /// <param name="result"></param>
         /// <param name="status"></param>
         /// <param name="message"></param>
-        public HackenbergResult(T result, HackenbergStatusCodes status = HackenbergStatusCodes.Ok, string message = null)
+        public FOEResult(T result, FOEStatusCodes status = FOEStatusCodes.Ok, string message = null)
             : this(status, message)
         {
             Result = result;
@@ -43,7 +43,7 @@ namespace com.Hackenberg.Server.Interface
         /// </summary>
         /// <param name="status"></param>
         /// <param name="message"></param>
-        public HackenbergResult(HackenbergStatusCodes status = HackenbergStatusCodes.Ok, string message = null)
+        public FOEResult(FOEStatusCodes status = FOEStatusCodes.Ok, string message = null)
             : base(status, message)
         {
         }
@@ -52,7 +52,7 @@ namespace com.Hackenberg.Server.Interface
         /// <summary>
         /// 
         /// </summary>
-        public HackenbergResult(HackenbergServiceException exception)
+        public FOEResult(FOEServiceException exception)
             : base(exception)
         {
         }
@@ -63,11 +63,11 @@ namespace com.Hackenberg.Server.Interface
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public static T ReturnResult(HackenbergResult<T> result)
+        public static T ReturnResult(FOEResult<T> result)
         {
-            if (result.Status != HackenbergStatusCodes.Ok)
+            if (result.Status != FOEStatusCodes.Ok)
             {
-                throw new HackenbergServiceException(result.Status, result.Message);
+                throw new FOEServiceException(result.Status, result.Message);
             }
             return result.Result;
         }

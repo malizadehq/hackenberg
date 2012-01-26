@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace com.Hackenberg.Server.DataAccess.Properties {
+namespace com.FOE.Server.DataAccess.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,11 +26,20 @@ namespace com.Hackenberg.Server.DataAccess.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HIQ-LUND-114\\SQLEXPRESS;Initial Catalog=Hackenberg;Integrated Securit" +
-            "y=True")]
-        public string HackenbergConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HIQ-LUND-114\\SQLEXPRESS;Initial Catalog=FOE;Integrated Security=True")]
+        public string FOEConnectionString {
             get {
-                return ((string)(this["HackenbergConnectionString"]));
+                return ((string)(this["FOEConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;Initial Catalog=FOE;Integrated Security=True")]
+        public string FOEConnectionString1 {
+            get {
+                return ((string)(this["FOEConnectionString1"]));
             }
         }
     }

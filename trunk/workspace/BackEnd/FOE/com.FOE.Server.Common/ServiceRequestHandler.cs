@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using com.Hackenberg.DataModel.Users;
-using com.Hackenberg.Server.DataAccess.Database;
-using com.Hackenberg.Server.DataAccess;
+using com.FOE.DataModel.Users;
+using com.FOE.Server.DataAccess.Database;
+using com.FOE.Server.DataAccess;
 
-namespace com.Hackenberg.Server.Common
+namespace com.FOE.Server.Common
 {
     public class ServiceRequestHandler : RequestHandler
     {

@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
-using com.Hackenberg.Server.DataAccess.Database;
-using com.Hackenberg.Server.Interface;
+using com.FOE.Server.DataAccess.Database;
+using com.FOE.Server.Interface;
 using System.Data.Linq;
-using com.Hackenberg.DataModel.Users;
-using com.Hackenberg.Server.DataAccess;
+using com.FOE.DataModel.Users;
+using com.FOE.Server.DataAccess;
 
-namespace com.Hackenberg.Server.Common
+namespace com.FOE.Server.Common
 {
     public class RequestHandler
     {
         #region Variables
 
-        protected HackenbergDatabaseDataContext _context;
+        protected FOEDatabaseDataContext _context;
         private static readonly object validateLock = new object();
 
         #endregion
@@ -47,14 +47,14 @@ namespace com.Hackenberg.Server.Common
         {
             if (_context == null)
             {
-                ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["HackenbergSQLServer"];
+                ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["FOESQLServer"];
                 if (connectionStringSettings == null)
                 {
-                    _context = new HackenbergDatabaseDataContext();
+                    _context = new FOEDatabaseDataContext();
                 }
                 else
                 {
-                    _context = new HackenbergDatabaseDataContext(connectionStringSettings.ConnectionString);
+                    _context = new FOEDatabaseDataContext(connectionStringSettings.ConnectionString);
                 }
             }
         }
@@ -72,7 +72,7 @@ namespace com.Hackenberg.Server.Common
             User = (from s in _context.DB_LoginSessions where s.Id == session select s.DB_User).FirstOrDefault();
             if (User == null)
             {
-                throw new HackenbergServiceException(HackenbergStatusCodes.InvalidSession);
+                throw new FOEServiceException(FOEStatusCodes.InvalidSession);
             }
             try
             {
@@ -81,7 +81,7 @@ namespace com.Hackenberg.Server.Common
                     DataAccess.Database.DB_LoginSession da_session = User.DB_LoginSessions.FirstOrDefault(s => s.Id == session);
                     if (da_session == null)
                     {
-                        throw new HackenbergServiceException(HackenbergStatusCodes.InvalidSession);
+                        throw new FOEServiceException(FOEStatusCodes.InvalidSession);
                     }
                     da_session.Timeout = DateTime.UtcNow + TimeSpan.FromHours(1);
                     _context.SubmitChanges();
@@ -97,7 +97,7 @@ namespace com.Hackenberg.Server.Common
                 _context.Refresh(RefreshMode.OverwriteCurrentValues, User.DB_LoginSessions);
                 if (User.DB_LoginSessions.FirstOrDefault(s => s.Id == session) == null)
                 {
-                    throw new HackenbergServiceException(HackenbergStatusCodes.InvalidSession);
+                    throw new FOEServiceException(FOEStatusCodes.InvalidSession);
                 }
             }
         }

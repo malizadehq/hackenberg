@@ -8,8 +8,8 @@
     <ProjectGuid>{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>com.Hackenberg.Server.DataAccess</RootNamespace>
-    <AssemblyName>com.Hackenberg.Server.DataAccess</AssemblyName>
+    <RootNamespace>com.FOE.Server.DataAccess</RootNamespace>
+    <AssemblyName>com.FOE.Server.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -43,10 +43,10 @@
   <ItemGroup>
     <Compile Include="Classes\DB_User.cs" />
     <Compile Include="Classes\FOEDataInclusion.cs" />
-    <Compile Include="Database\Database.designer.cs">
+    <Compile Include="Database\FOEDatabase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Database.dbml</DependentUpon>
+      <DependentUpon>FOEDatabase.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -57,9 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Database\Database.dbml">
+    <None Include="Database\FOEDatabase.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Database.designer.cs</LastGenOutput>
+      <LastGenOutput>FOEDatabase.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -71,22 +71,22 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Database\Database.dbml.layout">
-      <DependentUpon>Database.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Database Scripts\DatabaseUpdates.sql" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\com.Hackenberg.DataModel\com.FOE.DataModel.csproj">
+    <ProjectReference Include="..\com.FOE.DataModel\com.FOE.DataModel.csproj">
       <Project>{1F874EED-3507-41F4-9BE0-4AFE32A109FB}</Project>
       <Name>com.FOE.DataModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\com.Hackenberg.Server.Interface\com.FOE.Server.Interface.csproj">
+    <ProjectReference Include="..\com.FOE.Server.Interface\com.FOE.Server.Interface.csproj">
       <Project>{CAC02594-5446-444B-BE78-FA0D51DBB968}</Project>
       <Name>com.FOE.Server.Interface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database\FOEDatabase.dbml.layout">
+      <DependentUpon>FOEDatabase.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

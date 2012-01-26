@@ -6,13 +6,13 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Reflection;
 
-namespace com.Hackenberg.Server.Interface
+namespace com.FOE.Server.Interface
 {
     /// <summary>
-    /// Status codes for any hackenberg operation.
+    /// Status codes for any FOE operation.
     /// </summary>
-    [DataContract(Namespace = "http://code.google.com/p/hackenberg/namespace/20120125", IsReference = false)]
-    public enum HackenbergStatusCodes
+    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125", IsReference = false)]
+    public enum FOEStatusCodes
     {
         //This Code will never be returned by any web service.
         [EnumMember]
@@ -52,14 +52,14 @@ namespace com.Hackenberg.Server.Interface
     /// <summary>
     /// Extended utility functionality of HackebergStatusCodes
     /// </summary>
-    public static class HackenbergStatusCodeExtensions
+    public static class FOEStatusCodeExtensions
     {
         /// <summary>
-        /// Get enum description specific for HackenbergStatusCodes
+        /// Get enum description specific for FOEStatusCodes
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static String ToDescriptionString(this HackenbergStatusCodes val)
+        public static String ToDescriptionString(this FOEStatusCodes val)
         {
             DescriptionAttribute[] attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
             return attributes.Length > 0 ? attributes[0].Description : String.Empty;

@@ -5,12 +5,12 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
-namespace com.Hackenberg.DataModel.Sessions
+namespace com.FOE.DataModel.Sessions
 {
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Sessions", IsReference = false)]
     public class GameSessionMemberList : ObservableCollection<GameSessionMember>
     {
     }
@@ -19,7 +19,7 @@ namespace com.Hackenberg.DataModel.Sessions
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "gamesessionmember", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions")]
+    [DataContract(Name = "gamesessionmember", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Sessions")]
     public class GameSessionMember : NotifyPropertyChangedObject
     {
         #region GameSessionId(gamesessionid) Property

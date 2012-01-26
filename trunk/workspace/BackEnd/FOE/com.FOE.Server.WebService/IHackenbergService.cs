@@ -5,15 +5,15 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using com.Hackenberg.Server.Interface;
+using com.FOE.Server.Interface;
 using System.Net.Security;
-using com.Hackenberg.Server.DataAccess.Database;
-using com.Hackenberg.DataModel.Users;
+using com.FOE.Server.DataAccess.Database;
+using com.FOE.DataModel.Users;
 
-namespace com.Hackenberg.Server.WebService
+namespace com.FOE.Server.WebService
 {
-    [ServiceContract(Namespace = "http://code.google.com/p/hackenberg/namespace/20120125", ProtectionLevel=ProtectionLevel.None)]
-    public interface IHackenbergService
+    [ServiceContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125", ProtectionLevel=ProtectionLevel.None)]
+    public interface IFOEService
     {
 
         [OperationContract]
@@ -26,7 +26,7 @@ namespace com.Hackenberg.Server.WebService
         // TODO: Add your service operations here
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        HackenbergResult<User> AddUser(string userName, string password);
+        FOEResult<User> AddUser(string userName, string password);
     }
 
 

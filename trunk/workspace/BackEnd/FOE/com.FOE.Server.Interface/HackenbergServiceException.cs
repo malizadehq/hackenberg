@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace com.Hackenberg.Server.Interface
+namespace com.FOE.Server.Interface
 {
-    public class HackenbergServiceException : Exception
+    public class FOEServiceException : Exception
     {
-        public HackenbergStatusCodes Reason { get; protected set; }
+        public FOEStatusCodes Reason { get; protected set; }
 
         /// <summary>
         /// Create a standard exception with an error code embedded.
         /// </summary>
         /// <param name="reason"></param>
-        public HackenbergServiceException(HackenbergStatusCodes reason)
+        public FOEServiceException(FOEStatusCodes reason)
             : base(reason.ToDescriptionString())
         {
             Reason = reason;
@@ -25,7 +25,7 @@ namespace com.Hackenberg.Server.Interface
         /// </summary>
         /// <param name="reason"></param>
         /// <param name="message"></param>
-        public HackenbergServiceException(HackenbergStatusCodes reason, string message)
+        public FOEServiceException(FOEStatusCodes reason, string message)
             : base(string.IsNullOrEmpty(message) ? reason.ToDescriptionString() : message)
         {
             Reason = reason;
@@ -38,7 +38,7 @@ namespace com.Hackenberg.Server.Interface
         /// <param name="reason"></param>
         /// <param name="message"></param>
         /// <param name="args"></param>
-        public HackenbergServiceException(HackenbergStatusCodes reason, string message, params object[] args)
+        public FOEServiceException(FOEStatusCodes reason, string message, params object[] args)
             : base(string.Format(message, args))
         {
             Reason = reason;

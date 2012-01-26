@@ -5,12 +5,12 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
-namespace com.Hackenberg.DataModel.Users
+namespace com.FOE.DataModel.Users
 {
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Users", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users", IsReference = false)]
     public class UserList : ObservableCollection<User>
     {
     }
@@ -19,7 +19,7 @@ namespace com.Hackenberg.DataModel.Users
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "user", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Users")]
+    [DataContract(Name = "user", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users")]
     public class User : NotifyPropertyChangedObject
     {
         #region Id(id) Property

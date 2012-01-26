@@ -5,12 +5,12 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
-namespace com.Hackenberg.DataModel.Countries
+namespace com.FOE.DataModel.Countries
 {
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Countries", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Countries", IsReference = false)]
     public class CountryList : ObservableCollection<Country>
     {
     }
@@ -19,7 +19,7 @@ namespace com.Hackenberg.DataModel.Countries
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "country", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Countries")]
+    [DataContract(Name = "country", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Countries")]
     public class Country : NotifyPropertyChangedObject
     {
         #region Id(id) Property

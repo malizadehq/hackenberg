@@ -5,12 +5,12 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
-namespace com.Hackenberg.DataModel.Games
+namespace com.FOE.DataModel.Games
 {
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Games", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Games", IsReference = false)]
     public class GameRuleList : ObservableCollection<GameRule>
     {
     }
@@ -19,7 +19,7 @@ namespace com.Hackenberg.DataModel.Games
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "gamerule", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Games")]
+    [DataContract(Name = "gamerule", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Games")]
     public class GameRule : NotifyPropertyChangedObject
     {
         #region RuleId(ruleid) Property

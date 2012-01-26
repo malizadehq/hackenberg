@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using com.Hackenberg.Server.DataAccess.Database;
-using com.Hackenberg.DataModel.Users;
-using com.Hackenberg.Server.Interface;
+using com.FOE.Server.DataAccess.Database;
+using com.FOE.DataModel.Users;
+using com.FOE.Server.Interface;
 
-namespace com.Hackenberg.Server.DataAccess.Database
+namespace com.FOE.Server.DataAccess.Database
 {
     partial class DB_User
     {
@@ -16,7 +16,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
         /// <param name="user"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static DB_User FromUser(User user, HackenbergDatabaseDataContext context)
+        public static DB_User FromUser(User user, FOEDatabaseDataContext context)
         {
             DB_User da_user = null;
 
@@ -26,7 +26,7 @@ namespace com.Hackenberg.Server.DataAccess.Database
                 da_user = (from u in context.DB_Users where u.Id == user.Id.Value select u).FirstOrDefault();
                 if (da_user == null)
                 {
-                    throw new HackenbergServiceException(HackenbergStatusCodes.UnknownUser, String.Format("Id reference to user is unknown: {0}", user.Id.Value));
+                    throw new FOEServiceException(FOEStatusCodes.UnknownUser, String.Format("Id reference to user is unknown: {0}", user.Id.Value));
                 }
             }
             else
@@ -43,15 +43,15 @@ namespace com.Hackenberg.Server.DataAccess.Database
                 //TODO: Add canInsert check here?
 
                 if (string.IsNullOrEmpty(user.UserName))
-                    throw new HackenbergServiceException(HackenbergStatusCodes.InvalidParameter, "Paremeter UserName cannot be null");
+                    throw new FOEServiceException(FOEStatusCodes.InvalidParameter, "Paremeter UserName cannot be null");
                 if (string.IsNullOrEmpty(user.Password))
-                    throw new HackenbergServiceException(HackenbergStatusCodes.InvalidParameter, "Paremeter Password cannot be null");
+                    throw new FOEServiceException(FOEStatusCodes.InvalidParameter, "Paremeter Password cannot be null");
 
                 da_user = new DB_User() { Id = Guid.NewGuid(), UserName = user.UserName, Password = user.Password };
             }
 
             if (da_user == null)
-                throw new HackenbergServiceException(HackenbergStatusCodes.InternalError, "Unable to create DB_User");
+                throw new FOEServiceException(FOEStatusCodes.InternalError, "Unable to create DB_User");
 
             return da_user;
         }

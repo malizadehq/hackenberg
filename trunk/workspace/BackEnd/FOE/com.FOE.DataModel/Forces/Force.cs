@@ -5,12 +5,12 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 
-namespace com.Hackenberg.DataModel.Forces
+namespace com.FOE.DataModel.Forces
 {
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Forces", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Forces", IsReference = false)]
     public class ForceList : ObservableCollection<Force>
     {
     }
@@ -19,7 +19,7 @@ namespace com.Hackenberg.DataModel.Forces
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "force", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Forces")]
+    [DataContract(Name = "force", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Forces")]
     public class Force : NotifyPropertyChangedObject
     {
         #region Id(id) Property
