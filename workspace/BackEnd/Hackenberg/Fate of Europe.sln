@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.DataAccess", "com.Hackenberg.Server.DataAccess\com.Hackenberg.Server.DataAccess.csproj", "{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.FOE.Server.DataAccess", "com.Hackenberg.Server.DataAccess\com.FOE.Server.DataAccess.csproj", "{CDDF982A-CA77-4BF5-86F5-D355FC489EEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.WebService", "com.Hackenberg.Server.WebService\com.Hackenberg.Server.WebService.csproj", "{D25FDB55-6DCC-4107-B085-7F0754DED1F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.FOE.Server.WebService", "com.Hackenberg.Server.WebService\com.FOE.Server.WebService.csproj", "{D25FDB55-6DCC-4107-B085-7F0754DED1F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.Common", "com.Hackenberg.Server.Common\com.Hackenberg.Server.Common.csproj", "{1985C620-3D2C-44A9-82CF-C9BDB88D3264}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.FOE.Server.Common", "com.Hackenberg.Server.Common\com.FOE.Server.Common.csproj", "{1985C620-3D2C-44A9-82CF-C9BDB88D3264}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.Server.Interface", "com.Hackenberg.Server.Interface\com.Hackenberg.Server.Interface.csproj", "{CAC02594-5446-444B-BE78-FA0D51DBB968}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.FOE.Server.Interface", "com.Hackenberg.Server.Interface\com.FOE.Server.Interface.csproj", "{CAC02594-5446-444B-BE78-FA0D51DBB968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.Hackenberg.DataModel", "com.Hackenberg.DataModel\com.Hackenberg.DataModel.csproj", "{1F874EED-3507-41F4-9BE0-4AFE32A109FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.FOE.DataModel", "com.Hackenberg.DataModel\com.FOE.DataModel.csproj", "{1F874EED-3507-41F4-9BE0-4AFE32A109FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
