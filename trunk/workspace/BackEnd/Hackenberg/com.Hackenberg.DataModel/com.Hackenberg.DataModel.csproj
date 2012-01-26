@@ -49,8 +49,9 @@
     <Compile Include="NotifyPropertyChangedObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\Rule.cs" />
-    <Compile Include="Sessions\Session.cs" />
-    <Compile Include="Sessions\SessionMember.cs" />
+    <Compile Include="Sessions\LoginSession.cs" />
+    <Compile Include="Sessions\GamesSession.cs" />
+    <Compile Include="Sessions\GameSessionMember.cs" />
     <Compile Include="Structures\Structure.cs" />
     <Compile Include="Users\User.cs" />
   </ItemGroup>
