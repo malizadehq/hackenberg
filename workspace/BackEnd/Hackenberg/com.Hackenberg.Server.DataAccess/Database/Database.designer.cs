@@ -30,12 +30,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertDB_SessionMember(DB_SessionMember instance);
-    partial void UpdateDB_SessionMember(DB_SessionMember instance);
-    partial void DeleteDB_SessionMember(DB_SessionMember instance);
-    partial void InsertDB_Session(DB_Session instance);
-    partial void UpdateDB_Session(DB_Session instance);
-    partial void DeleteDB_Session(DB_Session instance);
     partial void InsertDB_User(DB_User instance);
     partial void UpdateDB_User(DB_User instance);
     partial void DeleteDB_User(DB_User instance);
@@ -48,9 +42,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
     partial void InsertDB_Rule(DB_Rule instance);
     partial void UpdateDB_Rule(DB_Rule instance);
     partial void DeleteDB_Rule(DB_Rule instance);
-    partial void InsertDB_Game(DB_Game instance);
-    partial void UpdateDB_Game(DB_Game instance);
-    partial void DeleteDB_Game(DB_Game instance);
     partial void InsertDB_MapCountry(DB_MapCountry instance);
     partial void UpdateDB_MapCountry(DB_MapCountry instance);
     partial void DeleteDB_MapCountry(DB_MapCountry instance);
@@ -69,6 +60,15 @@ namespace com.Hackenberg.Server.DataAccess.Database
     partial void InsertDB_Structure(DB_Structure instance);
     partial void UpdateDB_Structure(DB_Structure instance);
     partial void DeleteDB_Structure(DB_Structure instance);
+    partial void InsertDB_GameSession(DB_GameSession instance);
+    partial void UpdateDB_GameSession(DB_GameSession instance);
+    partial void DeleteDB_GameSession(DB_GameSession instance);
+    partial void InsertDB_GameSessionMember(DB_GameSessionMember instance);
+    partial void UpdateDB_GameSessionMember(DB_GameSessionMember instance);
+    partial void DeleteDB_GameSessionMember(DB_GameSessionMember instance);
+    partial void InsertDB_Game(DB_Game instance);
+    partial void UpdateDB_Game(DB_Game instance);
+    partial void DeleteDB_Game(DB_Game instance);
     #endregion
 		
 		public HackenbergDatabaseDataContext() : 
@@ -101,22 +101,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<DB_SessionMember> DB_SessionMembers
-		{
-			get
-			{
-				return this.GetTable<DB_SessionMember>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DB_Session> DB_Sessions
-		{
-			get
-			{
-				return this.GetTable<DB_Session>();
-			}
-		}
-		
 		public System.Data.Linq.Table<DB_User> DB_Users
 		{
 			get
@@ -146,14 +130,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			get
 			{
 				return this.GetTable<DB_Rule>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DB_Game> DB_Games
-		{
-			get
-			{
-				return this.GetTable<DB_Game>();
 			}
 		}
 		
@@ -204,291 +180,29 @@ namespace com.Hackenberg.Server.DataAccess.Database
 				return this.GetTable<DB_Structure>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_SessionMembers")]
-	public partial class DB_SessionMember : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _SessionId;
-		
-		private System.Guid _UserId;
-		
-		private EntityRef<DB_Session> _DB_Session;
-		
-		private EntityRef<DB_User> _DB_User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSessionIdChanging(System.Guid value);
-    partial void OnSessionIdChanged();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    #endregion
-		
-		public DB_SessionMember()
-		{
-			this._DB_Session = default(EntityRef<DB_Session>);
-			this._DB_User = default(EntityRef<DB_User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid SessionId
+		public System.Data.Linq.Table<DB_GameSession> DB_GameSessions
 		{
 			get
 			{
-				return this._SessionId;
-			}
-			set
-			{
-				if ((this._SessionId != value))
-				{
-					if (this._DB_Session.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSessionIdChanging(value);
-					this.SendPropertyChanging();
-					this._SessionId = value;
-					this.SendPropertyChanged("SessionId");
-					this.OnSessionIdChanged();
-				}
+				return this.GetTable<DB_GameSession>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid UserId
+		public System.Data.Linq.Table<DB_GameSessionMember> DB_GameSessionMembers
 		{
 			get
 			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					if (this._DB_User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
+				return this.GetTable<DB_GameSessionMember>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Session_DB_SessionMember", Storage="_DB_Session", ThisKey="SessionId", OtherKey="Id", IsForeignKey=true)]
-		public DB_Session DB_Session
+		public System.Data.Linq.Table<DB_Game> DB_Games
 		{
 			get
 			{
-				return this._DB_Session.Entity;
+				return this.GetTable<DB_Game>();
 			}
-			set
-			{
-				DB_Session previousValue = this._DB_Session.Entity;
-				if (((previousValue != value) 
-							|| (this._DB_Session.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DB_Session.Entity = null;
-						previousValue.DB_SessionMembers.Remove(this);
-					}
-					this._DB_Session.Entity = value;
-					if ((value != null))
-					{
-						value.DB_SessionMembers.Add(this);
-						this._SessionId = value.Id;
-					}
-					else
-					{
-						this._SessionId = default(System.Guid);
-					}
-					this.SendPropertyChanged("DB_Session");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_SessionMember", Storage="_DB_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
-		public DB_User DB_User
-		{
-			get
-			{
-				return this._DB_User.Entity;
-			}
-			set
-			{
-				DB_User previousValue = this._DB_User.Entity;
-				if (((previousValue != value) 
-							|| (this._DB_User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DB_User.Entity = null;
-						previousValue.DB_SessionMembers.Remove(this);
-					}
-					this._DB_User.Entity = value;
-					if ((value != null))
-					{
-						value.DB_SessionMembers.Add(this);
-						this._UserId = value.Id;
-					}
-					else
-					{
-						this._UserId = default(System.Guid);
-					}
-					this.SendPropertyChanged("DB_User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_Sessions")]
-	public partial class DB_Session : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id;
-		
-		private EntitySet<DB_SessionMember> _DB_SessionMembers;
-		
-		private EntitySet<DB_Game> _DB_Games;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(System.Guid value);
-    partial void OnIdChanged();
-    #endregion
-		
-		public DB_Session()
-		{
-			this._DB_SessionMembers = new EntitySet<DB_SessionMember>(new Action<DB_SessionMember>(this.attach_DB_SessionMembers), new Action<DB_SessionMember>(this.detach_DB_SessionMembers));
-			this._DB_Games = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games), new Action<DB_Game>(this.detach_DB_Games));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Session_DB_SessionMember", Storage="_DB_SessionMembers", ThisKey="Id", OtherKey="SessionId")]
-		public EntitySet<DB_SessionMember> DB_SessionMembers
-		{
-			get
-			{
-				return this._DB_SessionMembers;
-			}
-			set
-			{
-				this._DB_SessionMembers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Session_DB_Game", Storage="_DB_Games", ThisKey="Id", OtherKey="SessionId")]
-		public EntitySet<DB_Game> DB_Games
-		{
-			get
-			{
-				return this._DB_Games;
-			}
-			set
-			{
-				this._DB_Games.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DB_SessionMembers(DB_SessionMember entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Session = this;
-		}
-		
-		private void detach_DB_SessionMembers(DB_SessionMember entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Session = null;
-		}
-		
-		private void attach_DB_Games(DB_Game entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Session = this;
-		}
-		
-		private void detach_DB_Games(DB_Game entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Session = null;
 		}
 	}
 	
@@ -504,9 +218,9 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		private string _Password;
 		
-		private EntitySet<DB_SessionMember> _DB_SessionMembers;
-		
 		private EntitySet<DB_Country> _DB_Countries;
+		
+		private EntitySet<DB_GameSessionMember> _DB_GameSessionMembers;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -522,8 +236,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public DB_User()
 		{
-			this._DB_SessionMembers = new EntitySet<DB_SessionMember>(new Action<DB_SessionMember>(this.attach_DB_SessionMembers), new Action<DB_SessionMember>(this.detach_DB_SessionMembers));
 			this._DB_Countries = new EntitySet<DB_Country>(new Action<DB_Country>(this.attach_DB_Countries), new Action<DB_Country>(this.detach_DB_Countries));
+			this._DB_GameSessionMembers = new EntitySet<DB_GameSessionMember>(new Action<DB_GameSessionMember>(this.attach_DB_GameSessionMembers), new Action<DB_GameSessionMember>(this.detach_DB_GameSessionMembers));
 			OnCreated();
 		}
 		
@@ -587,19 +301,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_SessionMember", Storage="_DB_SessionMembers", ThisKey="Id", OtherKey="UserId")]
-		public EntitySet<DB_SessionMember> DB_SessionMembers
-		{
-			get
-			{
-				return this._DB_SessionMembers;
-			}
-			set
-			{
-				this._DB_SessionMembers.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_Country", Storage="_DB_Countries", ThisKey="Id", OtherKey="ControlledBy")]
 		public EntitySet<DB_Country> DB_Countries
 		{
@@ -610,6 +311,19 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			set
 			{
 				this._DB_Countries.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_GameSessionMember", Storage="_DB_GameSessionMembers", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<DB_GameSessionMember> DB_GameSessionMembers
+		{
+			get
+			{
+				return this._DB_GameSessionMembers;
+			}
+			set
+			{
+				this._DB_GameSessionMembers.Assign(value);
 			}
 		}
 		
@@ -633,18 +347,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
-		private void attach_DB_SessionMembers(DB_SessionMember entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_User = this;
-		}
-		
-		private void detach_DB_SessionMembers(DB_SessionMember entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_User = null;
-		}
-		
 		private void attach_DB_Countries(DB_Country entity)
 		{
 			this.SendPropertyChanging();
@@ -652,6 +354,18 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		}
 		
 		private void detach_DB_Countries(DB_Country entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User = null;
+		}
+		
+		private void attach_DB_GameSessionMembers(DB_GameSessionMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User = this;
+		}
+		
+		private void detach_DB_GameSessionMembers(DB_GameSessionMember entity)
 		{
 			this.SendPropertyChanging();
 			entity.DB_User = null;
@@ -668,9 +382,9 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		private string _Name;
 		
-		private EntitySet<DB_Game> _DB_Games;
-		
 		private EntitySet<DB_MapCountry> _DB_MapCountries;
+		
+		private EntitySet<DB_Game> _DB_Games;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -684,8 +398,8 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		
 		public DB_Map()
 		{
-			this._DB_Games = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games), new Action<DB_Game>(this.detach_DB_Games));
 			this._DB_MapCountries = new EntitySet<DB_MapCountry>(new Action<DB_MapCountry>(this.attach_DB_MapCountries), new Action<DB_MapCountry>(this.detach_DB_MapCountries));
+			this._DB_Games = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games), new Action<DB_Game>(this.detach_DB_Games));
 			OnCreated();
 		}
 		
@@ -729,19 +443,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Map_DB_Game", Storage="_DB_Games", ThisKey="Id", OtherKey="MapId")]
-		public EntitySet<DB_Game> DB_Games
-		{
-			get
-			{
-				return this._DB_Games;
-			}
-			set
-			{
-				this._DB_Games.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Map_DB_MapCountry", Storage="_DB_MapCountries", ThisKey="Id", OtherKey="MapId")]
 		public EntitySet<DB_MapCountry> DB_MapCountries
 		{
@@ -752,6 +453,19 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			set
 			{
 				this._DB_MapCountries.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Map_DB_Game", Storage="_DB_Games", ThisKey="Id", OtherKey="MapId")]
+		public EntitySet<DB_Game> DB_Games
+		{
+			get
+			{
+				return this._DB_Games;
+			}
+			set
+			{
+				this._DB_Games.Assign(value);
 			}
 		}
 		
@@ -775,18 +489,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 			}
 		}
 		
-		private void attach_DB_Games(DB_Game entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Map = this;
-		}
-		
-		private void detach_DB_Games(DB_Game entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Map = null;
-		}
-		
 		private void attach_DB_MapCountries(DB_MapCountry entity)
 		{
 			this.SendPropertyChanging();
@@ -794,6 +496,18 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		}
 		
 		private void detach_DB_MapCountries(DB_MapCountry entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_Map = null;
+		}
+		
+		private void attach_DB_Games(DB_Game entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_Map = this;
+		}
+		
+		private void detach_DB_Games(DB_Game entity)
 		{
 			this.SendPropertyChanging();
 			entity.DB_Map = null;
@@ -1103,298 +817,6 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		{
 			this.SendPropertyChanging();
 			entity.DB_Rule = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_Games")]
-	public partial class DB_Game : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id;
-		
-		private System.Guid _SessionId;
-		
-		private System.Guid _MapId;
-		
-		private System.Nullable<int> _Phase;
-		
-		private int _Turn;
-		
-		private string _Name;
-		
-		private EntitySet<DB_GameRule> _DB_GameRules;
-		
-		private EntityRef<DB_Map> _DB_Map;
-		
-		private EntityRef<DB_Session> _DB_Session;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(System.Guid value);
-    partial void OnIdChanged();
-    partial void OnSessionIdChanging(System.Guid value);
-    partial void OnSessionIdChanged();
-    partial void OnMapIdChanging(System.Guid value);
-    partial void OnMapIdChanged();
-    partial void OnPhaseChanging(System.Nullable<int> value);
-    partial void OnPhaseChanged();
-    partial void OnTurnChanging(int value);
-    partial void OnTurnChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public DB_Game()
-		{
-			this._DB_GameRules = new EntitySet<DB_GameRule>(new Action<DB_GameRule>(this.attach_DB_GameRules), new Action<DB_GameRule>(this.detach_DB_GameRules));
-			this._DB_Map = default(EntityRef<DB_Map>);
-			this._DB_Session = default(EntityRef<DB_Session>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid SessionId
-		{
-			get
-			{
-				return this._SessionId;
-			}
-			set
-			{
-				if ((this._SessionId != value))
-				{
-					if (this._DB_Session.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSessionIdChanging(value);
-					this.SendPropertyChanging();
-					this._SessionId = value;
-					this.SendPropertyChanged("SessionId");
-					this.OnSessionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MapId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid MapId
-		{
-			get
-			{
-				return this._MapId;
-			}
-			set
-			{
-				if ((this._MapId != value))
-				{
-					if (this._DB_Map.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMapIdChanging(value);
-					this.SendPropertyChanging();
-					this._MapId = value;
-					this.SendPropertyChanged("MapId");
-					this.OnMapIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phase", DbType="Int")]
-		public System.Nullable<int> Phase
-		{
-			get
-			{
-				return this._Phase;
-			}
-			set
-			{
-				if ((this._Phase != value))
-				{
-					this.OnPhaseChanging(value);
-					this.SendPropertyChanging();
-					this._Phase = value;
-					this.SendPropertyChanged("Phase");
-					this.OnPhaseChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Turn", DbType="Int NOT NULL")]
-		public int Turn
-		{
-			get
-			{
-				return this._Turn;
-			}
-			set
-			{
-				if ((this._Turn != value))
-				{
-					this.OnTurnChanging(value);
-					this.SendPropertyChanging();
-					this._Turn = value;
-					this.SendPropertyChanged("Turn");
-					this.OnTurnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Game_DB_GameRule", Storage="_DB_GameRules", ThisKey="Id", OtherKey="GameId")]
-		public EntitySet<DB_GameRule> DB_GameRules
-		{
-			get
-			{
-				return this._DB_GameRules;
-			}
-			set
-			{
-				this._DB_GameRules.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Map_DB_Game", Storage="_DB_Map", ThisKey="MapId", OtherKey="Id", IsForeignKey=true)]
-		public DB_Map DB_Map
-		{
-			get
-			{
-				return this._DB_Map.Entity;
-			}
-			set
-			{
-				DB_Map previousValue = this._DB_Map.Entity;
-				if (((previousValue != value) 
-							|| (this._DB_Map.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DB_Map.Entity = null;
-						previousValue.DB_Games.Remove(this);
-					}
-					this._DB_Map.Entity = value;
-					if ((value != null))
-					{
-						value.DB_Games.Add(this);
-						this._MapId = value.Id;
-					}
-					else
-					{
-						this._MapId = default(System.Guid);
-					}
-					this.SendPropertyChanged("DB_Map");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Session_DB_Game", Storage="_DB_Session", ThisKey="SessionId", OtherKey="Id", IsForeignKey=true)]
-		public DB_Session DB_Session
-		{
-			get
-			{
-				return this._DB_Session.Entity;
-			}
-			set
-			{
-				DB_Session previousValue = this._DB_Session.Entity;
-				if (((previousValue != value) 
-							|| (this._DB_Session.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DB_Session.Entity = null;
-						previousValue.DB_Games.Remove(this);
-					}
-					this._DB_Session.Entity = value;
-					if ((value != null))
-					{
-						value.DB_Games.Add(this);
-						this._SessionId = value.Id;
-					}
-					else
-					{
-						this._SessionId = default(System.Guid);
-					}
-					this.SendPropertyChanged("DB_Session");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DB_GameRules(DB_GameRule entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Game = this;
-		}
-		
-		private void detach_DB_GameRules(DB_GameRule entity)
-		{
-			this.SendPropertyChanging();
-			entity.DB_Game = null;
 		}
 	}
 	
@@ -2458,6 +1880,584 @@ namespace com.Hackenberg.Server.DataAccess.Database
 		{
 			this.SendPropertyChanging();
 			entity.DB_Structure = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_GameSessions")]
+	public partial class DB_GameSession : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private EntitySet<DB_GameSessionMember> _DB_GameSessionMembers;
+		
+		private EntitySet<DB_Game> _DB_Games;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    #endregion
+		
+		public DB_GameSession()
+		{
+			this._DB_GameSessionMembers = new EntitySet<DB_GameSessionMember>(new Action<DB_GameSessionMember>(this.attach_DB_GameSessionMembers), new Action<DB_GameSessionMember>(this.detach_DB_GameSessionMembers));
+			this._DB_Games = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games), new Action<DB_Game>(this.detach_DB_Games));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_GameSession_DB_GameSessionMember", Storage="_DB_GameSessionMembers", ThisKey="Id", OtherKey="SessionId")]
+		public EntitySet<DB_GameSessionMember> DB_GameSessionMembers
+		{
+			get
+			{
+				return this._DB_GameSessionMembers;
+			}
+			set
+			{
+				this._DB_GameSessionMembers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_GameSession_DB_Game", Storage="_DB_Games", ThisKey="Id", OtherKey="GameSessionId")]
+		public EntitySet<DB_Game> DB_Games
+		{
+			get
+			{
+				return this._DB_Games;
+			}
+			set
+			{
+				this._DB_Games.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DB_GameSessionMembers(DB_GameSessionMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_GameSession = this;
+		}
+		
+		private void detach_DB_GameSessionMembers(DB_GameSessionMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_GameSession = null;
+		}
+		
+		private void attach_DB_Games(DB_Game entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_GameSession = this;
+		}
+		
+		private void detach_DB_Games(DB_Game entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_GameSession = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_GameSessionMembers")]
+	public partial class DB_GameSessionMember : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _SessionId;
+		
+		private System.Guid _UserId;
+		
+		private EntityRef<DB_GameSession> _DB_GameSession;
+		
+		private EntityRef<DB_User> _DB_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSessionIdChanging(System.Guid value);
+    partial void OnSessionIdChanged();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    #endregion
+		
+		public DB_GameSessionMember()
+		{
+			this._DB_GameSession = default(EntityRef<DB_GameSession>);
+			this._DB_User = default(EntityRef<DB_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid SessionId
+		{
+			get
+			{
+				return this._SessionId;
+			}
+			set
+			{
+				if ((this._SessionId != value))
+				{
+					if (this._DB_GameSession.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSessionIdChanging(value);
+					this.SendPropertyChanging();
+					this._SessionId = value;
+					this.SendPropertyChanged("SessionId");
+					this.OnSessionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._DB_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_GameSession_DB_GameSessionMember", Storage="_DB_GameSession", ThisKey="SessionId", OtherKey="Id", IsForeignKey=true)]
+		public DB_GameSession DB_GameSession
+		{
+			get
+			{
+				return this._DB_GameSession.Entity;
+			}
+			set
+			{
+				DB_GameSession previousValue = this._DB_GameSession.Entity;
+				if (((previousValue != value) 
+							|| (this._DB_GameSession.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DB_GameSession.Entity = null;
+						previousValue.DB_GameSessionMembers.Remove(this);
+					}
+					this._DB_GameSession.Entity = value;
+					if ((value != null))
+					{
+						value.DB_GameSessionMembers.Add(this);
+						this._SessionId = value.Id;
+					}
+					else
+					{
+						this._SessionId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DB_GameSession");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_GameSessionMember", Storage="_DB_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public DB_User DB_User
+		{
+			get
+			{
+				return this._DB_User.Entity;
+			}
+			set
+			{
+				DB_User previousValue = this._DB_User.Entity;
+				if (((previousValue != value) 
+							|| (this._DB_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DB_User.Entity = null;
+						previousValue.DB_GameSessionMembers.Remove(this);
+					}
+					this._DB_User.Entity = value;
+					if ((value != null))
+					{
+						value.DB_GameSessionMembers.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DB_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_Games")]
+	public partial class DB_Game : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private System.Guid _GameSessionId;
+		
+		private System.Guid _MapId;
+		
+		private System.Nullable<int> _Phase;
+		
+		private int _Turn;
+		
+		private string _Name;
+		
+		private EntitySet<DB_GameRule> _DB_GameRules;
+		
+		private EntityRef<DB_GameSession> _DB_GameSession;
+		
+		private EntityRef<DB_Map> _DB_Map;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnGameSessionIdChanging(System.Guid value);
+    partial void OnGameSessionIdChanged();
+    partial void OnMapIdChanging(System.Guid value);
+    partial void OnMapIdChanged();
+    partial void OnPhaseChanging(System.Nullable<int> value);
+    partial void OnPhaseChanged();
+    partial void OnTurnChanging(int value);
+    partial void OnTurnChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public DB_Game()
+		{
+			this._DB_GameRules = new EntitySet<DB_GameRule>(new Action<DB_GameRule>(this.attach_DB_GameRules), new Action<DB_GameRule>(this.detach_DB_GameRules));
+			this._DB_GameSession = default(EntityRef<DB_GameSession>);
+			this._DB_Map = default(EntityRef<DB_Map>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameSessionId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid GameSessionId
+		{
+			get
+			{
+				return this._GameSessionId;
+			}
+			set
+			{
+				if ((this._GameSessionId != value))
+				{
+					if (this._DB_GameSession.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGameSessionIdChanging(value);
+					this.SendPropertyChanging();
+					this._GameSessionId = value;
+					this.SendPropertyChanged("GameSessionId");
+					this.OnGameSessionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MapId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid MapId
+		{
+			get
+			{
+				return this._MapId;
+			}
+			set
+			{
+				if ((this._MapId != value))
+				{
+					if (this._DB_Map.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMapIdChanging(value);
+					this.SendPropertyChanging();
+					this._MapId = value;
+					this.SendPropertyChanged("MapId");
+					this.OnMapIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phase", DbType="Int")]
+		public System.Nullable<int> Phase
+		{
+			get
+			{
+				return this._Phase;
+			}
+			set
+			{
+				if ((this._Phase != value))
+				{
+					this.OnPhaseChanging(value);
+					this.SendPropertyChanging();
+					this._Phase = value;
+					this.SendPropertyChanged("Phase");
+					this.OnPhaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Turn", DbType="Int NOT NULL")]
+		public int Turn
+		{
+			get
+			{
+				return this._Turn;
+			}
+			set
+			{
+				if ((this._Turn != value))
+				{
+					this.OnTurnChanging(value);
+					this.SendPropertyChanging();
+					this._Turn = value;
+					this.SendPropertyChanged("Turn");
+					this.OnTurnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Game_DB_GameRule", Storage="_DB_GameRules", ThisKey="Id", OtherKey="GameId")]
+		public EntitySet<DB_GameRule> DB_GameRules
+		{
+			get
+			{
+				return this._DB_GameRules;
+			}
+			set
+			{
+				this._DB_GameRules.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_GameSession_DB_Game", Storage="_DB_GameSession", ThisKey="GameSessionId", OtherKey="Id", IsForeignKey=true)]
+		public DB_GameSession DB_GameSession
+		{
+			get
+			{
+				return this._DB_GameSession.Entity;
+			}
+			set
+			{
+				DB_GameSession previousValue = this._DB_GameSession.Entity;
+				if (((previousValue != value) 
+							|| (this._DB_GameSession.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DB_GameSession.Entity = null;
+						previousValue.DB_Games.Remove(this);
+					}
+					this._DB_GameSession.Entity = value;
+					if ((value != null))
+					{
+						value.DB_Games.Add(this);
+						this._GameSessionId = value.Id;
+					}
+					else
+					{
+						this._GameSessionId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DB_GameSession");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_Map_DB_Game", Storage="_DB_Map", ThisKey="MapId", OtherKey="Id", IsForeignKey=true)]
+		public DB_Map DB_Map
+		{
+			get
+			{
+				return this._DB_Map.Entity;
+			}
+			set
+			{
+				DB_Map previousValue = this._DB_Map.Entity;
+				if (((previousValue != value) 
+							|| (this._DB_Map.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DB_Map.Entity = null;
+						previousValue.DB_Games.Remove(this);
+					}
+					this._DB_Map.Entity = value;
+					if ((value != null))
+					{
+						value.DB_Games.Add(this);
+						this._MapId = value.Id;
+					}
+					else
+					{
+						this._MapId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DB_Map");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DB_GameRules(DB_GameRule entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_Game = this;
+		}
+		
+		private void detach_DB_GameRules(DB_GameRule entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_Game = null;
 		}
 	}
 }
