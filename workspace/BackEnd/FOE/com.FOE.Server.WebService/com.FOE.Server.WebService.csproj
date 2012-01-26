@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseConnectionTest.aspx" />
-    <Content Include="HackenbergService.svc" />
+    <Content Include="FOEService.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -72,10 +72,10 @@
     <Compile Include="DatabaseConnectionTest.aspx.designer.cs">
       <DependentUpon>DatabaseConnectionTest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HackenbergService.svc.cs">
-      <DependentUpon>HackenbergService.svc</DependentUpon>
+    <Compile Include="FOEService.svc.cs">
+      <DependentUpon>FOEService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IHackenbergService.cs" />
+    <Compile Include="IFOEService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
