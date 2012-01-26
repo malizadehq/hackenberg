@@ -44,22 +44,22 @@ namespace com.Hackenberg.DataModel.Games
 
         #endregion
 
-        #region SessionId(sessionid) Property
+        #region GameSessionId(gamesessionid) Property
 
-        private Guid? _sessionId;
-        [DataMember(Name = "sessionid", IsRequired = true, EmitDefaultValue = false, Order = 1)]
-        public Guid? SessionId
+        private Guid? _gameSessionId;
+        [DataMember(Name = "gamesessionid", IsRequired = true, EmitDefaultValue = false, Order = 1)]
+        public Guid? GameSessionId
         {
             get
             {
-                return _sessionId;
+                return _gameSessionId;
             }
             set
             {
-                if (value != _sessionId)
+                if (value != _gameSessionId)
                 {
-                    _sessionId = value;
-                    OnPropertyChanged("SessionId");
+                    _gameSessionId = value;
+                    OnPropertyChanged("GameSessionId");
                 }
             }
         }
