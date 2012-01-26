@@ -89,12 +89,20 @@ namespace com.Hackenberg.Server.WebService
 
         #endregion
 
+
+        /// <summary>
+        /// Adds a user to the database
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public HackenbergResult<User> AddUser(string userName, string password)
         {
-            HackenbergResult<User> result;
+            HackenbergResult<User> result = new HackenbergResult<User>(HackenbergStatusCodes.Ok, HackenbergStatusCodes.Ok.ToDescriptionString());
             try
             {
-                result = new HackenbergResult<User>();
+                ServiceRequestHandler requestHandler = new ServiceRequestHandler();
+                result.Result = requestHandler.AddUser(userName, password);
             }
             catch (HackenbergServiceException ex)
             {

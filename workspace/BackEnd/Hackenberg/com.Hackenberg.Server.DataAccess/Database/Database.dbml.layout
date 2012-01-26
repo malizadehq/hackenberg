@@ -26,7 +26,7 @@
         <elementListCompartment Id="475141d3-f620-485a-8082-64ec44876b70" absoluteBounds="0.51500000000000012, 7.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.5 : 6.625); (1.5 : 6.31899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 6.625); (1.5 : 6.31899251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_Rule/DB_Rule_DB_GameRule" />
       <nodes>
         <classShapeMoniker Id="0727ab54-695d-4b22-b443-16062839d520" />
@@ -57,28 +57,28 @@
         <elementListCompartment Id="c33d1a0d-2eb0-40d2-a8a4-0ee440f351f8" absoluteBounds="6.8900000000000006, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.65625 : 3.02089680989583); (8.65625 : 3.66669890494792); (9.625 : 3.66669890494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.65625 : 3.02089680989583); (8.65625 : 3.66669890494792); (9.625 : 3.66669890494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_Country/DB_Country_DB_Force" />
       <nodes>
         <classShapeMoniker Id="95f6d6be-9d67-44bd-ac76-39157c38ce03" />
         <classShapeMoniker Id="b9ae018b-e30c-45ea-9e51-ebd97c22c562" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.875 : 1.91429768880208); (9.625 : 1.91429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.875 : 1.91429768880208); (9.625 : 1.91429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_Country/DB_Country_DB_Structure" />
       <nodes>
         <classShapeMoniker Id="95f6d6be-9d67-44bd-ac76-39157c38ce03" />
         <classShapeMoniker Id="56240aee-58b0-459e-a3ee-d7aa28f83cac" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 1.56814697265625); (6.875 : 1.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 1.56814697265625); (6.875 : 1.56814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_Country" />
       <nodes>
         <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
         <classShapeMoniker Id="95f6d6be-9d67-44bd-ac76-39157c38ce03" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.04459552635908 : 4.375); (7.04459552635908 : 3.02089680989583)]" fixedFrom="Algorithm" fixedTo="Caller">
+    <associationConnector edgePoints="[(7.04459552635908 : 4.375); (7.04459552635908 : 3.02089680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_Map/DB_Map_DB_Country" />
       <nodes>
         <classShapeMoniker Id="5a98a556-14be-4aa6-b0bc-58b80b95e25e" />
@@ -91,73 +91,60 @@
         <elementListCompartment Id="83481ab0-0f2b-4bef-bc7e-71d51027350f" absoluteBounds="3.7649999999999997, 4.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.75 : 5.72199625651042); (2.5 : 5.72199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.75 : 5.72199625651042); (2.5 : 5.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_Game/DB_Game_DB_GameRule" />
       <nodes>
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
         <classShapeMoniker Id="3cda370f-9ddd-4360-9781-9385a872a147" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.97656125 : 1.8862939453125); (4.97656125 : 3.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.97656125 : 1.8862939453125); (4.97656125 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_Game" />
       <nodes>
         <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.527341875 : 1.8862939453125); (4.527341875 : 3.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.527341875 : 1.8862939453125); (4.527341875 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_Game1" />
       <nodes>
         <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 4.12584554036458); (3.75 : 4.12584554036458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 4.12584554036458); (3.75 : 4.12584554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_GameSession/DB_GameSession_DB_Game" />
       <nodes>
         <classShapeMoniker Id="e907d021-92b8-4a70-84a6-3fffbe167903" />
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.2069741690304 : 1.8862939453125); (5.2069741690304 : 3.625)]" fixedFrom="Caller" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.2069741690304 : 1.8862939453125); (5.2069741690304 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_Game2" />
       <nodes>
         <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.24432380080219 : 1.8862939453125); (4.24432380080219 : 3.625)]" fixedFrom="Caller" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.24432380080219 : 1.8862939453125); (4.24432380080219 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_Game3" />
       <nodes>
         <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.7519515625 : 1.8862939453125); (4.7519515625 : 3.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.7519515625 : 1.8862939453125); (4.7519515625 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_Game4" />
       <nodes>
         <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.375 : 4.97199625651042); (5.75 : 4.97199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.375 : 4.97199625651042); (5.75 : 4.97199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_Map/DB_Map_DB_Game" />
       <nodes>
         <classShapeMoniker Id="5a98a556-14be-4aa6-b0bc-58b80b95e25e" />
         <classShapeMoniker Id="53d92aac-53ad-4093-ac5d-feed48f54d7e" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="f5277455-7549-4d31-91b6-b05620bb9c2f" absoluteBounds="0.5, 0.5, 2, 1.3862939453125">
-      <DataClassMoniker Name="/HackenbergDatabaseDataContext/DB_LoginSession" />
-      <nestedChildShapes>
-        <elementListCompartment Id="59345be6-fd73-4e22-b05f-55ea27684180" absoluteBounds="0.51500000000000057, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(3.75 : 1.19314697265625); (2.5 : 1.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_LoginSession" />
-      <nodes>
-        <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
-        <classShapeMoniker Id="f5277455-7549-4d31-91b6-b05620bb9c2f" />
       </nodes>
     </associationConnector>
     <classShape Id="0c39e211-c584-4081-8362-0f79ff1faf75" absoluteBounds="0.5, 2.125, 2, 1.1939925130208333">
@@ -166,18 +153,31 @@
         <elementListCompartment Id="4f1bb533-68d8-4800-a97c-dc07e09623f0" absoluteBounds="0.51500000000000012, 2.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.5 : 3.625); (1.5 : 3.31899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 3.625); (1.5 : 3.31899251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_GameSession/DB_GameSession_DB_GameSessionMember" />
       <nodes>
         <classShapeMoniker Id="e907d021-92b8-4a70-84a6-3fffbe167903" />
         <classShapeMoniker Id="0c39e211-c584-4081-8362-0f79ff1faf75" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.05545776073823 : 1.8862939453125); (4.05545776073823 : 2.72199625651042); (2.5 : 2.72199625651042)]" fixedFrom="Caller" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.05193840742606 : 1.8862939453125); (4.05193840742606 : 2.72199625651042); (2.5 : 2.72199625651042)]" fixedFrom="Caller" fixedTo="Algorithm">
       <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_GameSessionMember" />
       <nodes>
         <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
         <classShapeMoniker Id="0c39e211-c584-4081-8362-0f79ff1faf75" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="df22781c-4cf3-46e4-ab80-00c1d50eb526" absoluteBounds="0.5, 0.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/HackenbergDatabaseDataContext/DB_LoginSession" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d0b00752-21b3-4b3f-b5fd-8c0ed29db910" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.75 : 1.19314697265625); (2.5 : 1.19314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/HackenbergDatabaseDataContext/DB_User/DB_User_DB_LoginSession" />
+      <nodes>
+        <classShapeMoniker Id="5d540932-0b14-4eaf-82b8-cb5193511c1e" />
+        <classShapeMoniker Id="df22781c-4cf3-46e4-ab80-00c1d50eb526" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

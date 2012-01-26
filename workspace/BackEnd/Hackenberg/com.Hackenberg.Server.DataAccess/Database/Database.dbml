@@ -11,8 +11,8 @@
       <Association Name="DB_User_DB_Game2" Member="DB_Games2" ThisKey="Id" OtherKey="GermanPlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game3" Member="DB_Games3" ThisKey="Id" OtherKey="JapanesePlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game4" Member="DB_Games4" ThisKey="Id" OtherKey="RussianPlayer" Type="DB_Game" />
-      <Association Name="DB_User_DB_LoginSession" Member="DB_LoginSessions" ThisKey="Id" OtherKey="UserId" Type="DB_LoginSession" />
       <Association Name="DB_User_DB_GameSessionMember" Member="DB_GameSessionMembers" ThisKey="Id" OtherKey="UserId" Type="DB_GameSessionMember" />
+      <Association Name="DB_User_DB_LoginSession" Member="DB_LoginSessions" ThisKey="Id" OtherKey="UserId" Type="DB_LoginSession" />
     </Type>
   </Table>
   <Table Name="dbo.DB_Maps" Member="DB_Maps">
@@ -101,20 +101,20 @@
       <Association Name="DB_Map_DB_Game" Member="DB_Map" ThisKey="MapId" OtherKey="Id" Type="DB_Map" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DB_LoginSessions" Member="DB_LoginSessions">
-    <Type Name="DB_LoginSession">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="TimeOut" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="DB_User_DB_LoginSession" Member="DB_User" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DB_GameSessionMembers" Member="DB_GameSessionMembers">
     <Type Name="DB_GameSessionMember">
       <Column Name="GameSessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="DB_GameSession_DB_GameSessionMember" Member="DB_GameSession" ThisKey="GameSessionId" OtherKey="Id" Type="DB_GameSession" IsForeignKey="true" />
       <Association Name="DB_User_DB_GameSessionMember" Member="DB_User" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DB_LoginSessions" Member="DB_LoginSessions">
+    <Type Name="DB_LoginSession">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Timeout" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="DB_User_DB_LoginSession" Member="DB_User" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
