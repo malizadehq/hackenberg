@@ -11,7 +11,7 @@ namespace com.Hackenberg.DataModel.Sessions
     /// 
     /// </summary>
     [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions", IsReference = false)]
-    public class SessionMemberList : ObservableCollection<SessionMember>
+    public class GameSessionMemberList : ObservableCollection<GameSessionMember>
     {
     }
 
@@ -19,25 +19,25 @@ namespace com.Hackenberg.DataModel.Sessions
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "sessionmember", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions")]
-    public class SessionMember : NotifyPropertyChangedObject
+    [DataContract(Name = "gamesessionmember", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions")]
+    public class GameSessionMember : NotifyPropertyChangedObject
     {
-        #region SessionId(sessionid) Property
+        #region GameSessionId(gamesessionid) Property
 
-        private Guid? _sessionId;
-        [DataMember(Name = "sessionid", IsRequired = true, EmitDefaultValue = false, Order = 0)]
-        public Guid? SessionId
+        private Guid? _gameSessionId;
+        [DataMember(Name = "gamesessionid", IsRequired = true, EmitDefaultValue = false, Order = 0)]
+        public Guid? GameSessionId
         {
             get
             {
-                return _sessionId;
+                return _gameSessionId;
             }
             set
             {
-                if (value != _sessionId)
+                if (value != _gameSessionId)
                 {
-                    _sessionId = value;
-                    OnPropertyChanged("SessionId");
+                    _gameSessionId = value;
+                    OnPropertyChanged("GameSessionId");
                 }
             }
         }

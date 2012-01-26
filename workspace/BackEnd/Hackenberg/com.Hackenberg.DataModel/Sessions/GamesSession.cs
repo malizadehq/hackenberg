@@ -11,7 +11,7 @@ namespace com.Hackenberg.DataModel.Sessions
     /// 
     /// </summary>
     [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions", IsReference = false)]
-    public class SessionList : ObservableCollection<Session>
+    public class GameSessionList : ObservableCollection<GamesSession>
     {
     }
 
@@ -19,8 +19,8 @@ namespace com.Hackenberg.DataModel.Sessions
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "session", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions")]
-    public class Session : NotifyPropertyChangedObject
+    [DataContract(Name = "gamesession", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.Hackenberg.DataModel.Sessions")]
+    public class GamesSession : NotifyPropertyChangedObject
     {
         #region Id(id) Property
 
