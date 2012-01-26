@@ -89,6 +89,7 @@ namespace com.Hackenberg.Server.WebService
 
         #endregion
 
+        #region Non-Session webservices
 
         /// <summary>
         /// Adds a user to the database
@@ -122,6 +123,7 @@ namespace com.Hackenberg.Server.WebService
             return result;
         }
 
+        #endregion
 
 
         public string GetData(int value)
