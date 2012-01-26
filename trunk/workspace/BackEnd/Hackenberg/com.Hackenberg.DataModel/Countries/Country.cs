@@ -44,10 +44,32 @@ namespace com.Hackenberg.DataModel.Countries
 
         #endregion
 
+        #region MapId(mapid) Property
+
+        private Guid? _mapId;
+        [DataMember(Name = "mapid", IsRequired = true, EmitDefaultValue = false, Order = 1)]
+        public Guid? MapId
+        {
+            get
+            {
+                return _mapId;
+            }
+            set
+            {
+                if (value != _mapId)
+                {
+                    _mapId = value;
+                    OnPropertyChanged("MapId");
+                }
+            }
+        }
+
+        #endregion
+
         #region ControlledBy(controlledby) Property
 
         private Guid? _controlledBy;
-        [DataMember(Name = "controlledby", IsRequired = true, EmitDefaultValue = false, Order = 1)]
+        [DataMember(Name = "controlledby", IsRequired = true, EmitDefaultValue = false, Order = 2)]
         public Guid? ControlledBy
         {
             get
@@ -69,7 +91,7 @@ namespace com.Hackenberg.DataModel.Countries
         #region Name(name) Property
 
         private string _name;
-        [DataMember(Name = "name", IsRequired = true, Order = 2)]
+        [DataMember(Name = "name", IsRequired = true, Order = 3)]
         public string Name
         {
             get
@@ -91,7 +113,7 @@ namespace com.Hackenberg.DataModel.Countries
         #region Points(points) Property
 
         private int _points;
-        [DataMember(Name = "points", IsRequired = true, Order = 3)]
+        [DataMember(Name = "points", IsRequired = true, Order = 4)]
         public int Points
         {
             get

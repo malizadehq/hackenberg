@@ -44,10 +44,32 @@ namespace com.Hackenberg.DataModel.Forces
 
         #endregion
 
+        #region CountryId(countryid) Property
+
+        private Guid? _countryId;
+        [DataMember(Name = "countryid", IsRequired = true, EmitDefaultValue = false, Order = 1)]
+        public Guid? CountryId
+        {
+            get
+            {
+                return _countryId;
+            }
+            set
+            {
+                if (value != _countryId)
+                {
+                    _countryId = value;
+                    OnPropertyChanged("CountryId");
+                }
+            }
+        }
+
+        #endregion
+
         #region Name(name) Property
 
         private string _name;
-        [DataMember(Name = "name", IsRequired = true, Order = 1)]
+        [DataMember(Name = "name", IsRequired = true, Order = 2)]
         public string Name
         {
             get
@@ -69,7 +91,7 @@ namespace com.Hackenberg.DataModel.Forces
         #region DefenceStrength(defencestrength) Property
 
         private int _defenceStrength;
-        [DataMember(Name = "defencestrength", IsRequired = true, Order = 2)]
+        [DataMember(Name = "defencestrength", IsRequired = true, Order = 3)]
         public int DefenceStrength
         {
             get
@@ -91,7 +113,7 @@ namespace com.Hackenberg.DataModel.Forces
         #region OffenceStrength(offencestrength) Property
 
         private int _offenceStrength;
-        [DataMember(Name = "offencestrength", IsRequired = true, Order = 3)]
+        [DataMember(Name = "offencestrength", IsRequired = true, Order = 4)]
         public int OffenceStrength
         {
             get

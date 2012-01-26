@@ -66,10 +66,32 @@ namespace com.Hackenberg.DataModel.Games
 
         #endregion
 
+        #region MapId(mapid) Property
+
+        private Guid? _mapId;
+        [DataMember(Name = "mapid", IsRequired = true, EmitDefaultValue = false, Order = 2)]
+        public Guid? MapId
+        {
+            get
+            {
+                return _mapId;
+            }
+            set
+            {
+                if (value != _mapId)
+                {
+                    _mapId = value;
+                    OnPropertyChanged("MapId");
+                }
+            }
+        }
+
+        #endregion
+
         #region Phase(phase) Property
 
         private int _phase;
-        [DataMember(Name = "phase", IsRequired = false, Order = 2)]
+        [DataMember(Name = "phase", IsRequired = false, Order = 3)]
         public int Phase
         {
             get
@@ -91,7 +113,7 @@ namespace com.Hackenberg.DataModel.Games
         #region Turn(turn) Property
 
         private int _turn;
-        [DataMember(Name = "turn", IsRequired = true, Order = 3)]
+        [DataMember(Name = "turn", IsRequired = true, Order = 4)]
         public int Turn
         {
             get
@@ -113,7 +135,7 @@ namespace com.Hackenberg.DataModel.Games
         #region Name(name) Property
 
         private string _name;
-        [DataMember(Name = "name", IsRequired = false, Order = 4)]
+        [DataMember(Name = "name", IsRequired = false, Order = 5)]
         public string Name
         {
             get
@@ -126,6 +148,116 @@ namespace com.Hackenberg.DataModel.Games
                 {
                     _name = value;
                     OnPropertyChanged("Name");
+                }
+            }
+        }
+
+        #endregion
+
+        #region GermanPlayer(germanplayer) Property
+
+        private Guid? _germanPlayer;
+        [DataMember(Name = "germanplayer", IsRequired = true, EmitDefaultValue = false, Order = 6)]
+        public Guid? GermanPlayer
+        {
+            get
+            {
+                return _germanPlayer;
+            }
+            set
+            {
+                if (value != _germanPlayer)
+                {
+                    _germanPlayer = value;
+                    OnPropertyChanged("GermanPlayer");
+                }
+            }
+        }
+
+        #endregion
+
+        #region JapenesePlayer(japaneseplayer) Property
+
+        private Guid? _japenesePlayer;
+        [DataMember(Name = "japaneseplayer", IsRequired = true, EmitDefaultValue = false, Order = 7)]
+        public Guid? JapenesePlayer
+        {
+            get
+            {
+                return _japenesePlayer;
+            }
+            set
+            {
+                if (value != _japenesePlayer)
+                {
+                    _japenesePlayer = value;
+                    OnPropertyChanged("JapenesePlayer");
+                }
+            }
+        }
+
+        #endregion
+
+        #region AmericanPlayer(americanplayer) Property
+
+        private Guid? _americanPlayer;
+        [DataMember(Name = "americanplayer", IsRequired = true, EmitDefaultValue = false, Order = 8)]
+        public Guid? AmericanPlayer
+        {
+            get
+            {
+                return _americanPlayer;
+            }
+            set
+            {
+                if (value != _americanPlayer)
+                {
+                    _americanPlayer = value;
+                    OnPropertyChanged("AmericanPlayer");
+                }
+            }
+        }
+
+        #endregion
+
+        #region EnglishPlayer(englishplayer) Property
+
+        private Guid? _englishPlayer;
+        [DataMember(Name = "englishplayer", IsRequired = true, EmitDefaultValue = false, Order = 9)]
+        public Guid? EnglishPlayer
+        {
+            get
+            {
+                return _englishPlayer;
+            }
+            set
+            {
+                if (value != _englishPlayer)
+                {
+                    _englishPlayer = value;
+                    OnPropertyChanged("EnglishPlayer");
+                }
+            }
+        }
+
+        #endregion
+
+        #region RussianPlayer(russianplayer) Property
+
+        private Guid? _russianPlayer;
+        [DataMember(Name = "russianplayer", IsRequired = true, EmitDefaultValue = false, Order = 10)]
+        public Guid? RussianPlayer
+        {
+            get
+            {
+                return _russianPlayer;
+            }
+            set
+            {
+                if (value != _russianPlayer)
+                {
+                    _russianPlayer = value;
+                    OnPropertyChanged("RussianPlayer");
                 }
             }
         }

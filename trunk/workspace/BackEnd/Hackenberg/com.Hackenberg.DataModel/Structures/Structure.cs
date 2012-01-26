@@ -44,10 +44,32 @@ namespace com.Hackenberg.DataModel.Structures
 
         #endregion
 
+        #region CountryId(countryid) Property
+
+        private Guid? _countryId;
+        [DataMember(Name = "countryid", IsRequired = true, EmitDefaultValue = false, Order = 1)]
+        public Guid? CountryId
+        {
+            get
+            {
+                return _countryId;
+            }
+            set
+            {
+                if (value != _countryId)
+                {
+                    _countryId = value;
+                    OnPropertyChanged("CountryId");
+                }
+            }
+        }
+
+        #endregion
+
         #region Name(name) Property
 
         private string _name;
-        [DataMember(Name = "name", IsRequired = true, Order = 1)]
+        [DataMember(Name = "name", IsRequired = true, Order = 2)]
         public string Name
         {
             get
@@ -69,7 +91,7 @@ namespace com.Hackenberg.DataModel.Structures
         #region Effect(effect) Property
 
         private string _effect;
-        [DataMember(Name = "effect", IsRequired = true, Order = 2)]
+        [DataMember(Name = "effect", IsRequired = true, Order = 3)]
         public string Effect
         {
             get
