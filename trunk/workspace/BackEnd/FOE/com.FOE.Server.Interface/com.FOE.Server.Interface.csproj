@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HackenbergResult.cs" />
-    <Compile Include="HackenbergResultBase.cs" />
-    <Compile Include="HackenbergServiceException.cs" />
-    <Compile Include="HackenbergStatusCodes.cs" />
+    <Compile Include="FOEResult.cs" />
+    <Compile Include="FOEResultBase.cs" />
+    <Compile Include="FOEServiceException.cs" />
+    <Compile Include="FOEStatusCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

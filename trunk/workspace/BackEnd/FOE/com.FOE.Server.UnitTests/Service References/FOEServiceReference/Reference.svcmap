@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7c0e4184-141e-462c-870b-362c5008f968" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:63647/FOEService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="FOEService.disco" MetadataType="Disco" ID="06009544-2ae6-470b-9060-3c683f0134dc" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?disco" />
+    <MetadataFile FileName="FOEService.wsdl" MetadataType="Wsdl" ID="7c68a5c9-a881-4559-aef8-5144adccb744" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?wsdl" />
+    <MetadataFile FileName="FOEService.xsd" MetadataType="Schema" ID="dcdd77f8-3a68-4ba9-bdcf-e3eecbe8cdc7" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?xsd=xsd4" />
+    <MetadataFile FileName="FOEService1.xsd" MetadataType="Schema" ID="733d370b-92c1-4e56-9cdf-7763b8daf6fd" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?xsd=xsd3" />
+    <MetadataFile FileName="FOEService1.wsdl" MetadataType="Wsdl" ID="178433ed-c384-4ea0-8cfe-9ac13f8aa1e6" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="FOEService2.xsd" MetadataType="Schema" ID="d5479b2e-78cb-4fcd-afb7-a99bb0fc74b1" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?xsd=xsd1" />
+    <MetadataFile FileName="FOEService3.xsd" MetadataType="Schema" ID="8bbd51f9-53dc-46af-a3af-6cf703141069" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?xsd=xsd0" />
+    <MetadataFile FileName="FOEService4.xsd" MetadataType="Schema" ID="783554a6-5d17-4773-88ce-68b035729798" SourceId="1" SourceUrl="http://localhost:63647/FOEService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

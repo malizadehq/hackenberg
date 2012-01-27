@@ -5,6 +5,7 @@ using System.Text;
 using com.FOE.DataModel.Users;
 using com.FOE.Server.DataAccess.Database;
 using com.FOE.Server.DataAccess;
+using com.FOE.Server.Interface;
 
 namespace com.FOE.Server.Common
 {
@@ -35,7 +36,7 @@ namespace com.FOE.Server.Common
         #endregion
 
         /// <summary>
-        /// Addes a user to the database
+        /// Adds a user to the database
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="password"></param>
@@ -43,6 +44,10 @@ namespace com.FOE.Server.Common
         public User AddUser(string userName, string password)
         {
             DB_User da_user = DB_User.FromUser(new User() { Password = password, UserName = userName }, _context);
+            if (da_user == null)
+                throw new FOEServiceException(FOEStatusCodes.InternalError, "Creation of user failed.");
+
+            _context.DB_Users.InsertOnSubmit(da_user);
             _context.SubmitChanges();
 
             return da_user.ToUser(FOEDataInclusion.Everything);
