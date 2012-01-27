@@ -123,6 +123,39 @@ namespace com.FOE.Server.WebService
             return result;
         }
 
+
+        /// <summary>
+        /// Logs the user in returning a sessionId
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public FOEResult<Guid> Login(string userName, string password)
+        {
+            FOEResult<Guid> result = new FOEResult<Guid>();
+            try
+            {
+                ServiceRequestHandler requestHandler = new ServiceRequestHandler();
+                result.Result = requestHandler.Login(userName, password);
+            }
+            catch (FOEServiceException ex)
+            {
+                Trace.TraceError("{0}", ex);
+                result = new FOEResult<Guid>(ex);
+            }
+            catch (SqlException ex)
+            {
+                Trace.TraceError("{0}", ex);
+                result = new FOEResult<Guid>(FOEStatusCodes.DatabaseError, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("{0}", ex);
+                result = new FOEResult<Guid>(FOEStatusCodes.InternalError, ex.Message);
+            }
+            return result;
+        }
+
         #endregion
 
 
