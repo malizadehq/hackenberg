@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace com.FOE.Server.Interface
 {
-    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125", IsReference = false, Name="FOEResult")]
+    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.Server.Interface", IsReference = false, Name="FOEResult")]
     public class FOEResultBase
     {
         #region Properties
