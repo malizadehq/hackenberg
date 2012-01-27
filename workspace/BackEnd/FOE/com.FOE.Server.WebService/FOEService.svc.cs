@@ -159,6 +159,37 @@ namespace com.FOE.Server.WebService
         #endregion
 
 
+        public FOEResult<Guid> InviteToGameSession(Guid session, string userName1, string userName2 = "", string userName3 = "", string userName4 = "", string userName5 = "")
+        {
+            FOEResult<Guid> result = new FOEResult<Guid>();
+            try
+            {
+                ServiceRequestHandler requestHandler = new ServiceRequestHandler(session);
+                //result.Result = requestHandler.Login(userName, password);
+            }
+            catch (FOEServiceException ex)
+            {
+                Trace.TraceError("{0}", ex);
+                result = new FOEResult<Guid>(ex);
+            }
+            catch (SqlException ex)
+            {
+                Trace.TraceError("{0}", ex);
+                result = new FOEResult<Guid>(FOEStatusCodes.DatabaseError, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("{0}", ex);
+                result = new FOEResult<Guid>(FOEStatusCodes.InternalError, ex.Message);
+            }
+            return result;
+        }
+
+
+
+
+
+
         public string GetData(int value)
         {
             return string.Format("You entered: {0}", value);

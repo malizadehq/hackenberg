@@ -14,7 +14,7 @@ namespace com.FOE.Server.Interface
     [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125", IsReference = false)]
     public enum FOEStatusCodes
     {
-        //This Code will never be returned by any web service.
+        //This code will never be returned by any web service.
         [EnumMember]
         [Description("Debug enum member.")]
         Debug = -1,

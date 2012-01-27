@@ -97,7 +97,7 @@ namespace com.FOE.Server.Common
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        private User GetUserByUserName(string userName)
+        public User GetUserByUserName(string userName)
         {
             DB_User da_user = (from u in _context.DB_Users where u.UserName == userName select u).FirstOrDefault();
             if (da_user == null)
