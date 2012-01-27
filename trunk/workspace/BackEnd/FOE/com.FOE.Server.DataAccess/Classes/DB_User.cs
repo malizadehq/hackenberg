@@ -48,6 +48,17 @@ namespace com.FOE.Server.DataAccess.Database
                     throw new FOEServiceException(FOEStatusCodes.InvalidParameter, "Paremeter Password cannot be null");
 
                 da_user = new DB_User() { Id = Guid.NewGuid(), UserName = user.UserName, Password = user.Password };
+                context.DB_Users.InsertOnSubmit(da_user);
+            }
+            else
+            {
+                //TODO: Add canUpdate check here?
+
+                if (!string.IsNullOrEmpty(user.Password))
+                    da_user.Password = user.Password;
+
+                if (!string.IsNullOrEmpty(user.UserName))
+                    da_user.UserName = user.UserName;
             }
 
             if (da_user == null)

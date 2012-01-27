@@ -49,7 +49,6 @@ namespace com.FOE.Server.Common
 
             //throw new FOEServiceException(FOEStatusCodes.Debug, "lol");
 
-            _context.DB_Users.InsertOnSubmit(da_user);
             _context.SubmitChanges();
 
             return da_user.ToUser(FOEDataInclusion.Everything);
