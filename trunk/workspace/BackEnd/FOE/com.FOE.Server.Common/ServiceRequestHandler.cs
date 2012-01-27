@@ -47,6 +47,8 @@ namespace com.FOE.Server.Common
             if (da_user == null)
                 throw new FOEServiceException(FOEStatusCodes.InternalError, "Creation of user failed.");
 
+            //throw new FOEServiceException(FOEStatusCodes.Debug, "lol");
+
             _context.DB_Users.InsertOnSubmit(da_user);
             _context.SubmitChanges();
 

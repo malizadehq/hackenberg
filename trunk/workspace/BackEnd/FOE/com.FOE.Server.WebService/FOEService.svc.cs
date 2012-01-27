@@ -99,7 +99,7 @@ namespace com.FOE.Server.WebService
         /// <returns></returns>
         public FOEResult<User> AddUser(string userName, string password)
         {
-            FOEResult<User> result = new FOEResult<User>(FOEStatusCodes.Ok, FOEStatusCodes.Ok.ToDescriptionString());
+            FOEResult<User> result = new FOEResult<User>();
             try
             {
                 ServiceRequestHandler requestHandler = new ServiceRequestHandler();
