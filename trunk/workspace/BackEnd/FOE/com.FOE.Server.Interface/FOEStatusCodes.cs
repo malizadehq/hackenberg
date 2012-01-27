@@ -46,6 +46,7 @@ namespace com.FOE.Server.Interface
         [EnumMember]
         [Description("Invalid parameter value.")]
         InvalidParameter = 102,
+        InvalidLogin,
     }
 
 
