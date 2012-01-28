@@ -1,7 +1,5 @@
 package com.editor;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,12 +7,16 @@ public class objectText extends object
 {
 	String 		sDrawString;
 	BitmapFont 	font;
+	float		xPos;
+	float		yPos;
+	BitmapFont	pFont; 
 	
-	public objectText(String string) 
+	public objectText(String string,float xNewPos,float yNewPos,BitmapFont pNewFont) 
 	{
 		sDrawString = string;
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
+		font = pNewFont;
+		xPos = xNewPos;
+		yPos = yNewPos;
 	}
 	public void SetDrawString(String sNewString)
 	{
@@ -22,6 +24,6 @@ public class objectText extends object
 	}
 	public void render(SpriteBatch SpriteDrawer)
 	{
-		font.draw(SpriteDrawer, sDrawString, 0, Gdx.graphics.getHeight());
+		font.draw(SpriteDrawer, sDrawString, xPos, yPos);
 	}
 }
