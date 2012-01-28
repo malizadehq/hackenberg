@@ -1,15 +1,16 @@
 package com.editor;
 
 import java.util.ArrayList;
-import java.util.Random;
-
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.openal.Wav.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sun.opengl.impl.windows.BITMAPINFO;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 enum eTileState
 {
@@ -18,13 +19,18 @@ enum eTileState
 	eTileState_Render
 };
 
-public class TileEditor implements ApplicationListener
+public class TileEditor extends Game
 {
 	private SpriteBatch SpriteDrawer;
 	
 	private ArrayList<objectUi> 	vUi;
 	private ArrayList<objectText> 	vText;
 	private ArrayList<objectTile> 	vTiles;
+	private objectGrid				pGrid;
+	private objectUiSideBar			pSideBar;
+	private assets					pMyAssets;
+	private int						iSelectedTile;
+	private Stage					pStage;
 	
 	public eTileState eCurTileState;
 	
@@ -32,19 +38,31 @@ public class TileEditor implements ApplicationListener
 	public static final int TILES_HEIGHT	=	12;
 	
 	public int iDebugRender;
-	@Override
+	
+	private	Boolean bShowGrid;
+
 	public void create() 
 	{
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		SpriteDrawer = new SpriteBatch();
+		setStage(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true));
+		Gdx.input.setInputProcessor(getStage());
+		pMyAssets = new assets();
+		pMyAssets.load();
 		
 		vTiles 	= new ArrayList<objectTile>();
 		vText 	= new ArrayList<objectText>();
 		vUi 	= new ArrayList<objectUi>();
+		pGrid	= new objectGrid();
 		
-		eCurTileState = eTileState.eTileState_Create;		
-		vText.add( new objectText("Creating Tiles..") );
+		eCurTileState = eTileState.eTileState_Create;	
+			
+		vText.add( new objectText("Creating Tiles..",0,Gdx.graphics.getHeight(),pMyAssets.defaultFont));
+		vText.add( new objectText("Mouse Pos",0,Gdx.graphics.getHeight()-15,pMyAssets.defaultFont));
+		
+		pSideBar = new objectUiSideBar(this); 
 		iDebugRender = 0;
+		bShowGrid = true;
 	}
 	
 	public void createTiles()
@@ -78,7 +96,6 @@ public class TileEditor implements ApplicationListener
 				vTiles.get(i).FindMatchingTiles();
 			}
 		}
-
 	}
 	
 	public int	FriendToIndex(int iIndex,int iClock)
@@ -146,23 +163,51 @@ public class TileEditor implements ApplicationListener
 		case eTileState_Fixup:
 			fixupTiles();
 			eCurTileState = eTileState.eTileState_Render;
-			vText.get(0).SetDrawString("Render...");
 			break;
 		case eTileState_Render:
 			renderTiles();
+			vText.get(0).SetDrawString("Render...FPS["+(int) (1.0/Gdx.graphics.getDeltaTime())+"]");
 			break;
 		}
 		
 		renderUi();
 		renderText();
 		SpriteDrawer.end();
+		getStage().act(Gdx.graphics.getDeltaTime());
+		getStage().draw();
+		handleInput();
+	}
+	
+	public void handleInput()
+	{
+		if(!IsTouchingMenu())
+		{
+			if (Gdx.input.justTouched()) 
+			{
+				iSelectedTile = getClosestTile(Gdx.input.getX(),Gdx.input.getY());
+				pSelectSound.play(0.1f);
+				vText.get(1).SetDrawString("Touch X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
+			}
+		}
 	}
 
+	public Boolean IsTouchingMenu()
+	{
+		if(Gdx.input.getX() > Gdx.graphics.getWidth()-100)		
+			return true;
+		return false;
+	}
+	public int getClosestTile(float X,float Y)
+	{
+		int GridX = (int) (X/50);
+		int GridY = (int) (Y/50);
+		GridY = (GridY*TILES_WIDTH);
+		return (GridX + GridY);
+	}
 	@Override
 	public void resize(int arg0, int arg1) 
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -178,13 +223,16 @@ public class TileEditor implements ApplicationListener
 		{
 			vTiles.get(i).render(SpriteDrawer);
 		}
+		pGrid.SetSelectedTile(iSelectedTile);
+		if(bShowGrid)
+			pGrid.render(SpriteDrawer);
 	}
 	public void renderUi()
 	{
-		//for(int i = 0; i < vUi.size();i++)
-		//{
-		//	vUi.get(i).render();
-		//}		
+		for(int i = 0; i < vUi.size();i++)
+		{
+			vUi.get(i).render(SpriteDrawer);
+		}		
 	}
 	public void renderText()
 	{
@@ -192,5 +240,37 @@ public class TileEditor implements ApplicationListener
 		{
 			vText.get(i).render(SpriteDrawer);
 		}
+	}
+
+	public void ToggleGrid() 
+	{
+		bShowGrid = !bShowGrid;
+	}
+
+	public Stage getStage() 
+	{
+		return pStage;
+	}
+
+	public void setStage(Stage pStage) 
+	{
+		this.pStage = pStage;
+		
+	}
+
+	public void RemTile()
+	{
+		vTiles.get(iSelectedTile).bIsLand = false;
+		vTiles.get(iSelectedTile).setTileType(0);
+		eCurTileState = eTileState.eTileState_Fixup;
+		pMyAssets.pDeleteSound.play(1.0f);
+	}
+
+	public void AddTile()
+	{
+		vTiles.get(iSelectedTile).bIsLand = true;
+		vTiles.get(iSelectedTile).setTileType(1);
+		eCurTileState = eTileState.eTileState_Fixup;
+		pMyAssets.pAddSound.play(1.0f);
 	}
 }

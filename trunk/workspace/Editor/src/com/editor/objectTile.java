@@ -1,19 +1,11 @@
 package com.editor;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.logging.FileHandler;
-import java.util.logging.LogRecord;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.openal.Wav.Sound;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Matrix3;
-import com.badlogic.gdx.math.Vector2;
     
 public class objectTile extends object
 {
@@ -37,10 +29,8 @@ public class objectTile extends object
 	public objectTile(int iTilePosX,int iTilePosY,Boolean bLand)
 	{
 		bIsLand = bLand;
-		if(!bIsLand)
-			return; 		// Water currently only blue so
 		
-		pCreateSound = (Sound) Gdx.audio.newSound(Gdx.files.internal("res/sound/blip.wav"));
+		pCreateSound = (Sound) Gdx.audio.newSound(Gdx.files.internal("res/sound/poff.wav"));
 		texture = new Texture(Gdx.files.internal("res/tiles/tile_grass_01.png"));
 		region	= new TextureRegion(texture,50,0,50,50);
 		
@@ -50,13 +40,14 @@ public class objectTile extends object
 		fPosX			= cordX * 50;
 		fPosY			= cordY * 50;
 		
-		Random Rand = new Random();
-		fLandingTimerMax	= cordY*0.1f;
-		fLandingTimerMax	+= cordX*0.1f;
-		fLandingTimer		= 0.0f;
+		fLandingTimerMax	= cordY*0.01f;
+		setLandingTimer(0.0f);
 		
 		mFriends 		= new int[3][3];
 		mTilePresets	= new ArrayList<int[][]>();
+		
+		if(!bIsLand)
+			return; 		// Water currently only blue so
 		
 		// Add the presets to the list
 		int[][]	mPresetA = {{0,0,0},{0,0,0},{0,0,0}}; // water on all sides
@@ -81,6 +72,10 @@ public class objectTile extends object
 		mTilePresets.add(mPresetJ); // 9
 		int[][]	mPresetK = {{0,0,0},{0,0,1},{0,1,0}}; // water top and right
 		mTilePresets.add(mPresetK); // 10
+		int[][]	mPresetL = {{0,1,0},{1,0,0},{0,0,0}}; // water bottom and right
+		mTilePresets.add(mPresetL); // 11
+		int[][]	mPresetM = {{0,1,0},{0,0,1},{0,0,0}}; // water bottom and left
+		mTilePresets.add(mPresetM); // 12
 	}
 
 	public void setTileType(int iNewTileType)
@@ -97,16 +92,16 @@ public class objectTile extends object
 	}
 	public void TickLanding(float fDeltaTime)
 	{
-		if(fLandingTimer >= fLandingTimerMax)
+		if(getLandingTimer() >= fLandingTimerMax)
 			return;
 		
-		fLandingTimer += fDeltaTime;
+		setLandingTimer(getLandingTimer() + fDeltaTime);
 		
-		float fPct		= fLandingTimer/fLandingTimerMax;
+		float fPct		= getLandingTimer()/fLandingTimerMax;
 		fPosY			= (cordY * 50.0f);
 		fPosY			+= Gdx.graphics.getHeight() - (Gdx.graphics.getHeight()*fPct);
 		
-		if(fLandingTimer >= fLandingTimerMax)
+		if(getLandingTimer() >= fLandingTimerMax)
 		{
 			PlayLandedSound();
 			fPosY = cordY * 50;
@@ -146,8 +141,6 @@ public class objectTile extends object
 			mFriends[1][0] = bIsLand;
 			break;
 		}
-		if(bIsLand == 1)
-			iClock = iClock;
 	}
 	void FindMatchingTiles()
 	{
@@ -175,5 +168,13 @@ public class objectTile extends object
 			}
 			
 		}
+	}
+
+	public float getLandingTimer() {
+		return fLandingTimer;
+	}
+
+	public void setLandingTimer(float fLandingTimer) {
+		this.fLandingTimer = fLandingTimer;
 	}
 }
