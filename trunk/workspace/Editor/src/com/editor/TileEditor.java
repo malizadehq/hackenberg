@@ -1,6 +1,9 @@
 package com.editor;
 
 import java.util.ArrayList;
+
+import org.lwjgl.openal.Util;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -9,15 +12,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-enum eTileState
-{
-	eTileState_Create,
-	eTileState_Fixup,
-	eTileState_Render
-};
 
 public class TileEditor extends Game
 {
@@ -26,16 +23,18 @@ public class TileEditor extends Game
 	private ArrayList<objectUi> 	vUi;
 	private ArrayList<objectText> 	vText;
 	private ArrayList<objectTile> 	vTiles;
-	private objectGrid				pGrid;
-	private objectUiSideBar			pSideBar;
-	private assets					pMyAssets;
+	public  objectGrid				pGrid;
+	public  objectUiSideBar			pSideBar;
+	public  assets					pMyAssets;
+	public  objectTileCamera		pTileCamera;
+	private objectLoadingManager	pLoadingManager;
 	private int						iSelectedTile;
 	private Stage					pStage;
+	private Boolean					bTouching;
+	private Vector2					vLastTouch;
 	
-	public eTileState eCurTileState;
-	
-	public static final int TILES_WIDTH		=	16;
-	public static final int TILES_HEIGHT	=	12;
+	public static final int TILES_WIDTH		=	100;
+	public static final int TILES_HEIGHT	=	60;
 	
 	public int iDebugRender;
 	
@@ -47,55 +46,20 @@ public class TileEditor extends Game
 		SpriteDrawer = new SpriteBatch();
 		setStage(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true));
 		Gdx.input.setInputProcessor(getStage());
-		pMyAssets = new assets();
-		pMyAssets.load();
 		
-		vTiles 	= new ArrayList<objectTile>();
-		vText 	= new ArrayList<objectText>();
-		vUi 	= new ArrayList<objectUi>();
-		pGrid	= new objectGrid();
-		
-		eCurTileState = eTileState.eTileState_Create;	
+		setLoadingManager(new objectLoadingManager(this));
+		vTiles 			= new ArrayList<objectTile>();
+		vText 			= new ArrayList<objectText>();
+		vUi 			= new ArrayList<objectUi>();		
 			
-		vText.add( new objectText("Creating Tiles..",0,Gdx.graphics.getHeight(),pMyAssets.defaultFont));
-		vText.add( new objectText("Mouse Pos",0,Gdx.graphics.getHeight()-15,pMyAssets.defaultFont));
-		
-		pSideBar = new objectUiSideBar(this); 
-		iDebugRender = 0;
-		bShowGrid = true;
-	}
-	
-	public void createTiles()
-	{
-		FileHandle fHandler = new FileHandle("res/maps/editor_map.png");
-		Pixmap newPixMap = new Pixmap(fHandler);
-		
-		for(int y = 0; y < TILES_HEIGHT;y++)
-		{
-			for(int x = 0; x < TILES_WIDTH;x++)
-			{
-				int iPixelValue = newPixMap.getPixel(x, y);
-				
-				objectTile newTile = null;
-				newTile = new objectTile(x,TILES_HEIGHT-y-1,(iPixelValue > 0));
-				vTiles.add(newTile);
-			}
-		}
-	}
-	
-	public void fixupTiles()
-	{
-		for(int i = 0; i < vTiles.size();i++)
-		{
-			if(vTiles.get(i).bIsLand)
-			{
-				for(int j = 0; j < 4; j++)
-				{
-					vTiles.get(i).FriendIsLand( j,IsLand(FriendToIndex(i,j)) );
-				}
-				vTiles.get(i).FindMatchingTiles();
-			}
-		}
+		vText.add( new objectText("Creating Tiles..",0,Gdx.graphics.getHeight(),pMyAssets.pixelFont));
+		vText.add( new objectText("Mouse Pos",0,Gdx.graphics.getHeight()-15,pMyAssets.pixelFont));
+		vText.add( new objectText("Cam Pos",0,Gdx.graphics.getHeight()-30,pMyAssets.pixelFont));
+ 
+		iDebugRender 	= 0;
+		bShowGrid 		= true;
+		bTouching 		= false;
+		vLastTouch 		= new Vector2();
 	}
 	
 	public int	FriendToIndex(int iIndex,int iClock)
@@ -105,13 +69,13 @@ public class TileEditor extends Game
 		switch(iClock)
 		{
 		case 0:
-			iTestIndex = iIndex - TILES_WIDTH;
+			iTestIndex = iIndex + TILES_WIDTH;
 			break;
 		case 1:
 			iTestIndex = iIndex + 1;
 			break;
 		case 2:
-			iTestIndex = iIndex + TILES_WIDTH;
+			iTestIndex = iIndex - TILES_WIDTH;
 			break;
 		case 3:
 			iTestIndex = iIndex - 1;
@@ -153,56 +117,98 @@ public class TileEditor extends Game
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		SpriteDrawer.begin();
-		switch(eCurTileState)
-		{
-		case eTileState_Create:
-			createTiles();
-			eCurTileState = eTileState.eTileState_Fixup;
-			vText.get(0).SetDrawString("Running fixup...");
-			break;
-		case eTileState_Fixup:
-			fixupTiles();
-			eCurTileState = eTileState.eTileState_Render;
-			break;
-		case eTileState_Render:
-			renderTiles();
-			vText.get(0).SetDrawString("Render...FPS["+(int) (1.0/Gdx.graphics.getDeltaTime())+"]");
-			break;
-		}
+		vText.get(0).SetDrawString("Render...FPS["+(int) (1.0/Gdx.graphics.getDeltaTime())+"]");
 		
-		renderUi();
-		renderText();
-		SpriteDrawer.end();
-		getStage().act(Gdx.graphics.getDeltaTime());
-		getStage().draw();
-		handleInput();
+		if(getLoadingManager().DoLoading(SpriteDrawer))
+		{	
+			vText.get(0).render(SpriteDrawer);
+			SpriteDrawer.end();
+		}
+		else
+		{		
+			Gdx.gl11.glScalef(pTileCamera.fViewZoom, pTileCamera.fViewZoom, pTileCamera.fViewZoom);
+			renderTiles();
+			SpriteDrawer.end();
+			SpriteDrawer.begin();
+			Gdx.gl11.glScalef(1.0f, 1.0f, 1.0f);
+			renderUi();
+			renderText();
+			SpriteDrawer.end();
+			getStage().act(Gdx.graphics.getDeltaTime());
+			getStage().draw();
+			handleInput();
+			pTileCamera.TickCamera(Gdx.graphics.getDeltaTime());
+		}
 	}
 	
 	public void handleInput()
 	{
 		if(!IsTouchingMenu())
 		{
+			vText.get(1).SetDrawString("Idle X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
+			
 			if (Gdx.input.justTouched()) 
 			{
 				iSelectedTile = getClosestTile(Gdx.input.getX(),Gdx.input.getY());
-				pSelectSound.play(0.1f);
+				pMyAssets.pSelectSound.play(0.1f);
 				vText.get(1).SetDrawString("Touch X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
+				bTouching = true;
+				vLastTouch.x = Gdx.input.getX();
+				vLastTouch.y = Gdx.input.getY();
+				pTileCamera.StopTween();
 			}
+			else if(bTouching && Gdx.input.isTouched())
+			{
+				vText.get(1).SetDrawString("Dragging X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
+				
+				Boolean bAdded = false;
+				if(Math.abs(Gdx.input.getX() - vLastTouch.x) > GetTileSize())
+				{
+					pTileCamera.AddPosTgt((int)(vLastTouch.x - Gdx.input.getX()),0);
+					bAdded = true;
+				}
+				if(Math.abs(Gdx.input.getY() - vLastTouch.y) > GetTileSize())
+				{
+					pTileCamera.AddPosTgt(0,(int)(Gdx.input.getY() - vLastTouch.y));
+					bAdded = true;
+				}
+				if(bAdded)
+				{
+					vLastTouch.x = Gdx.input.getX();
+					vLastTouch.y = Gdx.input.getY();
+				}
+			}
+			else
+				bTouching = false;
+			vText.get(2).SetDrawString("Cam X["+pTileCamera.getxPos()+" / "+pTileCamera.getxPosTgt()+"] Y["+pTileCamera.getyPos()+" / "+pTileCamera.getyPosTgt()+"]");
+			
 		}
+		else
+			bTouching = false;
 	}
 
 	public Boolean IsTouchingMenu()
 	{
-		if(Gdx.input.getX() > Gdx.graphics.getWidth()-100)		
+		if(Gdx.input.getX() > Gdx.graphics.getWidth() - 100)		
 			return true;
 		return false;
 	}
 	public int getClosestTile(float X,float Y)
 	{
-		int GridX = (int) (X/50);
-		int GridY = (int) (Y/50);
+		Y = Gdx.graphics.getHeight()-Y;
+		int GridX = (int) (X/GetTileSize());
+		GridX+= pTileCamera.getxPos();
+		int GridY = (int) (Y/GetTileSize());
+		GridY+= pTileCamera.getyPos();
 		GridY = (GridY*TILES_WIDTH);
 		return (GridX + GridY);
+	}
+	public float GetTileSize()
+	{
+		if(pTileCamera != null)
+			return pTileCamera.fViewZoom * 50.0f;
+		else
+			return 50.0f;
 	}
 	@Override
 	public void resize(int arg0, int arg1) 
@@ -219,7 +225,7 @@ public class TileEditor extends Game
 	
 	public void renderTiles()
 	{
-		for(int i = 0; i < vTiles.size();i++)
+		for(int i = vTiles.size()-1; i > 0;i--)
 		{
 			vTiles.get(i).render(SpriteDrawer);
 		}
@@ -258,11 +264,15 @@ public class TileEditor extends Game
 		
 	}
 
+	public void addTile(objectTile newTiles)
+	{
+		vTiles.add(newTiles);
+	}
+	
 	public void RemTile()
 	{
 		vTiles.get(iSelectedTile).bIsLand = false;
 		vTiles.get(iSelectedTile).setTileType(0);
-		eCurTileState = eTileState.eTileState_Fixup;
 		pMyAssets.pDeleteSound.play(1.0f);
 	}
 
@@ -270,7 +280,32 @@ public class TileEditor extends Game
 	{
 		vTiles.get(iSelectedTile).bIsLand = true;
 		vTiles.get(iSelectedTile).setTileType(1);
-		eCurTileState = eTileState.eTileState_Fixup;
 		pMyAssets.pAddSound.play(1.0f);
+	}
+
+	public objectTile GetTile(int i) 
+	{
+		return vTiles.get(i);
+	}
+
+	public int GetNrTiles() 
+	{
+		return vTiles.size();
+	}
+
+	public void Zoom(boolean b)
+	{
+		if(b)
+			pTileCamera.fViewZoom+=0.10f;
+		else
+			pTileCamera.fViewZoom-=0.10f;
+	}
+
+	public objectLoadingManager getLoadingManager() {
+		return pLoadingManager;
+	}
+
+	public void setLoadingManager(objectLoadingManager pLoadingManager) {
+		this.pLoadingManager = pLoadingManager;
 	}
 }
