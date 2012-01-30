@@ -11,20 +11,18 @@ public class objectGrid extends object
 	private TextureRegion		regionGrid;	
 	private TextureRegion		regionSelect;	
 	private int					iSelectedTile;
+	private TileEditor			pOwner;
 	
-	public objectGrid()
+	public objectGrid(TileEditor pOwner)
 	{
-		//pCreateSound = (Sound) Gdx.audio.newSound(Gdx.files.internal("res/sound/blip.wav"));
-		texture 		= new Texture(Gdx.files.internal("res/tiles/tile_grid_01.png"));
-		regionGrid		= new TextureRegion(texture,0,0,50,50);
-		regionSelect	= new TextureRegion(texture,50,0,50,50);
+		this.pOwner = pOwner;
 		iSelectedTile= -1;
 	}
 
 	public void render(SpriteBatch SpriteDrawer)
 	{
 		int i = 0;
-		for(int y = TileEditor.TILES_HEIGHT-1; y >= -1;y--)
+		for(int y = 0; y < TileEditor.TILES_HEIGHT;y++)
 		{
 			for(int x = 0; x < TileEditor.TILES_WIDTH;x++)
 			{
@@ -39,6 +37,17 @@ public class objectGrid extends object
 
 	public void SetSelectedTile(int iNewSelectedTile) 
 	{
-		iSelectedTile = iNewSelectedTile;		
+		iSelectedTile = iNewSelectedTile;
+		int iRemCam = 0;
+		iRemCam+=pOwner.pTileCamera.getxPos();
+		iRemCam+=pOwner.pTileCamera.getyPos()*TileEditor.TILES_WIDTH;
+		iSelectedTile -= iRemCam;
+	}
+
+	public void MakeGrid(assets MyAssets) 
+	{
+		texture 		= MyAssets.pGridTexture;
+		regionGrid		= new TextureRegion(texture,0,0,50,50);
+		regionSelect	= new TextureRegion(texture,50,0,50,50);
 	}
 }

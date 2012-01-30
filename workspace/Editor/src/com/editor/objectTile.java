@@ -25,14 +25,16 @@ public class objectTile extends object
 	private Sound				pCreateSound;
 	private float				fLandingTimer;
 	private float				fLandingTimerMax;
+	private TileEditor			pOwner;
 	
-	public objectTile(int iTilePosX,int iTilePosY,Boolean bLand)
+	public objectTile(int iTilePosX,int iTilePosY,Boolean bLand,TileEditor pOwner)
 	{
 		bIsLand = bLand;
 		
-		pCreateSound = (Sound) Gdx.audio.newSound(Gdx.files.internal("res/sound/poff.wav"));
-		texture = new Texture(Gdx.files.internal("res/tiles/tile_grass_01.png"));
-		region	= new TextureRegion(texture,50,0,50,50);
+		this.pOwner		= pOwner;
+		pCreateSound 	= pOwner.pMyAssets.pCreateSound;
+		texture 		= pOwner.pMyAssets.pGrassTexture;
+		region			= new TextureRegion(texture,50,0,50,50);
 		
 		cordX 			= iTilePosX;
 		cordY 			= iTilePosY;
@@ -98,14 +100,22 @@ public class objectTile extends object
 		setLandingTimer(getLandingTimer() + fDeltaTime);
 		
 		float fPct		= getLandingTimer()/fLandingTimerMax;
-		fPosY			= (cordY * 50.0f);
+		fPosY			= (GetCordY() * 50.0f);
 		fPosY			+= Gdx.graphics.getHeight() - (Gdx.graphics.getHeight()*fPct);
 		
 		if(getLandingTimer() >= fLandingTimerMax)
 		{
 			PlayLandedSound();
-			fPosY = cordY * 50;
+			fPosY = GetCordY() * 50;
 		}
+	}
+	public int GetCordX()
+	{
+		return cordX - pOwner.pTileCamera.getxPos();
+	}
+	public int GetCordY()
+	{
+		return cordY - pOwner.pTileCamera.getyPos();
 	}
 	public void PlayLandedSound()
 	{
@@ -115,8 +125,7 @@ public class objectTile extends object
 	{
 		if(bIsLand)
 		{
-			TickLanding(Gdx.graphics.getDeltaTime());
-			SpriteDrawer.draw(region, fPosX, fPosY);
+			SpriteDrawer.draw(region, GetCordX()*50, GetCordY()*50);
 		}
 	}
 	public int getTileType() 
@@ -170,11 +179,13 @@ public class objectTile extends object
 		}
 	}
 
-	public float getLandingTimer() {
+	public float getLandingTimer() 
+	{
 		return fLandingTimer;
 	}
 
-	public void setLandingTimer(float fLandingTimer) {
+	public void setLandingTimer(float fLandingTimer) 
+	{
 		this.fLandingTimer = fLandingTimer;
 	}
 }
