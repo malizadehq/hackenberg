@@ -1,6 +1,5 @@
 package com.editor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,6 +18,20 @@ public class objectGrid extends object
 		iSelectedTile= -1;
 	}
 
+	public int[] CoordsToXY(int cordX,int cordY)
+	{
+	    int totalRows 		= TileEditor.TILES_HEIGHT;
+	    int totalColumns 	= TileEditor.TILES_WIDTH;
+	    int width = (totalRows + totalColumns) * (68/2);
+	         
+	    int y = cordX*(34/2) + cordY*(34/2); 
+	    int x = cordX*(68/2) - cordY*(68/2)+width/2;
+		int[] xy = new int[2];
+	    xy[0] = x;
+	    xy[1] = y;
+	         
+	    return xy;	
+	}
 	public void render(SpriteBatch SpriteDrawer)
 	{
 		int i = 0;
@@ -26,10 +39,11 @@ public class objectGrid extends object
 		{
 			for(int x = 0; x < TileEditor.TILES_WIDTH;x++)
 			{
+				int[] pos = CoordsToXY(x,y);
 				if(i == iSelectedTile)
-					SpriteDrawer.draw(regionSelect, x*50, y*50);
+					SpriteDrawer.draw(regionSelect, pos[0], pos[1]);
 				else
-					SpriteDrawer.draw(regionGrid, x*50, y*50);
+					SpriteDrawer.draw(regionGrid, pos[0], pos[1]);
 				i++;
 			}
 		}		
@@ -37,17 +51,19 @@ public class objectGrid extends object
 
 	public void SetSelectedTile(int iNewSelectedTile) 
 	{
+		/*
 		iSelectedTile = iNewSelectedTile;
 		int iRemCam = 0;
 		iRemCam+=pOwner.pTileCamera.getxPos();
 		iRemCam+=pOwner.pTileCamera.getyPos()*TileEditor.TILES_WIDTH;
 		iSelectedTile -= iRemCam;
+		*/
 	}
 
 	public void MakeGrid(assets MyAssets) 
 	{
 		texture 		= MyAssets.pGridTexture;
-		regionGrid		= new TextureRegion(texture,0,0,50,50);
-		regionSelect	= new TextureRegion(texture,50,0,50,50);
+		regionGrid		= new TextureRegion(texture,0,0,68,68);
+		regionSelect	= new TextureRegion(texture,68,0,68,68);
 	}
 }

@@ -143,6 +143,7 @@ public class TileEditor extends Game
 	
 	public void handleInput()
 	{
+		/*
 		if(!IsTouchingMenu())
 		{
 			vText.get(1).SetDrawString("Idle X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
@@ -185,6 +186,7 @@ public class TileEditor extends Game
 		}
 		else
 			bTouching = false;
+			*/ 
 	}
 
 	public Boolean IsTouchingMenu()
@@ -195,13 +197,15 @@ public class TileEditor extends Game
 	}
 	public int getClosestTile(float X,float Y)
 	{
+		/*
 		Y = Gdx.graphics.getHeight()-Y;
 		int GridX = (int) (X/GetTileSize());
 		GridX+= pTileCamera.getxPos();
 		int GridY = (int) (Y/GetTileSize());
 		GridY+= pTileCamera.getyPos();
 		GridY = (GridY*TILES_WIDTH);
-		return (GridX + GridY);
+		*/
+		return 1;//(GridX + GridY);
 	}
 	public float GetTileSize()
 	{
@@ -307,5 +311,10 @@ public class TileEditor extends Game
 
 	public void setLoadingManager(objectLoadingManager pLoadingManager) {
 		this.pLoadingManager = pLoadingManager;
+	}
+
+	public void Scroll(int x, int y) 
+	{
+		pTileCamera.AddScroll(x,y);		
 	}
 }
