@@ -18,6 +18,7 @@ public class assets
 	public Sound		pCreateSound;
 	public Texture		pGridTexture;
 	public Texture		pGrassTexture;
+	public Texture		pIsoTexture;
 	public Texture		pEditorUiTexture;
 	public Pixmap 		MapPixmap;
 	
@@ -31,7 +32,8 @@ public class assets
 		pAddSound			= (Sound) Gdx.audio.newSound(Gdx.files.internal("res/sound/add_tile.wav"));
 		pDeleteSound		= (Sound) Gdx.audio.newSound(Gdx.files.internal("res/sound/destroy.wav"));
 		
-		pGridTexture 		= new Texture(Gdx.files.internal("res/tiles/tile_grid_01.png"));
+		pIsoTexture 		= new Texture(Gdx.files.internal("res/tiles/isotest.png"));
+		pGridTexture 		= new Texture(Gdx.files.internal("res/tiles/isogrid.png"));
 		pGrassTexture		= new Texture(Gdx.files.internal("res/tiles/tile_grass_01.png"));
 		pEditorUiTexture	= new Texture(Gdx.files.internal("res/ui/editor_ui.png"));
 		

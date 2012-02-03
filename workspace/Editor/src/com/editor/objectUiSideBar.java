@@ -15,11 +15,11 @@ public class objectUiSideBar
 		FileHandle fHandlerB 	= new FileHandle("res/skins/uiskin.png");
 		Skin sSkin = new Skin(fHandler, fHandlerB);
 		
-		FoeButton AddTiles = new FoeButton("Add Tile",sSkin);
-		AddTiles.x = Gdx.graphics.getWidth() - 100;
-		AddTiles.y = Gdx.graphics.getHeight() - 50;
-		AddTiles.initTexture(pMainEditor.pMyAssets,"Add Tile");
-		AddTiles.setClickListener(new ClickListener() 
+		FoeButton NewBtn = new FoeButton("Add Tile",sSkin);
+		NewBtn.x = Gdx.graphics.getWidth() - 100;
+		NewBtn.y = Gdx.graphics.getHeight() - 50;
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Add Tile");
+		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
@@ -27,13 +27,13 @@ public class objectUiSideBar
 				pMainEditor.AddTile();
 			}			
 		});
-		pMainEditor.getStage().addActor(AddTiles);
+		pMainEditor.getStage().addActor(NewBtn);
 		
-		FoeButton RemTiles = new FoeButton("Rem Tile",sSkin);
-		RemTiles.x = Gdx.graphics.getWidth() - 100;
-		RemTiles.y = Gdx.graphics.getHeight() - 100;
-		RemTiles.initTexture(pMainEditor.pMyAssets,"Rem Tile");
-		RemTiles.setClickListener(new ClickListener() 
+		NewBtn = new FoeButton("Rem Tile",sSkin);
+		NewBtn.x = Gdx.graphics.getWidth() - 100;
+		NewBtn.y = Gdx.graphics.getHeight() - 100;
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Rem Tile");
+		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
@@ -41,13 +41,13 @@ public class objectUiSideBar
 				pMainEditor.RemTile();
 			}			
 		});
-		pMainEditor.getStage().addActor(RemTiles);
+		pMainEditor.getStage().addActor(NewBtn);
 		
-		FoeButton FixTiles = new FoeButton("Fixup",sSkin);
-		FixTiles.x = Gdx.graphics.getWidth() - 100;
-		FixTiles.y = Gdx.graphics.getHeight() - 150;
-		FixTiles.initTexture(pMainEditor.pMyAssets,"Fixup");
-		FixTiles.setClickListener(new ClickListener() 
+		NewBtn = new FoeButton("Fixup",sSkin);
+		NewBtn.x = Gdx.graphics.getWidth() - 100;
+		NewBtn.y = Gdx.graphics.getHeight() - 150;
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Fixup");
+		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
@@ -55,13 +55,13 @@ public class objectUiSideBar
 				pMainEditor.getLoadingManager().ReFixTiles();
 			}			
 		});
-		pMainEditor.getStage().addActor(FixTiles);
+		pMainEditor.getStage().addActor(NewBtn);
 		
-		FoeButton ToggleGrid = new FoeButton("Toggle Grid",sSkin);
-		ToggleGrid.x = Gdx.graphics.getWidth() - 100;
-		ToggleGrid.y = Gdx.graphics.getHeight() - 300;
-		ToggleGrid.initTexture(pMainEditor.pMyAssets,"Toggle Grid");
-		ToggleGrid.setClickListener(new ClickListener() 
+		NewBtn = new FoeButton("Toggle Grid",sSkin);
+		NewBtn.x = Gdx.graphics.getWidth() - 100;
+		NewBtn.y = Gdx.graphics.getHeight() - 300;
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Toggle Grid");
+		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
@@ -69,13 +69,13 @@ public class objectUiSideBar
 				pMainEditor.ToggleGrid();
 			}			
 		});
-		pMainEditor.getStage().addActor(ToggleGrid);    
-		
-		FoeButton ZoomIn = new FoeButton("Zoom In",sSkin);
-		ZoomIn.x = Gdx.graphics.getWidth() - 100;
-		ZoomIn.y = Gdx.graphics.getHeight() - 250;
-		ZoomIn.initTexture(pMainEditor.pMyAssets,"Zoom In");
-		ZoomIn.setClickListener(new ClickListener() 
+		pMainEditor.getStage().addActor(NewBtn);        
+
+		FoeButtonIcon NewBtnIcon = new FoeButtonIcon("",sSkin);
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 32;
+		NewBtnIcon.y = 64;
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,0,64);
+		NewBtnIcon.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
@@ -83,21 +83,76 @@ public class objectUiSideBar
 				pMainEditor.Zoom(true);
 			}			
 		});
-		pMainEditor.getStage().addActor(ZoomIn);    
+		pMainEditor.getStage().addActor(NewBtnIcon);
 		
-		FoeButton ZoomOut = new FoeButton("Zoom Out",sSkin);
-		ZoomOut.x = Gdx.graphics.getWidth() - 100;
-		ZoomOut.y = Gdx.graphics.getHeight() - 200;
-		ZoomOut.initTexture(pMainEditor.pMyAssets,"Zoom Out");
-		ZoomOut.setClickListener(new ClickListener() 
+		NewBtnIcon = new FoeButtonIcon("",sSkin);
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 64;
+		NewBtnIcon.y = 64;
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,128,64);
+		NewBtnIcon.setClickListener(new ClickListener() 
+		{
+			@Override
+			public void click(Actor arg0) 
+			{
+				pMainEditor.Scroll(0,-68);
+			}			
+		});
+		pMainEditor.getStage().addActor(NewBtnIcon);
+		
+		NewBtnIcon = new FoeButtonIcon("",sSkin);
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 96;
+		NewBtnIcon.y = 64;
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,64,64);
+		NewBtnIcon.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
 			{
 				pMainEditor.Zoom(false);
+			}				
+		});
+		pMainEditor.getStage().addActor(NewBtnIcon);
+   
+		NewBtnIcon = new FoeButtonIcon("",sSkin);
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 64;
+		NewBtnIcon.y = 32;
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,64,96);
+		NewBtnIcon.setClickListener(new ClickListener() 
+		{
+			@Override
+			public void click(Actor arg0) 
+			{
+				pMainEditor.Scroll(0,68);
 			}			
 		});
-		pMainEditor.getStage().addActor(ZoomOut);      
-
+		pMainEditor.getStage().addActor(NewBtnIcon);
+		
+		NewBtnIcon = new FoeButtonIcon("",sSkin);
+		NewBtnIcon.x = Gdx.graphics.getWidth()-96;
+		NewBtnIcon.y = 32;
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,0,96);
+		NewBtnIcon.setClickListener(new ClickListener() 
+		{
+			@Override
+			public void click(Actor arg0) 
+			{
+				pMainEditor.Scroll(68,0);
+			}			
+		});
+		pMainEditor.getStage().addActor(NewBtnIcon);
+		
+		NewBtnIcon = new FoeButtonIcon("",sSkin);
+		NewBtnIcon.x = Gdx.graphics.getWidth()-32;
+		NewBtnIcon.y = 32;
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,128,96);
+		NewBtnIcon.setClickListener(new ClickListener() 
+		{
+			@Override
+			public void click(Actor arg0) 
+			{
+				pMainEditor.Scroll(-68,0);
+			}			
+		});
+		pMainEditor.getStage().addActor(NewBtnIcon);
 	}
 }

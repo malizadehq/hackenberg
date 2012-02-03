@@ -33,16 +33,16 @@ public class objectTile extends object
 		
 		this.pOwner		= pOwner;
 		pCreateSound 	= pOwner.pMyAssets.pCreateSound;
-		texture 		= pOwner.pMyAssets.pGrassTexture;
-		region			= new TextureRegion(texture,50,0,50,50);
+		texture 		= pOwner.pMyAssets.pIsoTexture;
+		region			= new TextureRegion(texture,0,0,68,68);
 		
 		cordX 			= iTilePosX;
 		cordY 			= iTilePosY;
 
-		fPosX			= cordX * 50;
-		fPosY			= cordY * 50;
+		fPosX			= cordX * 68;
+		fPosY			= cordY * 32;
 		
-		fLandingTimerMax	= cordY*0.01f;
+		//fLandingTimerMax	= cordY*0.01f;
 		setLandingTimer(0.0f);
 		
 		mFriends 		= new int[3][3];
@@ -56,9 +56,9 @@ public class objectTile extends object
 		mTilePresets.add(mPresetA); // 0
 		int[][]	mPresetB = {{0,1,0},{1,0,1},{0,1,0}}; // land on all sides
 		mTilePresets.add(mPresetB); // 1
-		int[][]	mPresetC = {{0,1,0},{0,0,0},{0,0,0}}; // water on all sides but bottom
+		int[][]	mPresetC = {{0,0,0},{0,0,0},{0,1,0}}; // water on all sides but bottom
 		mTilePresets.add(mPresetC); // 2
-		int[][]	mPresetD = {{0,0,0},{0,0,0},{0,1,0}}; // water on all sides but top
+		int[][]	mPresetD = {{0,1,0},{0,0,0},{0,0,0}}; // water on all sides but top
 		mTilePresets.add(mPresetD); // 3
 		int[][]	mPresetE = {{0,1,0},{0,0,0},{0,1,0}}; // land at top and bottom
 		mTilePresets.add(mPresetE); // 4
@@ -78,8 +78,30 @@ public class objectTile extends object
 		mTilePresets.add(mPresetL); // 11
 		int[][]	mPresetM = {{0,1,0},{0,0,1},{0,0,0}}; // water bottom and left
 		mTilePresets.add(mPresetM); // 12
+		int[][]	mPresetN = {{0,0,0},{0,0,1},{0,0,0}}; // land right
+		mTilePresets.add(mPresetN); // 13
+		int[][]	mPresetO = {{0,0,0},{1,0,1},{0,0,0}}; // land right and left
+		mTilePresets.add(mPresetO); // 14
+		int[][]	mPresetP = {{0,0,0},{1,0,0},{0,0,0}}; // land left
+		mTilePresets.add(mPresetP); // 15
 	}
 
+	public int[] CoordsToXY()
+	{
+	    int totalRows 		= TileEditor.TILES_HEIGHT;
+	    int totalColumns 	= TileEditor.TILES_WIDTH;
+	    int width = (totalRows + totalColumns) * (68/2);
+	         
+	    int y = cordX*(34/2) + cordY*(34/2); 
+	    int x = cordX*(68/2) - cordY*(68/2)+width/2;
+		int[] xy = new int[2];
+	    xy[0] = x;
+	    xy[1] = y;
+	         
+	    xy[0] += pOwner.pTileCamera.GetX();
+	    xy[1] += pOwner.pTileCamera.GetY();
+	    return xy;	
+	}
 	public void setTileType(int iNewTileType)
 	{
 		iTileType = iNewTileType;
@@ -111,11 +133,11 @@ public class objectTile extends object
 	}
 	public int GetCordX()
 	{
-		return cordX - pOwner.pTileCamera.getxPos();
+		return cordX/* - pOwner.pTileCamera.getxPos()*/;
 	}
 	public int GetCordY()
 	{
-		return cordY - pOwner.pTileCamera.getyPos();
+		return cordY/* - pOwner.pTileCamera.getyPos()*/;
 	}
 	public void PlayLandedSound()
 	{
@@ -125,7 +147,8 @@ public class objectTile extends object
 	{
 		if(bIsLand)
 		{
-			SpriteDrawer.draw(region, GetCordX()*50, GetCordY()*50);
+			int[] pos = CoordsToXY(); 
+			SpriteDrawer.draw(region, pos[0], pos[1]);
 		}
 	}
 	public int getTileType() 
@@ -151,34 +174,36 @@ public class objectTile extends object
 			break;
 		}
 	}
+
 	void FindMatchingTiles()
 	{
-		if(!bIsLand)
+		if(!bIsLand || bIsLand)
 			return;
 		
 		for(int i = 0; i < mTilePresets.size(); i++)
 		{
 			Boolean bMatch = true;
 			
-			for(int y = 0; y < 3; y++)
+			if(mTilePresets.get(i)[0][1] != mFriends[0][1]
+			|| mTilePresets.get(i)[1][0] != mFriends[1][0]
+			|| mTilePresets.get(i)[1][2] != mFriends[1][2]
+			|| mTilePresets.get(i)[2][1] != mFriends[2][1])
 			{
-				for(int x = 0; x < 3; x++)
-				{
-					if(mTilePresets.get(i)[y][x] != mFriends[y][x])
-					{
-						bMatch = false;
-					}
-				}
+				bMatch = false;
 			}
 			if(bMatch)
 			{
 				setTileType(i);
-				return;
+				break;
 			}
-			
 		}
+		AddCorners();
 	}
-
+	void AddCorners()
+	{
+		
+	}
+	
 	public float getLandingTimer() 
 	{
 		return fLandingTimer;
