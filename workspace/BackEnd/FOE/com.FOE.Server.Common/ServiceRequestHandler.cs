@@ -132,10 +132,8 @@ namespace com.FOE.Server.Common
         /// <param name="otherUser3"></param>
         /// <param name="otherUser4"></param>
         /// <returns></returns>
-        public Guid StartGameSession(User invitingUser, string otherUser1, string otherUser2, string otherUser3, string otherUser4)
+        public GameSession StartGameSession(User invitingUser, string otherUser1, string otherUser2, string otherUser3, string otherUser4)
         {
-            Guid result = Guid.Empty;
-
             GameSession gameSession = CreateGameSession();
             //GetUserByUserName will except if a user is not found, so we can just add users to a list without checking.
             UserList otherUsers = new UserList();
@@ -144,13 +142,19 @@ namespace com.FOE.Server.Common
             otherUsers.Add(GetUserByUserName(otherUser3));
             otherUsers.Add(GetUserByUserName(otherUser4));
 
+            //Create invitations for all the other users.
             foreach (User user in otherUsers)
             {
                 Invite invite = CreateGameSessionInvite(invitingUser, gameSession, user);
                 SendGameSessionInvite(invite);
             }
 
-            return result;
+            //Add yourself as an invited user and set Status to accepted from the start.
+            Invite selfInvite = CreateGameSessionInvite(invitingUser, gameSession, invitingUser);
+            selfInvite.Status = (int)DB_Invite.InviteStatus.Accepted;
+            DB_Invite.FromInvite(selfInvite, _context);
+
+            return gameSession;
         }
 
 

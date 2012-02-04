@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://code.google.com/p/FOE/namespace/20120125/com.vfc.DataModel" elementFormDefault="qualified" targetNamespace="http://code.google.com/p/FOE/namespace/20120125/com.vfc.DataModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel" elementFormDefault="qualified" targetNamespace="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="NotifyPropertyChangedObject">
     <xs:sequence />
   </xs:complexType>

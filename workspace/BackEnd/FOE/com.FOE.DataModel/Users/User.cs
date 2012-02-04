@@ -10,7 +10,7 @@ namespace com.FOE.DataModel.Users
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users", IsReference = false)]
     public class UserList : ObservableCollection<User>
     {
     }
@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Users
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "user", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users")]
+    [DataContract(Name = "user", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users")]
     public class User : NotifyPropertyChangedObject
     {
         #region Id(id) Property

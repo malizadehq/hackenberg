@@ -11,7 +11,7 @@ namespace com.FOE.DataModel.Invites
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Invites", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Invites", IsReference = false)]
     public class InviteList : ObservableCollection<Invite>
     {
     }
@@ -20,7 +20,7 @@ namespace com.FOE.DataModel.Invites
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "invite", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Invites")]
+    [DataContract(Name = "invite", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Invites")]
     public class Invite : NotifyPropertyChangedObject
     {
         #region Id(id) Property

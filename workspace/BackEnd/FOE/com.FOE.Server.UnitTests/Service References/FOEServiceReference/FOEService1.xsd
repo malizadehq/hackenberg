@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users" elementFormDefault="qualified" targetNamespace="http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users" elementFormDefault="qualified" targetNamespace="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd4" namespace="http://code.google.com/p/FOE/namespace/20120125/com.vfc.DataModel" />
+  <xs:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd4" namespace="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel" />
   <xs:complexType name="user">
     <xs:complexContent mixed="false">
-      <xs:extension xmlns:q1="http://code.google.com/p/FOE/namespace/20120125/com.vfc.DataModel" base="q1:NotifyPropertyChangedObject">
+      <xs:extension xmlns:q1="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel" base="q1:NotifyPropertyChangedObject">
         <xs:sequence>
           <xs:element name="id" nillable="true" type="ser:guid">
             <xs:annotation>

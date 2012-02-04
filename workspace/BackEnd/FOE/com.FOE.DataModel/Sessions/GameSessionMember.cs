@@ -10,7 +10,7 @@ namespace com.FOE.DataModel.Sessions
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Sessions", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Sessions", IsReference = false)]
     public class GameSessionMemberList : ObservableCollection<GameSessionMember>
     {
     }
@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Sessions
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "gamesessionmember", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Sessions")]
+    [DataContract(Name = "gamesessionmember", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Sessions")]
     public class GameSessionMember : NotifyPropertyChangedObject
     {
         #region GameSessionId(gamesessionid) Property

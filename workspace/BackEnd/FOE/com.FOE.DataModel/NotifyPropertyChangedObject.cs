@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 namespace com.FOE.DataModel
 {
-    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.vfc.DataModel")]
+    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel")]
     public class NotifyPropertyChangedObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members

@@ -10,7 +10,7 @@ namespace com.FOE.DataModel.Rules
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Rules", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Rules", IsReference = false)]
     public class RuleList : ObservableCollection<Rule>
     {
     }
@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Rules
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "rule", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Rules")]
+    [DataContract(Name = "rule", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Rules")]
     public class Rule : NotifyPropertyChangedObject
     {
         #region Id(id) Property

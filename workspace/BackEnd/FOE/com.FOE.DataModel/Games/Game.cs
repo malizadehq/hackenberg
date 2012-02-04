@@ -10,7 +10,7 @@ namespace com.FOE.DataModel.Games
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Games", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Games", IsReference = false)]
     public class GameList : ObservableCollection<Game>
     {
     }
@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Games
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "game", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Games")]
+    [DataContract(Name = "game", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Games")]
     public class Game : NotifyPropertyChangedObject
     {
         #region Id(id) Property
