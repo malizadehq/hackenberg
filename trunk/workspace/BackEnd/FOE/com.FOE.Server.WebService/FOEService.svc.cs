@@ -159,36 +159,26 @@ namespace com.FOE.Server.WebService
         #endregion
 
 
-        public FOEResult<Guid> InviteToGameSession(Guid session, string userName1, string userName2 = "", string userName3 = "", string userName4 = "", string userName5 = "")
+        /// <summary>
+        /// Invites 4 players (5 if you include the caller which will be auto added) to a game session, returns Id of the created GameSession.
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="otherUser1"></param>
+        /// <param name="otherUser2"></param>
+        /// <param name="otherUser3"></param>
+        /// <param name="otherUser4"></param>
+        /// <returns></returns>
+        public FOEResult<Guid> StartGameSession(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "")
         {
-            FOEResult<Guid> result = new FOEResult<Guid>();
-            try
+            return Execute<Guid>(session, (request) =>
             {
-                ServiceRequestHandler requestHandler = new ServiceRequestHandler(session);
-                //result.Result = requestHandler.Login(userName, password);
-            }
-            catch (FOEServiceException ex)
-            {
-                Trace.TraceError("{0}", ex);
-                result = new FOEResult<Guid>(ex);
-            }
-            catch (SqlException ex)
-            {
-                Trace.TraceError("{0}", ex);
-                result = new FOEResult<Guid>(FOEStatusCodes.DatabaseError, ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError("{0}", ex);
-                result = new FOEResult<Guid>(FOEStatusCodes.InternalError, ex.Message);
-            }
-            return result;
+                User user = request.GetUserBySession(session);
+                return request.StartGameSession(user, otherUser1, otherUser2, otherUser3, otherUser4);
+            });            
         }
 
 
-
-
-
+        #region Wtf are these? guess I'll keep them just to be safe...
 
         public string GetData(int value)
         {
@@ -207,5 +197,7 @@ namespace com.FOE.Server.WebService
             }
             return composite;
         }
+
+        #endregion
     }
 }

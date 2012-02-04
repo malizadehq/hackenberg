@@ -6,6 +6,8 @@ using com.FOE.DataModel.Users;
 using com.FOE.Server.DataAccess.Database;
 using com.FOE.Server.DataAccess;
 using com.FOE.Server.Interface;
+using com.FOE.DataModel.Sessions;
+using com.FOE.DataModel.Invites;
 
 namespace com.FOE.Server.Common
 {
@@ -47,7 +49,6 @@ namespace com.FOE.Server.Common
             if (da_user == null)
                 throw new FOEServiceException(FOEStatusCodes.InternalError, "Creation of user failed.");
 
-            _context.SubmitChanges();
             return da_user.ToUser(FOEDataInclusion.Everything);
         }
 
@@ -104,6 +105,90 @@ namespace com.FOE.Server.Common
                 throw new FOEServiceException(FOEStatusCodes.UnknownUser, string.Format("Could not find user {0}.", userName));
 
             return da_user.ToUser(FOEDataInclusion.Everything);
+        }
+
+
+        /// <summary>
+        /// Looks up the loginSession provided and returns the user saved in that session.
+        /// </summary>
+        /// <param name="session"></param>
+        /// <returns></returns>
+        public User GetUserBySession(Guid session)
+        {
+            DB_User da_user = (from s in _context.DB_LoginSessions where s.Id == session select s.DB_User).FirstOrDefault();
+            if (da_user == null)
+                throw new FOEServiceException(FOEStatusCodes.InvalidSession);
+
+            return da_user.ToUser(FOEDataInclusion.Everything);  
+        }
+
+
+        /// <summary>
+        /// Sends out invites to the affected users. Returns the Guid of the resulting game session.
+        /// </summary>
+        /// <param name="invitingUser"></param>
+        /// <param name="otherUser1"></param>
+        /// <param name="otherUser2"></param>
+        /// <param name="otherUser3"></param>
+        /// <param name="otherUser4"></param>
+        /// <returns></returns>
+        public Guid StartGameSession(User invitingUser, string otherUser1, string otherUser2, string otherUser3, string otherUser4)
+        {
+            Guid result = Guid.Empty;
+
+            GameSession gameSession = CreateGameSession();
+            //GetUserByUserName will except if a user is not found, so we can just add users to a list without checking.
+            UserList otherUsers = new UserList();
+            otherUsers.Add(GetUserByUserName(otherUser1));
+            otherUsers.Add(GetUserByUserName(otherUser2));
+            otherUsers.Add(GetUserByUserName(otherUser3));
+            otherUsers.Add(GetUserByUserName(otherUser4));
+
+            foreach (User user in otherUsers)
+            {
+                Invite invite = CreateGameSessionInvite(invitingUser, gameSession, user);
+                SendGameSessionInvite(invite);
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Notifies the invited user of the invite.
+        /// </summary>
+        /// <param name="invite"></param>
+        public void SendGameSessionInvite(Invite invite)
+        {
+            //TODO: Send messages to the clients... somehow.
+        }
+
+
+        /// <summary>
+        /// Creates a GameSessionInvite in the database from one user to another.
+        /// </summary>
+        /// <param name="invitingUser"></param>
+        /// <param name="gameSession"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public Invite CreateGameSessionInvite(User invitingUser, GameSession gameSession, User user)
+        {
+            DB_Invite da_invite = DB_Invite.FromInvite(new Invite() { Id = Guid.NewGuid(), InvitedUser = user.Id.Value, InvitingUser = invitingUser.Id.Value, Status = (int)DB_Invite.InviteStatus.Pending }, _context);
+            return da_invite.ToInvite();
+        }
+
+
+        /// <summary>
+        /// Creates a game session and returns it.
+        /// </summary>
+        /// <returns></returns>
+        public GameSession CreateGameSession()
+        {
+            DB_GameSession da_gameSession = DB_GameSession.FromGameSession(new GameSession() { Id = Guid.NewGuid() }, _context);
+            if (da_gameSession == null)
+                throw new FOEServiceException(FOEStatusCodes.InternalError, "Creation of GameSession failed.");
+
+            return da_gameSession.ToGameSession();
         }
     }
 }

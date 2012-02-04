@@ -35,12 +35,15 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DB_GameSession.cs" />
+    <Compile Include="Classes\DB_Invite.cs" />
     <Compile Include="Classes\DB_User.cs" />
     <Compile Include="Classes\FOEDataInclusion.cs" />
     <Compile Include="Database\FOEDatabase.designer.cs">

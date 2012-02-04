@@ -31,6 +31,10 @@ namespace com.FOE.Server.WebService
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         FOEResult<Guid> Login(string userName, string password);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        FOEResult<Guid> StartGameSession(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "");
     }
 
 

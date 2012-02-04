@@ -49,6 +49,7 @@ namespace com.FOE.Server.DataAccess.Database
 
                 da_user = new DB_User() { Id = Guid.NewGuid(), UserName = user.UserName, Password = user.Password };
                 context.DB_Users.InsertOnSubmit(da_user);
+                context.SubmitChanges();
             }
             else
             {
