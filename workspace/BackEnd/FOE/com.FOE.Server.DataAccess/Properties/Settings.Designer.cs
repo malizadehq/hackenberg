@@ -42,5 +42,15 @@ namespace com.FOE.Server.DataAccess.Properties {
                 return ((string)(this["FOEConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SONE-PC\\FOE;Initial Catalog=FOE;Integrated Security=True")]
+        public string FOEConnectionString2 {
+            get {
+                return ((string)(this["FOEConnectionString2"]));
+            }
+        }
     }
 }

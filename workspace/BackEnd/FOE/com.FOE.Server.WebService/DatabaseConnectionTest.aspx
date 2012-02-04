@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        The Database Connection is perfect <br />
+        The Database Connection is perfect! <br />
         <asp:Label ID="lblConnectionString" runat="server" Text=""></asp:Label>
     </div>
     </form>

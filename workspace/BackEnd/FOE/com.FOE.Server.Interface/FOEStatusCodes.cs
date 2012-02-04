@@ -11,7 +11,7 @@ namespace com.FOE.Server.Interface
     /// <summary>
     /// Status codes for any FOE operation.
     /// </summary>
-    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125", IsReference = false)]
+    [DataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.Server.Interface", IsReference = false)]
     public enum FOEStatusCodes
     {
         //This code will never be returned by any web service.
@@ -34,6 +34,10 @@ namespace com.FOE.Server.Interface
         [EnumMember]
         [Description("User already exists.")]
         UserAlreadyExists = 3,
+
+        [EnumMember]
+        [Description("Game session id already present in database.")]
+        GameSessionAlreadyExists = 4,
 
         [EnumMember]
         [Description("A database operation went wrong.")]
