@@ -20,16 +20,19 @@ public class objectGrid extends object
 
 	public int[] CoordsToXY(int cordX,int cordY)
 	{
-	    int totalRows 		= TileEditor.TILES_HEIGHT;
-	    int totalColumns 	= TileEditor.TILES_WIDTH;
-	    int width = (totalRows + totalColumns) * (68/2);
+	   // int totalRows 		= TileEditor.TILES_HEIGHT;
+	   // int totalColumns 	= TileEditor.TILES_WIDTH;
+	   // int width = (totalRows + totalColumns) * (68/2);
 	         
 	    int y = cordX*(34/2) + cordY*(34/2); 
-	    int x = cordX*(68/2) - cordY*(68/2)+width/2;
+	    int x = cordX*(68/2) - cordY*(68/2);//+width/2
 		int[] xy = new int[2];
 	    xy[0] = x;
 	    xy[1] = y;
-	         
+	    
+	    xy[0] += pOwner.pTileCamera.GetX();
+	    xy[1] += pOwner.pTileCamera.GetY();
+	    
 	    return xy;	
 	}
 	public void render(SpriteBatch SpriteDrawer)
@@ -51,13 +54,7 @@ public class objectGrid extends object
 
 	public void SetSelectedTile(int iNewSelectedTile) 
 	{
-		/*
 		iSelectedTile = iNewSelectedTile;
-		int iRemCam = 0;
-		iRemCam+=pOwner.pTileCamera.getxPos();
-		iRemCam+=pOwner.pTileCamera.getyPos()*TileEditor.TILES_WIDTH;
-		iSelectedTile -= iRemCam;
-		*/
 	}
 
 	public void MakeGrid(assets MyAssets) 

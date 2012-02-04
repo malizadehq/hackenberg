@@ -33,7 +33,7 @@ public class objectTile extends object
 		
 		this.pOwner		= pOwner;
 		pCreateSound 	= pOwner.pMyAssets.pCreateSound;
-		texture 		= pOwner.pMyAssets.pIsoTexture;
+		texture 		= pOwner.pMyAssets.pIsoGrassTexture;
 		region			= new TextureRegion(texture,0,0,68,68);
 		
 		cordX 			= iTilePosX;
@@ -70,7 +70,7 @@ public class objectTile extends object
 		mTilePresets.add(mPresetH); // 7
 		int[][]	mPresetI = {{0,1,0},{1,0,0},{0,1,0}}; // land on all sides but right
 		mTilePresets.add(mPresetI); // 8
-		int[][]	mPresetJ = {{0,0,0},{1,0,0},{0,1,0}}; // water top and right
+		int[][]	mPresetJ = {{0,0,0},{1,0,0},{0,1,0}}; // water top and left
 		mTilePresets.add(mPresetJ); // 9
 		int[][]	mPresetK = {{0,0,0},{0,0,1},{0,1,0}}; // water top and right
 		mTilePresets.add(mPresetK); // 10
@@ -88,12 +88,12 @@ public class objectTile extends object
 
 	public int[] CoordsToXY()
 	{
-	    int totalRows 		= TileEditor.TILES_HEIGHT;
-	    int totalColumns 	= TileEditor.TILES_WIDTH;
-	    int width = (totalRows + totalColumns) * (68/2);
+	   // int totalRows 		= TileEditor.TILES_HEIGHT;
+	   // int totalColumns 	= TileEditor.TILES_WIDTH;
+	   // int width = 0;
 	         
 	    int y = cordX*(34/2) + cordY*(34/2); 
-	    int x = cordX*(68/2) - cordY*(68/2)+width/2;
+	    int x = cordX*(68/2) - cordY*(68/2);/*width/2*/
 		int[] xy = new int[2];
 	    xy[0] = x;
 	    xy[1] = y;
@@ -106,14 +106,104 @@ public class objectTile extends object
 	{
 		iTileType = iNewTileType;
 		
-		int xSpace = getTileType() * 50;
-		int ySpace = 0;
+		int[] textureSpace = GetTextureSpace(iTileType);
 	
 		if(bIsLand)
-			region	= new TextureRegion(texture,xSpace,ySpace,50,50);
+			region	= new TextureRegion(texture,textureSpace[0]*68,textureSpace[1]*68,68,68);
 		else
 			region	= new TextureRegion(texture,0,0,50,50);
 	}
+	private int[] GetTextureSpace(int iTileType) 
+	{
+		int[] xy = new int[2];
+		
+		switch(iTileType)
+		{
+		
+		// water on all sides
+		case 0:
+			xy[0] = 3;
+			xy[1] = 3;
+			break;
+		// land on all sides
+		case 1:
+			xy[0] = 1;
+			xy[1] = 1;
+			break;
+		// water on all sides but bottom
+		case 2:
+			xy[0] = 3;
+			xy[1] = 2;
+			break;
+		// water on all sides but top
+		case 3:
+			xy[0] = 3;
+			xy[1] = 0;
+			break;
+		// land at top and bottom
+		case 4:
+			xy[0] = 3;
+			xy[1] = 1;
+			break;
+		// land on all sides but bottom
+		case 5:
+			xy[0] = 1;
+			xy[1] = 2;
+			break;
+		// land on all sides but top
+		case 6:
+			xy[0] = 1;
+			xy[1] = 0;
+			break;
+		// land on all sides but left
+		case 7:
+			xy[0] = 0;
+			xy[1] = 1;
+			break;
+		// land on all sides but right
+		case 8:
+			xy[0] = 2;
+			xy[1] = 1;
+			break;
+		// water top and left
+		case 9:
+			xy[0] = 0;
+			xy[1] = 0;
+			break;
+		// water top and right
+		case 10:
+			xy[0] = 0;
+			xy[1] = 2;
+			break;
+		// water bottom and right
+		case 11:
+			xy[0] = 2;
+			xy[1] = 2;
+			break;
+		// water bottom and left
+		case 12:
+			xy[0] = 0;
+			xy[1] = 2;
+			break;
+		// land right
+		case 13:
+			xy[0] = 2;
+			xy[1] = 1;
+			break;
+		// land right and left
+		case 14:
+			xy[0] = 1;
+			xy[1] = 3;
+			break;
+		// land left
+		case 15:
+			xy[0] = 2;
+			xy[1] = 3;
+			break;
+		}
+		return xy;
+	}
+
 	public void TickLanding(float fDeltaTime)
 	{
 		if(getLandingTimer() >= fLandingTimerMax)
@@ -177,7 +267,7 @@ public class objectTile extends object
 
 	void FindMatchingTiles()
 	{
-		if(!bIsLand || bIsLand)
+		if(!bIsLand)
 			return;
 		
 		for(int i = 0; i < mTilePresets.size(); i++)

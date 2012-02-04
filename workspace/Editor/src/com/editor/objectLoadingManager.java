@@ -94,7 +94,7 @@ public class objectLoadingManager
 	{
 		int iNrFixed = 0;
 		
-		pLoadingText.SetDrawString("Fixing Tiles [ "+iStartIndex+" / "+TileEditor.TILES_HEIGHT*TileEditor.TILES_WIDTH+" ]");
+		pLoadingText.SetDrawString("Fixing Tiles [ "+iStartIndex+" / "+pOwner.GetNrTiles()+" ]");
 		
 		for(int i = iStartIndex; i < pOwner.GetNrTiles();i++)
 		{
