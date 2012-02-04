@@ -33,8 +33,8 @@ public class TileEditor extends Game
 	private Boolean					bTouching;
 	private Vector2					vLastTouch;
 	
-	public static final int TILES_WIDTH		=	100;
-	public static final int TILES_HEIGHT	=	60;
+	public static final int TILES_WIDTH		=	10;
+	public static final int TILES_HEIGHT	=	10;
 	
 	public int iDebugRender;
 	
@@ -69,16 +69,16 @@ public class TileEditor extends Game
 		switch(iClock)
 		{
 		case 0:
-			iTestIndex = iIndex + TILES_WIDTH;
+			iTestIndex = iIndex + TILES_WIDTH - 1;
 			break;
 		case 1:
-			iTestIndex = iIndex + 1;
+			iTestIndex = iIndex + TILES_WIDTH + 1;
 			break;
 		case 2:
-			iTestIndex = iIndex - TILES_WIDTH;
+			iTestIndex = iIndex - TILES_WIDTH +1;
 			break;
 		case 3:
-			iTestIndex = iIndex - 1;
+			iTestIndex = iIndex - TILES_WIDTH - 1;
 			break;
 		}
 		
@@ -143,7 +143,7 @@ public class TileEditor extends Game
 	
 	public void handleInput()
 	{
-		/*
+		
 		if(!IsTouchingMenu())
 		{
 			vText.get(1).SetDrawString("Idle X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
@@ -156,37 +156,22 @@ public class TileEditor extends Game
 				bTouching = true;
 				vLastTouch.x = Gdx.input.getX();
 				vLastTouch.y = Gdx.input.getY();
-				pTileCamera.StopTween();
 			}
 			else if(bTouching && Gdx.input.isTouched())
 			{
-				vText.get(1).SetDrawString("Dragging X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
+				int xNewScroll = (int) ((vLastTouch.x-Gdx.input.getX())/10)*-1;
+				int yNewScroll = (int) ((vLastTouch.y-Gdx.input.getY())/10);
+				Scroll(xNewScroll,yNewScroll);
 				
-				Boolean bAdded = false;
-				if(Math.abs(Gdx.input.getX() - vLastTouch.x) > GetTileSize())
-				{
-					pTileCamera.AddPosTgt((int)(vLastTouch.x - Gdx.input.getX()),0);
-					bAdded = true;
-				}
-				if(Math.abs(Gdx.input.getY() - vLastTouch.y) > GetTileSize())
-				{
-					pTileCamera.AddPosTgt(0,(int)(Gdx.input.getY() - vLastTouch.y));
-					bAdded = true;
-				}
-				if(bAdded)
-				{
-					vLastTouch.x = Gdx.input.getX();
-					vLastTouch.y = Gdx.input.getY();
-				}
+				vText.get(1).SetDrawString("Dragging X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
 			}
 			else
 				bTouching = false;
-			vText.get(2).SetDrawString("Cam X["+pTileCamera.getxPos()+" / "+pTileCamera.getxPosTgt()+"] Y["+pTileCamera.getyPos()+" / "+pTileCamera.getyPosTgt()+"]");
+			vText.get(2).SetDrawString("Cam X["+pTileCamera.GetX()+" / "+pTileCamera.GetX()+"] Y["+pTileCamera.GetY()+" / "+pTileCamera.GetY()+"]");
 			
 		}
 		else
 			bTouching = false;
-			*/ 
 	}
 
 	public Boolean IsTouchingMenu()
@@ -196,16 +181,20 @@ public class TileEditor extends Game
 		return false;
 	}
 	public int getClosestTile(float X,float Y)
-	{
-		/*
-		Y = Gdx.graphics.getHeight()-Y;
-		int GridX = (int) (X/GetTileSize());
-		GridX+= pTileCamera.getxPos();
-		int GridY = (int) (Y/GetTileSize());
-		GridY+= pTileCamera.getyPos();
-		GridY = (GridY*TILES_WIDTH);
-		*/
-		return 1;//(GridX + GridY);
+	{		
+		Y = Gdx.graphics.getHeight() - Y;
+		X += 34;
+		
+		int GridZeroX  	= pTileCamera.GetX() + 34;
+		int GridZeroY 	= pTileCamera.GetY() + 17;
+		
+		int YOld = (int) ((Y - GridZeroY)/34)-(int)X;
+		int XOld = (int) ((Y - GridZeroY)/34)+(int)X;
+		int[] xy = new int[2];
+		xy[0] = (int) XOld / 68; 
+		xy[1] = (int) YOld / 68;
+		
+		return (xy[0] + (xy[1]*TileEditor.TILES_WIDTH));
 	}
 	public float GetTileSize()
 	{

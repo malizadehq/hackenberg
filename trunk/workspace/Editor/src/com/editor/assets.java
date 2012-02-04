@@ -20,6 +20,7 @@ public class assets
 	public Texture		pGrassTexture;
 	public Texture		pIsoTexture;
 	public Texture		pEditorUiTexture;
+	public Texture		pIsoGrassTexture;
 	public Pixmap 		MapPixmap;
 	
 	public void load()
@@ -34,6 +35,7 @@ public class assets
 		
 		pIsoTexture 		= new Texture(Gdx.files.internal("res/tiles/isotest.png"));
 		pGridTexture 		= new Texture(Gdx.files.internal("res/tiles/isogrid.png"));
+		pIsoGrassTexture	= new Texture(Gdx.files.internal("res/tiles/iso_grass.png"));
 		pGrassTexture		= new Texture(Gdx.files.internal("res/tiles/tile_grass_01.png"));
 		pEditorUiTexture	= new Texture(Gdx.files.internal("res/ui/editor_ui.png"));
 		
