@@ -5,8 +5,8 @@
       <xsd:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd0" namespace="http://code.google.com/p/FOE/namespace/20120125" />
       <xsd:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/com.FOE.Server.WebService" />
-      <xsd:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd3" namespace="http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users" />
-      <xsd:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd4" namespace="http://code.google.com/p/FOE/namespace/20120125/com.vfc.DataModel" />
+      <xsd:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd3" namespace="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users" />
+      <xsd:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd4" namespace="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IFOEService_GetData_InputMessage">

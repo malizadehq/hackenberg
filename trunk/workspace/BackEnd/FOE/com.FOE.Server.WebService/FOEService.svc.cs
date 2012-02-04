@@ -10,6 +10,7 @@ using com.FOE.Server.Interface;
 using System.Diagnostics;
 using System.Data.SqlClient;
 using com.FOE.DataModel.Users;
+using com.FOE.DataModel.Sessions;
 
 namespace com.FOE.Server.WebService
 {
@@ -168,9 +169,9 @@ namespace com.FOE.Server.WebService
         /// <param name="otherUser3"></param>
         /// <param name="otherUser4"></param>
         /// <returns></returns>
-        public FOEResult<Guid> StartGameSession(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "")
+        public FOEResult<GameSession> StartGameSession(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "")
         {
-            return Execute<Guid>(session, (request) =>
+            return Execute<GameSession>(session, (request) =>
             {
                 User user = request.GetUserBySession(session);
                 return request.StartGameSession(user, otherUser1, otherUser2, otherUser3, otherUser4);

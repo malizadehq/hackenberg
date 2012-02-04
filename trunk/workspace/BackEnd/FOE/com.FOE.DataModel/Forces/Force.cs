@@ -10,7 +10,7 @@ namespace com.FOE.DataModel.Forces
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Forces", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Forces", IsReference = false)]
     public class ForceList : ObservableCollection<Force>
     {
     }
@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Forces
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "force", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Forces")]
+    [DataContract(Name = "force", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Forces")]
     public class Force : NotifyPropertyChangedObject
     {
         #region Id(id) Property

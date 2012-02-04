@@ -10,7 +10,7 @@ namespace com.FOE.DataModel.Structures
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Structures", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Structures", IsReference = false)]
     public class StructureList : ObservableCollection<Structure>
     {
     }
@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Structures
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "structure", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Structures")]
+    [DataContract(Name = "structure", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Structures")]
     public class Structure : NotifyPropertyChangedObject
     {
         #region Id(id) Property

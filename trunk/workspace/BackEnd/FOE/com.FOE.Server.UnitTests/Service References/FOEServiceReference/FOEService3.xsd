@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://code.google.com/p/FOE/namespace/20120125" elementFormDefault="qualified" targetNamespace="http://code.google.com/p/FOE/namespace/20120125" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/com.FOE.Server.WebService" />
-  <xs:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd3" namespace="http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users" />
+  <xs:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd3" namespace="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users" />
   <xs:import schemaLocation="http://localhost:63647/FOEService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:element name="GetData">
     <xs:complexType>
@@ -50,14 +50,14 @@
     <xs:annotation>
       <xs:appinfo>
         <GenericType Name="FOEResultOf{0}{#}" Namespace="http://code.google.com/p/FOE/namespace/20120125" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-          <GenericParameter Name="user" Namespace="http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users" />
+          <GenericParameter Name="user" Namespace="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users" />
         </GenericType>
       </xs:appinfo>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:FOEResult">
         <xs:sequence>
-          <xs:element xmlns:q3="http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Users" minOccurs="0" name="Result" nillable="true" type="q3:user">
+          <xs:element xmlns:q3="http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users" minOccurs="0" name="Result" nillable="true" type="q3:user">
             <xs:annotation>
               <xs:appinfo>
                 <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />

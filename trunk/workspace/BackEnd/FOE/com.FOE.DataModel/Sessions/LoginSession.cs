@@ -10,7 +10,7 @@ namespace com.FOE.DataModel.Sessions
     /// <summary>
     /// 
     /// </summary>
-    [CollectionDataContract(Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Sessions", IsReference = false)]
+    [CollectionDataContract(Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Sessions", IsReference = false)]
     public class LoginSessionList : ObservableCollection<LoginSession>
     {
     }
@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Sessions
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "loginsession", Namespace = "http://www.vfc.com/eCatalogue/20110307/com.FOE.DataModel.Sessions")]
+    [DataContract(Name = "loginsession", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Sessions")]
     public class LoginSession : NotifyPropertyChangedObject
     {
         #region Id(id) Property

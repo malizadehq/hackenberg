@@ -38,7 +38,7 @@ namespace com.FOE.Server.DataAccess.Database
         public static DB_Invite FromInvite(Invite invite, FOEDatabaseDataContext context)
         {
             DB_Invite da_invite = (from i in context.DB_Invites where i.Id == invite.Id.Value select i).FirstOrDefault();
-            if(da_invite == null)
+            if (da_invite == null)
             {
                 da_invite = new DB_Invite();
                 da_invite.InvitedUser = invite.InvitedUser;
@@ -47,8 +47,14 @@ namespace com.FOE.Server.DataAccess.Database
                 da_invite.Status = invite.Status;
 
                 context.DB_Invites.InsertOnSubmit(da_invite);
-                context.SubmitChanges();
             }
+            else
+            {
+                //The only value thatll ever change in an invite is the status. If invite already existed in db, try to update status.
+                da_invite.Status = invite.Status;
+            }
+
+            context.SubmitChanges();
 
             return da_invite;
         }
