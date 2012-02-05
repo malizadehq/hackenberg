@@ -8,6 +8,8 @@ using com.FOE.Server.DataAccess;
 using com.FOE.Server.Interface;
 using com.FOE.DataModel.Sessions;
 using com.FOE.DataModel.Invites;
+using com.FOE.DataModel.Games;
+using com.FOE.Common;
 
 namespace com.FOE.Server.Common
 {
@@ -132,9 +134,9 @@ namespace com.FOE.Server.Common
         /// <param name="otherUser3"></param>
         /// <param name="otherUser4"></param>
         /// <returns></returns>
-        public GameSession StartGameSession(User invitingUser, string otherUser1, string otherUser2, string otherUser3, string otherUser4)
+        public Game StartGame(User invitingUser, string otherUser1, string otherUser2, string otherUser3, string otherUser4)
         {
-            GameSession gameSession = CreateGameSession();
+            Game gameSession = CreateGame();
             //GetUserByUserName will except if a user is not found, so we can just add users to a list without checking.
             UserList otherUsers = new UserList();
             otherUsers.Add(GetUserByUserName(otherUser1));
@@ -145,14 +147,14 @@ namespace com.FOE.Server.Common
             //Create invitations for all the other users.
             foreach (User user in otherUsers)
             {
-                Invite invite = CreateGameSessionInvite(invitingUser, gameSession, user);
-                SendGameSessionInvite(invite);
+                Invite invite = CreateGameInvite(invitingUser, gameSession, user);
+                SendGameInvite(invite);
             }
 
             //Add yourself as an invited user and set Status to accepted from the start.
-            Invite selfInvite = CreateGameSessionInvite(invitingUser, gameSession, invitingUser);
-            selfInvite.Status = (int)DB_Invite.InviteStatus.Accepted;
+            Invite selfInvite = CreateGameInvite(invitingUser, gameSession, invitingUser);
             DB_Invite.FromInvite(selfInvite, _context);
+            AcceptGameIvite(invitingUser, selfInvite.Id.Value);
 
             return gameSession;
         }
@@ -162,37 +164,146 @@ namespace com.FOE.Server.Common
         /// Notifies the invited user of the invite.
         /// </summary>
         /// <param name="invite"></param>
-        public void SendGameSessionInvite(Invite invite)
+        public void SendGameInvite(Invite invite)
         {
             //TODO: Send messages to the clients... somehow.
         }
 
 
         /// <summary>
-        /// Creates a GameSessionInvite in the database from one user to another.
+        /// Creates a GameInvite in the database from one user to another.
         /// </summary>
         /// <param name="invitingUser"></param>
         /// <param name="gameSession"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public Invite CreateGameSessionInvite(User invitingUser, GameSession gameSession, User user)
+        public Invite CreateGameInvite(User invitingUser, Game game, User user)
         {
-            DB_Invite da_invite = DB_Invite.FromInvite(new Invite() { Id = Guid.NewGuid(), InvitedUser = user.Id.Value, InvitingUser = invitingUser.Id.Value, Status = (int)DB_Invite.InviteStatus.Pending }, _context);
+            DB_Invite da_invite = DB_Invite.FromInvite(new Invite()
+            {
+                Id = Guid.NewGuid(),
+                InvitedUser = user.Id.Value,
+                InvitingUser = invitingUser.Id.Value,
+                Status = (int)DB_Invite.InviteStatus.Pending,
+                GameId = game.Id.Value
+            }, _context);
             return da_invite.ToInvite();
         }
 
 
         /// <summary>
-        /// Creates a game session and returns it.
+        /// Creates a game and returns it.
         /// </summary>
         /// <returns></returns>
-        public GameSession CreateGameSession()
+        public Game CreateGame()
         {
-            DB_GameSession da_gameSession = DB_GameSession.FromGameSession(new GameSession() { Id = Guid.NewGuid() }, _context);
-            if (da_gameSession == null)
-                throw new FOEServiceException(FOEStatusCodes.InternalError, "Creation of GameSession failed.");
+            DB_Game da_game = DB_Game.FromGame(new Game()
+            {   
+                Id = Guid.NewGuid(),
+                MapId = DB_Map.DefaultMapId,
+                GermanPlayer = DB_User.MockUserId,
+                JapanesePlayer = DB_User.MockUserId,
+                AmericanPlayer = DB_User.MockUserId,
+                EnglishPlayer = DB_User.MockUserId,
+                RussianPlayer = DB_User.MockUserId,
+                Phase = (int)DB_Game.GamePhases.None,
+                Turn = 0,
+                Name = string.Format("{0}'s game", User.UserName),
+                IsActive = false
+            }, _context);
+            if (da_game == null)
+                throw new FOEServiceException(FOEStatusCodes.InternalError, "Creation of Game failed.");
 
-            return da_gameSession.ToGameSession();
+            return da_game.ToGame();
+        }
+
+
+        /// <summary>
+        /// Accepts a GameInvite.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="InviteId"></param>
+        public void AcceptGameIvite(User user, Guid InviteId)
+        {
+            DB_Invite da_invite = (from i in _context.DB_Invites where i.Id == InviteId select i).FirstOrDefault();
+            if (da_invite == null)
+                throw new FOEServiceException(FOEStatusCodes.UnknownGameInvite);
+
+            da_invite.Status = (int)DB_Invite.InviteStatus.Accepted;
+            _context.SubmitChanges();
+
+            AttemptGameStart(da_invite.DB_Game);
+        }
+
+
+        /// <summary>
+        /// Looks for all invites to the provided game session. If all are accepted, start the game.
+        /// </summary>
+        /// <param name="guid"></param>
+        public void AttemptGameStart(DB_Game da_game)
+        {
+            var gameInvites = from i in _context.DB_Invites where i.GameId == da_game.Id select i;
+            if (gameInvites.Count<DB_Invite>() < 5)
+                throw new FOEServiceException(FOEStatusCodes.InternalError, "Game start attempted with fewer than 5 players");
+
+            //Check if all invites are accepted. else we just wont start the game.
+            bool allInvitesAccepted = true;
+            List<DB_User> invitedUsers = new List<DB_User>();
+            foreach (DB_Invite invite in gameInvites)
+            {
+                if (invite.Status != (int)DB_Invite.InviteStatus.Accepted)
+                {
+                    allInvitesAccepted = false;
+                    break;
+                }
+                invitedUsers.Add((from u in _context.DB_Users where u.Id == invite.InvitedUser.Value select u).FirstOrDefault());
+            }
+
+            if (allInvitesAccepted == true)
+            {
+                //Randomize which user that plays which nation.
+                //TODO: Add ability to pick nations?
+                Random rnd = new Random();
+                DB_User da_user = invitedUsers.OrderBy(x => rnd.Next()).FirstOrDefault();
+                da_game.GermanPlayer = da_user.Id;
+                SendEventToUser(da_user.ToUser(FOEDataInclusion.Everything), GameEvents.GameStarted);
+                invitedUsers.Remove(da_user);
+
+                da_user = invitedUsers.OrderBy(x => rnd.Next()).FirstOrDefault();
+                da_game.JapanesePlayer = da_user.Id;
+                SendEventToUser(da_user.ToUser(FOEDataInclusion.Everything), GameEvents.GameStarted);
+                invitedUsers.Remove(da_user);
+
+                da_user = invitedUsers.OrderBy(x => rnd.Next()).FirstOrDefault();
+                da_game.AmericanPlayer = da_user.Id;
+                SendEventToUser(da_user.ToUser(FOEDataInclusion.Everything), GameEvents.GameStarted);
+                invitedUsers.Remove(da_user);
+
+                da_user = invitedUsers.OrderBy(x => rnd.Next()).FirstOrDefault();
+                da_game.EnglishPlayer = da_user.Id;
+                SendEventToUser(da_user.ToUser(FOEDataInclusion.Everything), GameEvents.GameStarted);
+                invitedUsers.Remove(da_user);
+
+                da_game.RussianPlayer = invitedUsers.FirstOrDefault().Id;
+                SendEventToUser(invitedUsers.FirstOrDefault().ToUser(FOEDataInclusion.Everything), GameEvents.GameStarted);
+                da_game.IsActive = true;
+                da_game.Phase = (int)DB_Game.GamePhases.Buy;
+                da_game.Turn = 0;
+
+                _context.DB_Invites.DeleteAllOnSubmit(gameInvites);
+                _context.SubmitChanges();
+
+            }
+        }
+
+
+        /// <summary>
+        /// Sends an event to a user (e.g. GameStarted or YourTurn).
+        /// </summary>
+        /// <param name="user"></param>
+        public void SendEventToUser(User user, GameEvents whatEvent)
+        {
+            //TODO: Implement... How to message clients?
         }
     }
 }

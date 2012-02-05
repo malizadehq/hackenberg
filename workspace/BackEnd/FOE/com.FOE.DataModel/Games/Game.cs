@@ -44,28 +44,6 @@ namespace com.FOE.DataModel.Games
 
         #endregion
 
-        #region GameSessionId(gamesessionid) Property
-
-        private Guid? _gameSessionId;
-        [DataMember(Name = "gamesessionid", IsRequired = true, EmitDefaultValue = false, Order = 1)]
-        public Guid? GameSessionId
-        {
-            get
-            {
-                return _gameSessionId;
-            }
-            set
-            {
-                if (value != _gameSessionId)
-                {
-                    _gameSessionId = value;
-                    OnPropertyChanged("GameSessionId");
-                }
-            }
-        }
-
-        #endregion
-
         #region MapId(mapid) Property
 
         private Guid? _mapId;
@@ -176,22 +154,22 @@ namespace com.FOE.DataModel.Games
 
         #endregion
 
-        #region JapenesePlayer(japaneseplayer) Property
+        #region JapanesePlayer(japaneseplayer) Property
 
-        private Guid? _japenesePlayer;
+        private Guid? _japanesePlayer;
         [DataMember(Name = "japaneseplayer", IsRequired = true, EmitDefaultValue = false, Order = 7)]
-        public Guid? JapenesePlayer
+        public Guid? JapanesePlayer
         {
             get
             {
-                return _japenesePlayer;
+                return _japanesePlayer;
             }
             set
             {
-                if (value != _japenesePlayer)
+                if (value != _japanesePlayer)
                 {
-                    _japenesePlayer = value;
-                    OnPropertyChanged("JapenesePlayer");
+                    _japanesePlayer = value;
+                    OnPropertyChanged("JapanesePlayer");
                 }
             }
         }
@@ -258,6 +236,28 @@ namespace com.FOE.DataModel.Games
                 {
                     _russianPlayer = value;
                     OnPropertyChanged("RussianPlayer");
+                }
+            }
+        }
+
+        #endregion
+
+        #region IsActive(isactive) Property
+
+        private bool _isActive;
+        [DataMember(Name = "isactive", IsRequired = false, Order = 11)]
+        public bool IsActive
+        {
+            get
+            {
+                return _isActive;
+            }
+            set
+            {
+                if (value != _isActive)
+                {
+                    _isActive = value;
+                    OnPropertyChanged("IsActive");
                 }
             }
         }

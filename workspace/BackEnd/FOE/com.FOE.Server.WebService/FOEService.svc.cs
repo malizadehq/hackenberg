@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Data.SqlClient;
 using com.FOE.DataModel.Users;
 using com.FOE.DataModel.Sessions;
+using com.FOE.DataModel.Games;
 
 namespace com.FOE.Server.WebService
 {
@@ -169,13 +170,29 @@ namespace com.FOE.Server.WebService
         /// <param name="otherUser3"></param>
         /// <param name="otherUser4"></param>
         /// <returns></returns>
-        public FOEResult<GameSession> StartGameSession(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "")
+        public FOEResult<Game> StartGame(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "")
         {
-            return Execute<GameSession>(session, (request) =>
+            return Execute<Game>(session, (request) =>
             {
-                User user = request.GetUserBySession(session);
-                return request.StartGameSession(user, otherUser1, otherUser2, otherUser3, otherUser4);
+                User user = request.User.ToUser(DataAccess.FOEDataInclusion.Everything);
+                return request.StartGame(user, otherUser1, otherUser2, otherUser3, otherUser4);
             });            
+        }
+
+
+        /// <summary>
+        /// Accepts a GameSession invite
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="InviteId"></param>
+        /// <returns></returns>
+        public FOEResultBase AcceptGameInvite(Guid session, Guid InviteId)
+        {
+            return Execute(session, (request) =>
+            {
+                User user = request.User.ToUser(DataAccess.FOEDataInclusion.Everything);
+                request.AcceptGameIvite(user, InviteId);
+            });       
         }
 
 

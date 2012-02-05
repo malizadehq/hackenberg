@@ -10,6 +10,7 @@ using System.Net.Security;
 using com.FOE.Server.DataAccess.Database;
 using com.FOE.DataModel.Users;
 using com.FOE.DataModel.Sessions;
+using com.FOE.DataModel.Games;
 
 namespace com.FOE.Server.WebService
 {
@@ -35,7 +36,11 @@ namespace com.FOE.Server.WebService
 
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        FOEResult<GameSession> StartGameSession(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "");
+        FOEResult<Game> StartGame(Guid session, string otherUser1 = "", string otherUser2 = "", string otherUser3 = "", string otherUser4 = "");
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        FOEResultBase AcceptGameInvite(Guid session, Guid InviteId);
     }
 
 

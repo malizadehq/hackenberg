@@ -45,6 +45,7 @@ namespace com.FOE.Server.DataAccess.Database
                 da_invite.InvitingUser = invite.InvitingUser;
                 da_invite.Id = invite.Id.Value;
                 da_invite.Status = invite.Status;
+                da_invite.GameId = invite.GameId;
 
                 context.DB_Invites.InsertOnSubmit(da_invite);
             }
@@ -61,7 +62,7 @@ namespace com.FOE.Server.DataAccess.Database
 
 
         /// <summary>
-        /// Copies the valies of this into a new Invite object and returns that.
+        /// Copies the values of this into a new Invite object and returns that.
         /// </summary>
         /// <returns></returns>
         public Invite ToInvite()

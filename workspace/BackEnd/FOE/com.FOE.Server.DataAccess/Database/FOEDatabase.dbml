@@ -15,14 +15,14 @@
       <Column Name="Password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Association Name="DB_User_DB_LoginSession" Member="DB_LoginSessions" ThisKey="Id" OtherKey="UserId" Type="DB_LoginSession" />
       <Association Name="DB_User_DB_Country" Member="DB_Countries" ThisKey="Id" OtherKey="ControlledBy" Type="DB_Country" />
+      <Association Name="DB_User_DB_Invite" Member="DB_Invites" ThisKey="Id" OtherKey="InvitedUser" Type="DB_Invite" />
+      <Association Name="DB_User_DB_Invite1" Member="DB_Invites1" ThisKey="Id" OtherKey="InvitingUser" Type="DB_Invite" />
+      <Association Name="DB_User_DB_GameMember" Member="DB_GameMembers" ThisKey="Id" OtherKey="UserId" Type="DB_GameMember" />
       <Association Name="DB_User_DB_Game" Member="DB_Games" ThisKey="Id" OtherKey="AmericanPlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game1" Member="DB_Games1" ThisKey="Id" OtherKey="EnglishPlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game2" Member="DB_Games2" ThisKey="Id" OtherKey="GermanPlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game3" Member="DB_Games3" ThisKey="Id" OtherKey="JapanesePlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game4" Member="DB_Games4" ThisKey="Id" OtherKey="RussianPlayer" Type="DB_Game" />
-      <Association Name="DB_User_DB_GameSessionMember" Member="DB_GameSessionMembers" ThisKey="Id" OtherKey="UserId" Type="DB_GameSessionMember" />
-      <Association Name="DB_User_DB_Invite" Member="DB_Invites" ThisKey="Id" OtherKey="InvitedUser" Type="DB_Invite" />
-      <Association Name="DB_User_DB_Invite1" Member="DB_Invites1" ThisKey="Id" OtherKey="InvitingUser" Type="DB_Invite" />
     </Type>
   </Table>
   <Table Name="dbo.DB_Countries" Member="DB_Countries">
@@ -65,35 +65,12 @@
       <Association Name="DB_Map_DB_Game" Member="DB_Games" ThisKey="Id" OtherKey="MapId" Type="DB_Game" />
     </Type>
   </Table>
-  <Table Name="dbo.DB_Games" Member="DB_Games">
-    <Type Name="DB_Game">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="GameSessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="MapId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="GermanPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="JapanesePlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="AmericanPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="EnglishPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="RussianPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Phase" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Turn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="DB_Game_DB_GameRule" Member="DB_GameRules" ThisKey="Id" OtherKey="GameId" Type="DB_GameRule" />
-      <Association Name="DB_User_DB_Game" Member="DB_User" ThisKey="AmericanPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
-      <Association Name="DB_User_DB_Game1" Member="DB_User1" ThisKey="EnglishPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
-      <Association Name="DB_User_DB_Game2" Member="DB_User2" ThisKey="GermanPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
-      <Association Name="DB_User_DB_Game3" Member="DB_User3" ThisKey="JapanesePlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
-      <Association Name="DB_Map_DB_Game" Member="DB_Map" ThisKey="MapId" OtherKey="Id" Type="DB_Map" IsForeignKey="true" />
-      <Association Name="DB_User_DB_Game4" Member="DB_User4" ThisKey="RussianPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
-      <Association Name="DB_GameSession_DB_Game" Member="DB_GameSession" ThisKey="GameSessionId" OtherKey="Id" Type="DB_GameSession" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DB_GameRules" Member="DB_GameRules">
     <Type Name="DB_GameRule">
       <Column Name="RuleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="GameId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="DB_Game_DB_GameRule" Member="DB_Game" ThisKey="GameId" OtherKey="Id" Type="DB_Game" IsForeignKey="true" />
       <Association Name="DB_Rule_DB_GameRule" Member="DB_Rule" ThisKey="RuleId" OtherKey="Id" Type="DB_Rule" IsForeignKey="true" />
+      <Association Name="DB_Game_DB_GameRule" Member="DB_Game" ThisKey="GameId" OtherKey="Id" Type="DB_Game" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DB_Rules" Member="DB_Rules">
@@ -104,32 +81,48 @@
       <Association Name="DB_Rule_DB_GameRule" Member="DB_GameRules" ThisKey="Id" OtherKey="RuleId" Type="DB_GameRule" />
     </Type>
   </Table>
-  <Table Name="dbo.DB_GameSessions" Member="DB_GameSessions">
-    <Type Name="DB_GameSession">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="DB_GameSession_DB_Game" Member="DB_Games" ThisKey="Id" OtherKey="GameSessionId" Type="DB_Game" />
-      <Association Name="DB_GameSession_DB_GameSessionMember" Member="DB_GameSessionMembers" ThisKey="Id" OtherKey="GameSessionId" Type="DB_GameSessionMember" />
-      <Association Name="DB_GameSession_DB_Invite" Member="DB_Invites" ThisKey="Id" OtherKey="GameSession" Type="DB_Invite" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DB_GameSessionMembers" Member="DB_GameSessionMembers">
-    <Type Name="DB_GameSessionMember">
-      <Column Name="GameSessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="DB_GameSession_DB_GameSessionMember" Member="DB_GameSession" ThisKey="GameSessionId" OtherKey="Id" Type="DB_GameSession" IsForeignKey="true" />
-      <Association Name="DB_User_DB_GameSessionMember" Member="DB_User" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DB_Invites" Member="DB_Invites">
     <Type Name="DB_Invite">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="InvitingUser" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="InvitedUser" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="GameSession" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="DB_GameSession_DB_Invite" Member="DB_GameSession" ThisKey="GameSession" OtherKey="Id" Type="DB_GameSession" IsForeignKey="true" />
+      <Column Name="GameId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Association Name="DB_User_DB_Invite" Member="DB_User" ThisKey="InvitedUser" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
       <Association Name="DB_User_DB_Invite1" Member="DB_User1" ThisKey="InvitingUser" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+      <Association Name="DB_Game_DB_Invite" Member="DB_Game" ThisKey="GameId" OtherKey="Id" Type="DB_Game" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DB_GameMembers" Member="DB_GameMembers">
+    <Type Name="DB_GameMember">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GameId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="DB_User_DB_GameMember" Member="DB_User" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+      <Association Name="DB_Game_DB_GameMember" Member="DB_Game" ThisKey="GameId" OtherKey="Id" Type="DB_Game" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DB_Games" Member="DB_Games">
+    <Type Name="DB_Game">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MapId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="GermanPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="JapanesePlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="AmericanPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="EnglishPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RussianPlayer" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Phase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Turn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="DB_Game_DB_GameRule" Member="DB_GameRules" ThisKey="Id" OtherKey="GameId" Type="DB_GameRule" />
+      <Association Name="DB_Game_DB_Invite" Member="DB_Invites" ThisKey="Id" OtherKey="GameId" Type="DB_Invite" />
+      <Association Name="DB_Game_DB_GameMember" Member="DB_GameMembers" ThisKey="Id" OtherKey="GameId" Type="DB_GameMember" />
+      <Association Name="DB_User_DB_Game" Member="DB_User" ThisKey="AmericanPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+      <Association Name="DB_User_DB_Game1" Member="DB_User1" ThisKey="EnglishPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+      <Association Name="DB_User_DB_Game2" Member="DB_User2" ThisKey="GermanPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+      <Association Name="DB_User_DB_Game3" Member="DB_User3" ThisKey="JapanesePlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+      <Association Name="DB_Map_DB_Game" Member="DB_Map" ThisKey="MapId" OtherKey="Id" Type="DB_Map" IsForeignKey="true" />
+      <Association Name="DB_User_DB_Game4" Member="DB_User4" ThisKey="RussianPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

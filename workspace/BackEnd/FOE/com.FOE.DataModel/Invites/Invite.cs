@@ -110,5 +110,27 @@ namespace com.FOE.DataModel.Invites
         }
 
         #endregion
+
+        #region GameId(gameid) Property
+
+        private Guid? _gameId;
+        [DataMember(Name = "gameid", IsRequired = false, EmitDefaultValue = false, Order = 4)]
+        public Guid? GameId
+        {
+            get
+            {
+                return _gameId;
+            }
+            set
+            {
+                if (value != _gameId)
+                {
+                    _gameId = value;
+                    OnPropertyChanged("GameId");
+                }
+            }
+        }
+
+        #endregion
     }
 }
