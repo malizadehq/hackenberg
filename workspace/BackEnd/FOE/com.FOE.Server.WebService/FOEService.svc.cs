@@ -191,7 +191,7 @@ namespace com.FOE.Server.WebService
             return Execute(session, (request) =>
             {
                 User user = request.User.ToUser(DataAccess.FOEDataInclusion.Everything);
-                request.AcceptGameIvite(user, InviteId);
+                request.AcceptGameInvite(user, InviteId);
             });       
         }
 
