@@ -154,7 +154,7 @@ namespace com.FOE.Server.Common
             //Add yourself as an invited user and set Status to accepted from the start.
             Invite selfInvite = CreateGameInvite(invitingUser, gameSession, invitingUser);
             DB_Invite.FromInvite(selfInvite, _context);
-            AcceptGameIvite(invitingUser, selfInvite.Id.Value);
+            AcceptGameInvite(invitingUser, selfInvite.Id.Value);
 
             return gameSession;
         }
@@ -223,7 +223,7 @@ namespace com.FOE.Server.Common
         /// </summary>
         /// <param name="user"></param>
         /// <param name="InviteId"></param>
-        public void AcceptGameIvite(User user, Guid InviteId)
+        public void AcceptGameInvite(User user, Guid InviteId)
         {
             DB_Invite da_invite = (from i in _context.DB_Invites where i.Id == InviteId select i).FirstOrDefault();
             if (da_invite == null)
