@@ -10,6 +10,8 @@ namespace com.FOE.Server.DataAccess.Database
 {
     partial class DB_User
     {
+        public static readonly Guid MockUserId = Guid.Parse("{00000000-0000-0000-0000-000000000001}");
+
         /// <summary>
         /// Extracts information from the provided User and adds it as an entity to the db.
         /// </summary>

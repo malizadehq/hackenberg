@@ -44,6 +44,7 @@
     <Compile Include="Countries\Country.cs" />
     <Compile Include="Forces\Force.cs" />
     <Compile Include="Games\Game.cs" />
+    <Compile Include="Games\GameMembers.cs" />
     <Compile Include="Games\GameRule.cs" />
     <Compile Include="Invites\Invite.cs" />
     <Compile Include="Maps\Map.cs" />
@@ -51,8 +52,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\Rule.cs" />
     <Compile Include="Sessions\LoginSession.cs" />
-    <Compile Include="Sessions\GameSession.cs" />
-    <Compile Include="Sessions\GameSessionMember.cs" />
     <Compile Include="Structures\Structure.cs" />
     <Compile Include="Users\User.cs" />
   </ItemGroup>

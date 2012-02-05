@@ -24,33 +24,41 @@ namespace com.FOE.Server.Interface
         Ok = 0,
 
         [EnumMember]
-        [Description("Session has timed out or is unknown.")]
-        InvalidSession = 1,
-
-        [EnumMember]
-        [Description("Unknown user.")]
-        UnknownUser = 2,
-
-        [EnumMember]
-        [Description("User already exists.")]
-        UserAlreadyExists = 3,
-
-        [EnumMember]
-        [Description("Game session id already present in database.")]
-        GameSessionAlreadyExists = 4,
-
-        [EnumMember]
         [Description("A database operation went wrong.")]
-        DatabaseError = 100,
+        DatabaseError = 1,
 
         [EnumMember]
         [Description("An internal code error occurred.")]
-        InternalError = 101,
+        InternalError = 2,
+
+        [EnumMember]
+        [Description("Session has timed out or is unknown.")]
+        InvalidSession = 100,
 
         [EnumMember]
         [Description("Invalid parameter value.")]
-        InvalidParameter = 102,
-        InvalidLogin,
+        InvalidParameter = 101,
+
+        [EnumMember]
+        [Description("Invalid login parameters.")]
+        InvalidLogin = 102,
+
+        [EnumMember]
+        [Description("Unknown user.")]
+        UnknownUser = 200,
+
+        [EnumMember]
+        [Description("Unknown game invite.")]
+        UnknownGameInvite = 201,
+
+        [EnumMember]
+        [Description("User already exists.")]
+        UserAlreadyExists = 300,
+
+        [EnumMember]
+        [Description("Game session id already present in database.")]
+        GameSessionAlreadyExists = 301,
+
     }
 
 
