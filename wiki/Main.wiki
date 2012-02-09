@@ -30,7 +30,7 @@ Random links
 <br> 10. Visa "nu e du i denna fasen rutan", + en nub tut ruta som man välja att inte visa igen. Spela en episk ljudeffekt, visa en episk bild grej episk.
 <br> 11. Fas 1, köp lid. Öppna ett köp lid ruta, som innehåller allt du kan spendera pengar på kanske till å med ett frågetecken så man kan få en pop-up.
 <br> 12. Klicka å dra på det magiska hjulet för att välja hur många av varje du ska köpa.
- <br> 13. När du e klar klickar du baj som fan, och få en ruta med ett resultat av vad du valt. Här kan man ta nej för fan, ellr tjo jo.
+<br> 13. När du e klar klickar du baj som fan, och få en ruta med ett resultat av vad du valt. Här kan man ta nej för fan, ellr tjo jo.
 <br> 14. Då smyger det upp en vill du verkligen gå till combat fas?
 <br> 15. HA! Men det finns ingen combat i första rundan så det kommer den säga till om!
 <br> 16. Ny hoppar det upp en satans non-combat movement ui. Inklusive hjälp precis som innan trololololololol.
