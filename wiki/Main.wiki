@@ -15,3 +15,19 @@ Like... Tiles. And Isometric! Maybe even GUNS!
 Random links
 [http://forums.tigsource.com/index.php?topic=22147.0 Sick pixel-art]
 [http://superflashbros.net/as3sfxr/ soundgen]
+
+= Hur borde allt funka =
+
+1. Ser CalleBog log
+2. Ser spel logo touch till 3
+3. Tryck på knapp för att skapa user.
+4. Fyll i UN,pw och email(optional), skickar request för att kolla UN.
+5. Få svar.
+6. Välj add friend. Tryck skicka, tbx till friend list om hittas där du han en sprillans ny friend.
+7. Tryck "Ok lets spilla" gå till nästa, kanske tipsa att man kan invita fler lol.
+8. Komma till sprillans ny skärm där det finns lets spilla, eller settings. Tryck lets spilla.
+9. Invites skickas ut, öppna ruta där det står hur det går för acceptande å grejer. När alla acceptat börjar den som ska börja.(Om den som ska börja har acceptat kan han börja spilla lid.)
+10. Visa "nu e du i denna fasen rutan", + en nub tut ruta som man välja att inte visa igen. Spela en episk ljudeffekt, visa en episk bild grej episk.
+11 Fas 1, köp lid. Öppna ett köp lid ruta, som innehåller allt du kan spendera pengar på kanske till å med ett frågetecken så man kan få en pop-up.
+12. Klicka å dra på det magiska hjulet för att välja hur många av varje du ska köpa.
+13. När du e klar klickar du baj som fan, och få en ruta med ett resultat av vad du valt.
