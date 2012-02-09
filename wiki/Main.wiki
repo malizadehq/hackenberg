@@ -18,7 +18,7 @@ Random links
 
 = Hur borde allt funka =
 
-1. Ser CalleBog log
+1. Ser CalleBog log <br>
 2. Ser spel logo touch till 3
 3. Tryck på knapp för att skapa user.
 4. Fyll i UN,pw och email(optional), skickar request för att kolla UN.
