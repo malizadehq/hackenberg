@@ -9,32 +9,18 @@ public class objectGrid extends object
 	private Texture 			texture;
 	private TextureRegion		regionGrid;	
 	private TextureRegion		regionSelect;	
+	private TextureRegion		regionHover;
 	private int					iSelectedTile;
+	private int					iHoverTile;
 	private TileEditor			pOwner;
 	
 	public objectGrid(TileEditor pOwner)
 	{
-		this.pOwner = pOwner;
-		iSelectedTile= -1;
+		this.pOwner 	= pOwner;
+		iSelectedTile	= -1;
+		iHoverTile		= -1;
 	}
 
-	public int[] CoordsToXY(int cordX,int cordY)
-	{
-	   // int totalRows 		= TileEditor.TILES_HEIGHT;
-	   // int totalColumns 	= TileEditor.TILES_WIDTH;
-	   // int width = (totalRows + totalColumns) * (68/2);
-	         
-	    int y = cordX*(34/2) + cordY*(34/2); 
-	    int x = cordX*(68/2) - cordY*(68/2);//+width/2
-		int[] xy = new int[2];
-	    xy[0] = x;
-	    xy[1] = y;
-	    
-	    xy[0] += pOwner.pTileCamera.GetX();
-	    xy[1] += pOwner.pTileCamera.GetY();
-	    
-	    return xy;	
-	}
 	public void render(SpriteBatch SpriteDrawer)
 	{
 		int i = 0;
@@ -42,9 +28,11 @@ public class objectGrid extends object
 		{
 			for(int x = 0; x < TileEditor.TILES_WIDTH;x++)
 			{
-				int[] pos = CoordsToXY(x,y);
+				int[] pos = pOwner.CoordsToXY(x,y);
 				if(i == iSelectedTile)
 					SpriteDrawer.draw(regionSelect, pos[0], pos[1]);
+				else if(i == iHoverTile)
+					SpriteDrawer.draw(regionHover, pos[0], pos[1]);
 				else
 					SpriteDrawer.draw(regionGrid, pos[0], pos[1]);
 				i++;
@@ -56,11 +44,16 @@ public class objectGrid extends object
 	{
 		iSelectedTile = iNewSelectedTile;
 	}
-
+	
+	public void SetHoverTile(int iNewHoverTile)
+	{
+		iHoverTile = iNewHoverTile;
+	}
 	public void MakeGrid(assets MyAssets) 
 	{
 		texture 		= MyAssets.pGridTexture;
 		regionGrid		= new TextureRegion(texture,0,0,68,68);
-		regionSelect	= new TextureRegion(texture,68,0,68,68);
+		regionSelect	= new TextureRegion(texture,136,0,68,68);
+		regionHover		= new TextureRegion(texture,68,0,68,68);
 	}
 }

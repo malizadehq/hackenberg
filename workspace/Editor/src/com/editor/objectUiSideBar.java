@@ -19,12 +19,13 @@ public class objectUiSideBar
 		NewBtn.x = Gdx.graphics.getWidth() - 100;
 		NewBtn.y = Gdx.graphics.getHeight() - 50;
 		NewBtn.initTexture(pMainEditor.pMyAssets,"Add Tile");
+		NewBtn.bToggleButton = true;
 		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
 			{
-				pMainEditor.AddTile();
+				pMainEditor.SetEditMode("Add");
 			}			
 		});
 		pMainEditor.getStage().addActor(NewBtn);
@@ -33,12 +34,13 @@ public class objectUiSideBar
 		NewBtn.x = Gdx.graphics.getWidth() - 100;
 		NewBtn.y = Gdx.graphics.getHeight() - 100;
 		NewBtn.initTexture(pMainEditor.pMyAssets,"Rem Tile");
+		NewBtn.bToggleButton = true;
 		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
 			public void click(Actor arg0) 
 			{
-				pMainEditor.RemTile();
+				pMainEditor.SetEditMode("Rem");
 			}			
 		});
 		pMainEditor.getStage().addActor(NewBtn);

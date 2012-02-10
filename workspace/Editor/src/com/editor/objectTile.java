@@ -15,8 +15,8 @@ public class objectTile extends object
 	private int					cordX;	
 	private int					cordY;
 	
-	private float				fPosX;
-	private float				fPosY;
+	public float				fPosX;
+	public float				fPosY;
 	
 	private int					iTileType;
 	private int[][]				mFriends;
@@ -27,6 +27,13 @@ public class objectTile extends object
 	private float				fLandingTimerMax;
 	private TileEditor			pOwner;
 	
+	enum eTileRelation
+	{
+		eUpL,
+		eUpR,
+		eDownR,
+		eDownL,
+	}
 	public objectTile(int iTilePosX,int iTilePosY,Boolean bLand,TileEditor pOwner)
 	{
 		bIsLand = bLand;
@@ -86,22 +93,6 @@ public class objectTile extends object
 		mTilePresets.add(mPresetP); // 15
 	}
 
-	public int[] CoordsToXY()
-	{
-	   // int totalRows 		= TileEditor.TILES_HEIGHT;
-	   // int totalColumns 	= TileEditor.TILES_WIDTH;
-	   // int width = 0;
-	         
-	    int y = cordX*(34/2) + cordY*(34/2); 
-	    int x = cordX*(68/2) - cordY*(68/2);/*width/2*/
-		int[] xy = new int[2];
-	    xy[0] = x;
-	    xy[1] = y;
-	         
-	    xy[0] += pOwner.pTileCamera.GetX();
-	    xy[1] += pOwner.pTileCamera.GetY();
-	    return xy;	
-	}
 	public void setTileType(int iNewTileType)
 	{
 		iTileType = iNewTileType;
@@ -237,7 +228,7 @@ public class objectTile extends object
 	{
 		if(bIsLand)
 		{
-			int[] pos = CoordsToXY(); 
+			int[] pos = pOwner.CoordsToXY(cordX,cordY); 
 			SpriteDrawer.draw(region, pos[0], pos[1]);
 		}
 	}

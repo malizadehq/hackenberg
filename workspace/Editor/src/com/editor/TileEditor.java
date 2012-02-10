@@ -32,9 +32,12 @@ public class TileEditor extends Game
 	private Stage					pStage;
 	private Boolean					bTouching;
 	private Vector2					vLastTouch;
+	private String					sEditMode;
 	
-	public static final int TILES_WIDTH		=	10;
-	public static final int TILES_HEIGHT	=	10;
+	public static final int TILES_WIDTH		=	100;
+	public static final int TILES_HEIGHT	=	60;
+	public static final int TILE_WIDTH		=	68;
+	public static final int TILE_HEIGHT		=	34;
 	
 	public int iDebugRender;
 	
@@ -151,11 +154,13 @@ public class TileEditor extends Game
 			if (Gdx.input.justTouched()) 
 			{
 				iSelectedTile = getClosestTile(Gdx.input.getX(),Gdx.input.getY());
+				pGrid.SetSelectedTile(iSelectedTile);
+				
 				pMyAssets.pSelectSound.play(0.1f);
 				vText.get(1).SetDrawString("Touch X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
 				bTouching = true;
 				vLastTouch.x = Gdx.input.getX();
-				vLastTouch.y = Gdx.input.getY();
+				vLastTouch.y = Gdx.input.getY();				
 			}
 			else if(bTouching && Gdx.input.isTouched())
 			{
@@ -165,13 +170,19 @@ public class TileEditor extends Game
 				
 				vText.get(1).SetDrawString("Dragging X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
 			}
-			else
+			else if(bTouching)
+			{
+				if(sEditMode == "Add")
+					AddTile();
+				if(sEditMode == "Rem")
+					RemTile();
 				bTouching = false;
-			vText.get(2).SetDrawString("Cam X["+pTileCamera.GetX()+" / "+pTileCamera.GetX()+"] Y["+pTileCamera.GetY()+" / "+pTileCamera.GetY()+"]");
-			
+			}
 		}
 		else
 			bTouching = false;
+		vText.get(2).SetDrawString("Cam X["+pTileCamera.GetX()+"] Y["+pTileCamera.GetY()+"]");
+		pGrid.SetHoverTile(getClosestTile(Gdx.input.getX(),Gdx.input.getY()));
 	}
 
 	public Boolean IsTouchingMenu()
@@ -180,22 +191,6 @@ public class TileEditor extends Game
 			return true;
 		return false;
 	}
-	public int getClosestTile(float X,float Y)
-	{		
-		Y = Gdx.graphics.getHeight() - Y;
-		X += 34;
-		
-		int GridZeroX  	= pTileCamera.GetX() + 34;
-		int GridZeroY 	= pTileCamera.GetY() + 17;
-		
-		int YOld = (int) ((Y - GridZeroY)/34)-(int)X;
-		int XOld = (int) ((Y - GridZeroY)/34)+(int)X;
-		int[] xy = new int[2];
-		xy[0] = (int) XOld / 68; 
-		xy[1] = (int) YOld / 68;
-		
-		return (xy[0] + (xy[1]*TileEditor.TILES_WIDTH));
-	}
 	public float GetTileSize()
 	{
 		if(pTileCamera != null)
@@ -203,6 +198,45 @@ public class TileEditor extends Game
 		else
 			return 50.0f;
 	}
+	public int[] CoordsToXY(int cordX,int cordY)
+	{	         
+        int offx = TILE_WIDTH / 2;
+        int offy = TILE_HEIGHT / 2;
+        offx+=pTileCamera.GetX();
+        offy+=pTileCamera.GetY();
+        int x = cordX -cordY;
+        int y = cordX + cordY;
+        x = x * TILE_WIDTH / 2;
+        y = y * TILE_HEIGHT / 2;
+        x+=offx;
+        y+=offy;
+	        
+		int[] xy = new int[2];
+	    xy[0] = x;
+	    xy[1] = y;
+	    
+	    return xy;	
+	}
+	public int getClosestTile(float x,float y)
+	{		
+		y = Gdx.graphics.getHeight() - y;
+	    x-=TILE_WIDTH/2;
+	    y+=TILE_WIDTH/2;
+	    x+=TILE_WIDTH>>1;
+        int offx = TILE_WIDTH / 2;
+        int offy = TILE_HEIGHT / 2;
+        offx+=pTileCamera.GetX();
+        offy+=pTileCamera.GetY();
+	    y-=offy;
+	    x-=offx;
+	    int y1=(int) (y*2-x);
+	    int x1=(int) (x*2+y1);
+	    x1/=TILE_WIDTH;
+	    y1/=TILE_WIDTH;
+	    
+	    return x1 + (y1*TILES_WIDTH);
+	}
+
 	@Override
 	public void resize(int arg0, int arg1) 
 	{
@@ -222,7 +256,7 @@ public class TileEditor extends Game
 		{
 			vTiles.get(i).render(SpriteDrawer);
 		}
-		pGrid.SetSelectedTile(iSelectedTile);
+		
 		if(bShowGrid)
 			pGrid.render(SpriteDrawer);
 	}
@@ -305,5 +339,14 @@ public class TileEditor extends Game
 	public void Scroll(int x, int y) 
 	{
 		pTileCamera.AddScroll(x,y);		
+	}
+
+	public void SetEditMode(String string) 
+	{
+		if(string == sEditMode)
+			sEditMode = "";
+		else
+			sEditMode = string;
+		
 	}
 }
