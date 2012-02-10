@@ -1,6 +1,5 @@
 package com.editor;
 
-import com.badlogic.gdx.audio.analysis.FFT;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,6 +12,8 @@ public class FoeButton extends Button
 	protected TextureRegion 	Pressed;
 	private BitmapFont			myFont;
 	private String				myLabel;
+	public 	Boolean				bToggleButton;
+	public 	Boolean				bToggled;
 	
 	public FoeButton(String text, Skin skin) 
 	{
@@ -28,11 +29,16 @@ public class FoeButton extends Button
 		width 		= 103;
 		height 		= 32;
 		isPressed	= false;
+		bToggled	= false;
+		bToggleButton	= false;
 	}
 
 	public void draw (SpriteBatch batch, float parentAlpha) 
 	{
-		if (isPressed) 
+		if(isPressed && bToggleButton)
+			bToggled = !bToggled;
+		
+		if (isPressed || (bToggleButton && bToggled)) 
 		{
 			batch.draw(Pressed, x, y);
 		} 

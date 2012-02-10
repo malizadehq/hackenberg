@@ -17,8 +17,8 @@ public class objectTileCamera
 		fScrollSpeed 	= 0.05f;	// max speed scroll
 		fSpeed 		 	= 50.0f; 	// tween per sec 
 		fViewZoom	 	= 1.0f;
-		xPos = 0;
-		yPos = 0;
+		xPos = 0;//TileEditor.TILES_WIDTH * 34;
+		yPos = 0;//TileEditor.TILES_HEIGHT * 34;
 	}
 	public void TickCamera(float fDeltaTime)
 	{
