@@ -1,5 +1,4 @@
-#summary One-sentence summary of this page.
+#summary CalleBog logos
 
-= Introduction =
-
-Det mest episka namnet ever.
+Draft 1.
+http://hackenberg.googlecode.com/svn/trunk/Art/CalleBogLogos/CalleBogLogo.png
