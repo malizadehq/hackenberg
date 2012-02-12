@@ -52,8 +52,8 @@ public class objectGrid extends object
 	public void MakeGrid(assets MyAssets) 
 	{
 		texture 		= MyAssets.pGridTexture;
-		regionGrid		= new TextureRegion(texture,0,0,68,68);
-		regionSelect	= new TextureRegion(texture,136,0,68,68);
-		regionHover		= new TextureRegion(texture,68,0,68,68);
+		regionGrid		= new TextureRegion(texture,0,0,64,64);
+		regionHover		= new TextureRegion(texture,64,0,64,64);
+		regionSelect	= new TextureRegion(texture,128,0,64,64);
 	}
 }
