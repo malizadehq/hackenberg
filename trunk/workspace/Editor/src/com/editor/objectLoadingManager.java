@@ -77,7 +77,7 @@ public class objectLoadingManager
 		{
 			for(int x = 0; x < TileEditor.TILES_WIDTH;x++)
 			{
-				int iPixelValue = pOwner.pMyAssets.MapPixmap.getPixel(x, TileEditor.TILES_HEIGHT - y);
+				int iPixelValue = pOwner.pMyAssets.MapPixmap.getPixel(x, TileEditor.TILES_HEIGHT - y - 1);
 				
 				objectTile newTile = null;
 				newTile = new objectTile(x,y,(iPixelValue > 0),pOwner);
