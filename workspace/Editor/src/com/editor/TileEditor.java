@@ -164,18 +164,37 @@ public class TileEditor extends Game
 			}
 			else if(bTouching && Gdx.input.isTouched())
 			{
-				int xNewScroll = (int) ((vLastTouch.x-Gdx.input.getX())/10)*-1;
-				int yNewScroll = (int) ((vLastTouch.y-Gdx.input.getY())/10);
-				Scroll(xNewScroll,yNewScroll);
-				
+				if(sEditMode == "Add")
+				{
+					int iNewSelectTile = getClosestTile(Gdx.input.getX(),Gdx.input.getY());
+					if(iNewSelectTile != iSelectedTile)
+					{
+						iSelectedTile = iNewSelectTile;
+						pGrid.SetSelectedTile(iSelectedTile);
+						AddTile();
+					}
+				}
+				else if(sEditMode == "Rem")
+				{
+					int iNewSelectTile = getClosestTile(Gdx.input.getX(),Gdx.input.getY());
+					if(iNewSelectTile != iSelectedTile)
+					{
+						iSelectedTile = iNewSelectTile;
+						pGrid.SetSelectedTile(iSelectedTile);
+						RemTile();
+					}
+				}
+				else
+				{
+					int xNewScroll = (int) ((vLastTouch.x-Gdx.input.getX())/10)*-1;
+					int yNewScroll = (int) ((vLastTouch.y-Gdx.input.getY())/10);
+					Scroll(xNewScroll,yNewScroll);
+				}
 				vText.get(1).SetDrawString("Dragging X["+Gdx.input.getX()+"] Y["+Gdx.input.getY()+"] idx ["+iSelectedTile+"]");
 			}
 			else if(bTouching)
 			{
-				if(sEditMode == "Add")
-					AddTile();
-				if(sEditMode == "Rem")
-					RemTile();
+
 				bTouching = false;
 			}
 		}
@@ -220,6 +239,8 @@ public class TileEditor extends Game
 	public int getClosestTile(float x,float y)
 	{		
 		y = Gdx.graphics.getHeight() - y;
+		x*=1/pTileCamera.fViewZoom;
+		y*=1/pTileCamera.fViewZoom;
 	    x-=TILE_WIDTH/2;
 	    y+=TILE_WIDTH/2;
 	    x+=TILE_WIDTH>>1;
@@ -346,7 +367,6 @@ public class TileEditor extends Game
 		if(string == sEditMode)
 			sEditMode = "";
 		else
-			sEditMode = string;
-		
+			sEditMode = string;	
 	}
 }
