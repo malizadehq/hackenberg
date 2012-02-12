@@ -41,13 +41,13 @@ public class objectTile extends object
 		this.pOwner		= pOwner;
 		pCreateSound 	= pOwner.pMyAssets.pCreateSound;
 		texture 		= pOwner.pMyAssets.pIsoGrassTexture;
-		region			= new TextureRegion(texture,0,0,68,68);
+		region			= new TextureRegion(texture,0,0,64,64);
 		
 		cordX 			= iTilePosX;
 		cordY 			= iTilePosY;
 
-		fPosX			= cordX * 68;
-		fPosY			= cordY * 32;
+		fPosX			= cordX * TileEditor.TILE_WIDTH;
+		fPosY			= cordY * TileEditor.TILE_HEIGHT;
 		
 		//fLandingTimerMax	= cordY*0.01f;
 		setLandingTimer(0.0f);
@@ -100,7 +100,7 @@ public class objectTile extends object
 		int[] textureSpace = GetTextureSpace(iTileType);
 	
 		if(bIsLand)
-			region	= new TextureRegion(texture,textureSpace[0]*68,textureSpace[1]*68,68,68);
+			region	= new TextureRegion(texture,textureSpace[0]*TileEditor.TILE_WIDTH,textureSpace[1]*TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH);
 		else
 			region	= new TextureRegion(texture,0,0,50,50);
 	}
@@ -163,8 +163,8 @@ public class objectTile extends object
 			break;
 		// water top and right
 		case 10:
-			xy[0] = 0;
-			xy[1] = 2;
+			xy[0] = 2;
+			xy[1] = 0;
 			break;
 		// water bottom and right
 		case 11:
@@ -189,6 +189,10 @@ public class objectTile extends object
 		// land left
 		case 15:
 			xy[0] = 2;
+			xy[1] = 3;
+			break;
+		case 16:
+			xy[0] = 0;
 			xy[1] = 3;
 			break;
 		}

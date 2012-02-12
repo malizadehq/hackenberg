@@ -36,8 +36,8 @@ public class TileEditor extends Game
 	
 	public static final int TILES_WIDTH		=	100;
 	public static final int TILES_HEIGHT	=	60;
-	public static final int TILE_WIDTH		=	68;
-	public static final int TILE_HEIGHT		=	34;
+	public static final int TILE_WIDTH		=	64;
+	public static final int TILE_HEIGHT		=	32;
 	
 	public int iDebugRender;
 	
@@ -72,16 +72,16 @@ public class TileEditor extends Game
 		switch(iClock)
 		{
 		case 0:
-			iTestIndex = iIndex + TILES_WIDTH - 1;
+			iTestIndex = iIndex + TILES_WIDTH;
 			break;
 		case 1:
-			iTestIndex = iIndex + TILES_WIDTH + 1;
+			iTestIndex = iIndex + 1;
 			break;
 		case 2:
-			iTestIndex = iIndex - TILES_WIDTH +1;
+			iTestIndex = iIndex - TILES_WIDTH;
 			break;
 		case 3:
-			iTestIndex = iIndex - TILES_WIDTH - 1;
+			iTestIndex = iIndex - 1;
 			break;
 		}
 		
@@ -116,7 +116,7 @@ public class TileEditor extends Game
 	@Override
 	public void render() 
 	{
-		Gdx.gl.glClearColor(0.25f,0.458f,0.654f,1);
+		Gdx.gl.glClearColor(0.68f,0.75f,0.81f,1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		SpriteDrawer.begin();
