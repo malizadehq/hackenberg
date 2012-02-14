@@ -400,7 +400,7 @@ namespace com.FOE.DataModel.Stats
 
         private int _transportsLost;
         [DataMember(Name = "transportslost", IsRequired = false, EmitDefaultValue = false, Order = 17)]
-        public int BattleshipsLost
+        public int TransportsLost
         {
             get
             {
@@ -411,7 +411,7 @@ namespace com.FOE.DataModel.Stats
                 if (value != _transportsLost)
                 {
                     _transportsLost = value;
-                    OnPropertyChanged("BattleshipsLost");
+                    OnPropertyChanged("TransportsLost");
                 }
             }
         }

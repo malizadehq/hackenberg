@@ -28,7 +28,7 @@ namespace com.FOE.Server.WebService
         // TODO: Add your service operations here
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        FOEResult<User> AddUser(string userName, string password);
+        FOEResult<User> AddUser(string userName, string password, string email);
 
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]

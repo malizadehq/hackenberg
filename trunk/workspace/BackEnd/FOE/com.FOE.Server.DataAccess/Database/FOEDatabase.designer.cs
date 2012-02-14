@@ -66,6 +66,9 @@ namespace com.FOE.Server.DataAccess.Database
     partial void InsertDB_User(DB_User instance);
     partial void UpdateDB_User(DB_User instance);
     partial void DeleteDB_User(DB_User instance);
+    partial void InsertDB_Friend(DB_Friend instance);
+    partial void UpdateDB_Friend(DB_Friend instance);
+    partial void DeleteDB_Friend(DB_Friend instance);
     #endregion
 		
 		public FOEDatabaseDataContext() : 
@@ -3532,6 +3535,10 @@ namespace com.FOE.Server.DataAccess.Database
 		
 		private EntitySet<DB_Stat> _DB_Stats;
 		
+		private EntitySet<DB_Friend> _DB_Friends;
+		
+		private EntitySet<DB_Friend> _DB_Friends1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -3559,6 +3566,8 @@ namespace com.FOE.Server.DataAccess.Database
 			this._DB_Games3 = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games3), new Action<DB_Game>(this.detach_DB_Games3));
 			this._DB_Games4 = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games4), new Action<DB_Game>(this.detach_DB_Games4));
 			this._DB_Stats = new EntitySet<DB_Stat>(new Action<DB_Stat>(this.attach_DB_Stats), new Action<DB_Stat>(this.detach_DB_Stats));
+			this._DB_Friends = new EntitySet<DB_Friend>(new Action<DB_Friend>(this.attach_DB_Friends), new Action<DB_Friend>(this.detach_DB_Friends));
+			this._DB_Friends1 = new EntitySet<DB_Friend>(new Action<DB_Friend>(this.attach_DB_Friends1), new Action<DB_Friend>(this.detach_DB_Friends1));
 			OnCreated();
 		}
 		
@@ -3785,6 +3794,32 @@ namespace com.FOE.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_Friend", Storage="_DB_Friends", ThisKey="Id", OtherKey="FriendId")]
+		public EntitySet<DB_Friend> DB_Friends
+		{
+			get
+			{
+				return this._DB_Friends;
+			}
+			set
+			{
+				this._DB_Friends.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_Friend1", Storage="_DB_Friends1", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<DB_Friend> DB_Friends1
+		{
+			get
+			{
+				return this._DB_Friends1;
+			}
+			set
+			{
+				this._DB_Friends1.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3936,21 +3971,64 @@ namespace com.FOE.Server.DataAccess.Database
 			this.SendPropertyChanging();
 			entity.DB_User = null;
 		}
+		
+		private void attach_DB_Friends(DB_Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User = this;
+		}
+		
+		private void detach_DB_Friends(DB_Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User = null;
+		}
+		
+		private void attach_DB_Friends1(DB_Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User1 = this;
+		}
+		
+		private void detach_DB_Friends1(DB_Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_Friends")]
-	public partial class DB_Friend
+	public partial class DB_Friend : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _UserId;
 		
 		private System.Guid _FriendId;
 		
+		private EntityRef<DB_User> _DB_User;
+		
+		private EntityRef<DB_User> _DB_User1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    partial void OnFriendIdChanging(System.Guid value);
+    partial void OnFriendIdChanged();
+    #endregion
+		
 		public DB_Friend()
 		{
+			this._DB_User = default(EntityRef<DB_User>);
+			this._DB_User1 = default(EntityRef<DB_User>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid UserId
 		{
 			get
@@ -3961,12 +4039,20 @@ namespace com.FOE.Server.DataAccess.Database
 			{
 				if ((this._UserId != value))
 				{
+					if (this._DB_User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
 					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FriendId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FriendId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid FriendId
 		{
 			get
@@ -3977,8 +4063,104 @@ namespace com.FOE.Server.DataAccess.Database
 			{
 				if ((this._FriendId != value))
 				{
+					if (this._DB_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFriendIdChanging(value);
+					this.SendPropertyChanging();
 					this._FriendId = value;
+					this.SendPropertyChanged("FriendId");
+					this.OnFriendIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_Friend", Storage="_DB_User", ThisKey="FriendId", OtherKey="Id", IsForeignKey=true)]
+		public DB_User DB_User
+		{
+			get
+			{
+				return this._DB_User.Entity;
+			}
+			set
+			{
+				DB_User previousValue = this._DB_User.Entity;
+				if (((previousValue != value) 
+							|| (this._DB_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DB_User.Entity = null;
+						previousValue.DB_Friends.Remove(this);
+					}
+					this._DB_User.Entity = value;
+					if ((value != null))
+					{
+						value.DB_Friends.Add(this);
+						this._FriendId = value.Id;
+					}
+					else
+					{
+						this._FriendId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DB_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_Friend1", Storage="_DB_User1", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public DB_User DB_User1
+		{
+			get
+			{
+				return this._DB_User1.Entity;
+			}
+			set
+			{
+				DB_User previousValue = this._DB_User1.Entity;
+				if (((previousValue != value) 
+							|| (this._DB_User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DB_User1.Entity = null;
+						previousValue.DB_Friends1.Remove(this);
+					}
+					this._DB_User1.Entity = value;
+					if ((value != null))
+					{
+						value.DB_Friends1.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DB_User1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

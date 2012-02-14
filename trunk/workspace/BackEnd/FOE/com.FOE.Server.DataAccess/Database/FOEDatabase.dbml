@@ -172,8 +172,8 @@
   </Table>
   <Table Name="dbo.DB_Friends" Member="DB_Friends">
     <Type Name="DB_Friend">
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="FriendId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FriendId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="DB_User_DB_Friend" Member="DB_User" ThisKey="FriendId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
       <Association Name="DB_User_DB_Friend1" Member="DB_User1" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
     </Type>

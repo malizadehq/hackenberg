@@ -99,13 +99,13 @@ namespace com.FOE.Server.WebService
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public FOEResult<User> AddUser(string userName, string password)
+        public FOEResult<User> AddUser(string userName, string password, string email)
         {
             FOEResult<User> result = new FOEResult<User>();
             try
             {
                 ServiceRequestHandler requestHandler = new ServiceRequestHandler();
-                result.Result = requestHandler.AddUser(userName, password);
+                result.Result = requestHandler.AddUser(userName, password, email);
             }
             catch (FOEServiceException ex)
             {

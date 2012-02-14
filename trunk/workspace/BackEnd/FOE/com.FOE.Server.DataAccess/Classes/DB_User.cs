@@ -49,7 +49,7 @@ namespace com.FOE.Server.DataAccess.Database
                 if (string.IsNullOrEmpty(user.Password))
                     throw new FOEServiceException(FOEStatusCodes.InvalidParameter, "Paremeter Password cannot be null");
 
-                da_user = new DB_User() { Id = Guid.NewGuid(), UserName = user.UserName, Password = user.Password };
+                da_user = new DB_User() { Id = Guid.NewGuid(), UserName = user.UserName, Password = user.Password, Email = user.Email };
                 context.DB_Users.InsertOnSubmit(da_user);
                 context.SubmitChanges();
             }
@@ -62,6 +62,9 @@ namespace com.FOE.Server.DataAccess.Database
 
                 if (!string.IsNullOrEmpty(user.UserName))
                     da_user.UserName = user.UserName;
+
+                if (!string.IsNullOrEmpty(user.Email))
+                    da_user.Email = user.Email;
             }
 
             if (da_user == null)
@@ -77,7 +80,7 @@ namespace com.FOE.Server.DataAccess.Database
         /// <returns></returns>
         public User ToUser(FOEDataInclusion level)
         {
-            return new User() { Id = this.Id, Password = this.Password, UserName = this.UserName };
+            return new User() { Id = this.Id, Password = this.Password, UserName = this.UserName, Email = this.Email };
         }
     }
 }
