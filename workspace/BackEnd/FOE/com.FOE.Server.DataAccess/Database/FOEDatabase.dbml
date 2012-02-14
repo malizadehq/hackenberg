@@ -166,6 +166,16 @@
       <Association Name="DB_User_DB_Game3" Member="DB_Games3" ThisKey="Id" OtherKey="JapanesePlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game4" Member="DB_Games4" ThisKey="Id" OtherKey="RussianPlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Stat" Member="DB_Stats" ThisKey="Id" OtherKey="UserId" Type="DB_Stat" />
+      <Association Name="DB_User_DB_Friend" Member="DB_Friends" ThisKey="Id" OtherKey="FriendId" Type="DB_Friend" />
+      <Association Name="DB_User_DB_Friend1" Member="DB_Friends1" ThisKey="Id" OtherKey="UserId" Type="DB_Friend" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DB_Friends" Member="DB_Friends">
+    <Type Name="DB_Friend">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FriendId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="DB_User_DB_Friend" Member="DB_User" ThisKey="FriendId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+      <Association Name="DB_User_DB_Friend1" Member="DB_User1" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

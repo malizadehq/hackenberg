@@ -193,6 +193,14 @@ namespace com.FOE.Server.DataAccess.Database
 				return this.GetTable<DB_User>();
 			}
 		}
+		
+		public System.Data.Linq.Table<DB_Friend> DB_Friends
+		{
+			get
+			{
+				return this.GetTable<DB_Friend>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_LoginSessions")]
@@ -3927,6 +3935,51 @@ namespace com.FOE.Server.DataAccess.Database
 		{
 			this.SendPropertyChanging();
 			entity.DB_User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_Friends")]
+	public partial class DB_Friend
+	{
+		
+		private System.Guid _UserId;
+		
+		private System.Guid _FriendId;
+		
+		public DB_Friend()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FriendId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid FriendId
+		{
+			get
+			{
+				return this._FriendId;
+			}
+			set
+			{
+				if ((this._FriendId != value))
+				{
+					this._FriendId = value;
+				}
+			}
 		}
 	}
 }

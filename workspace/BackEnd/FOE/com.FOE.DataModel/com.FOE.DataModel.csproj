@@ -54,6 +54,7 @@
     <Compile Include="Sessions\LoginSession.cs" />
     <Compile Include="Stats\Stats.cs" />
     <Compile Include="Structures\Structure.cs" />
+    <Compile Include="Users\Friend.cs" />
     <Compile Include="Users\User.cs" />
   </ItemGroup>
   <ItemGroup />
