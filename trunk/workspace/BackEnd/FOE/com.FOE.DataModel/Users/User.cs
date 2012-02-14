@@ -87,5 +87,27 @@ namespace com.FOE.DataModel.Users
         }
 
         #endregion
+
+        #region Email(email) Property
+
+        private string _email;
+        [DataMember(Name = "email", IsRequired = true, Order = 3)]
+        public string Email
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                if (value != _email)
+                {
+                    _email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        #endregion
     }
 }
