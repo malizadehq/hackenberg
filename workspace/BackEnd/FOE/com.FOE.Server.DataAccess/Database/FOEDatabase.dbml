@@ -23,6 +23,7 @@
       <Association Name="DB_User_DB_Game2" Member="DB_Games2" ThisKey="Id" OtherKey="GermanPlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game3" Member="DB_Games3" ThisKey="Id" OtherKey="JapanesePlayer" Type="DB_Game" />
       <Association Name="DB_User_DB_Game4" Member="DB_Games4" ThisKey="Id" OtherKey="RussianPlayer" Type="DB_Game" />
+      <Association Name="DB_User_DB_Stat" Member="DB_Stats" ThisKey="Id" OtherKey="UserId" Type="DB_Stat" />
     </Type>
   </Table>
   <Table Name="dbo.DB_Countries" Member="DB_Countries">
@@ -123,6 +124,47 @@
       <Association Name="DB_User_DB_Game3" Member="DB_User3" ThisKey="JapanesePlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
       <Association Name="DB_Map_DB_Game" Member="DB_Map" ThisKey="MapId" OtherKey="Id" Type="DB_Map" IsForeignKey="true" />
       <Association Name="DB_User_DB_Game4" Member="DB_User4" ThisKey="RussianPlayer" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DB_Stats" Member="DB_Stats">
+    <Type Name="DB_Stat">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="GamesPlayed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InfantryKilled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TanksKilled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FightersKilled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BombersKilled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BattleshipsKilled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TransportsKilled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubsKilled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GamesWon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GamesLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InfantryLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TanksLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FightersLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BombersLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BattleshipsLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TransportsLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubsLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InfantryBuilt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TanksBuilt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FightersBuilt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BombersBuilt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BattleshipsBuilt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TransportsBuilt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubsBuilt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MoneyEarned" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MoneySpent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BattlesFought" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BattlesWon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BattlesLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InvasionsFought" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InvasionsWon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InvasionsLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountriesLost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountriesTaken" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="DB_User_DB_Stat" Member="DB_User" ThisKey="UserId" OtherKey="Id" Type="DB_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
