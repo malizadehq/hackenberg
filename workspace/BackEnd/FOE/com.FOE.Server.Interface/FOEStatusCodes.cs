@@ -44,6 +44,10 @@ namespace com.FOE.Server.Interface
         InvalidLogin = 102,
 
         [EnumMember]
+        [Description("Invalid Invite.")]
+        InvalidInvite = 103,
+
+        [EnumMember]
         [Description("Unknown user.")]
         UnknownUser = 200,
 
