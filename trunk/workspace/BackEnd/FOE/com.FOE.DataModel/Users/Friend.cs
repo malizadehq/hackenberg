@@ -19,7 +19,7 @@ namespace com.FOE.DataModel.Users
     /// <summary>
     /// 
     /// </summary>
-    [DataContract(Name = "user", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users")]
+    [DataContract(Name = "friend", Namespace = "http://code.google.com/p/FOE/namespace/20120125/com.FOE.DataModel.Users")]
     public class Friend : NotifyPropertyChangedObject
     {
         #region UserId(userid) Property
