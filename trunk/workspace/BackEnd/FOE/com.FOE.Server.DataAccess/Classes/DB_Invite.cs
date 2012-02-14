@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.ComponentModel;
 using com.FOE.DataModel.Invites;
+using com.FOE.Server.Interface;
 
 namespace com.FOE.Server.DataAccess.Database
 {
@@ -37,9 +38,18 @@ namespace com.FOE.Server.DataAccess.Database
         /// <returns></returns>
         public static DB_Invite FromInvite(Invite invite, FOEDatabaseDataContext context)
         {
-            DB_Invite da_invite = (from i in context.DB_Invites where i.Id == invite.Id.Value select i).FirstOrDefault();
-            if (da_invite == null)
+            DB_Invite da_invite = null;
+
+            //if user exists, get it.
+            if (invite.Id.HasValue)
             {
+                da_invite = (from i in context.DB_Invites where i.Id == invite.Id.Value select i).FirstOrDefault();
+                if (da_invite == null)
+                    throw new FOEServiceException(FOEStatusCodes.InvalidInvite, "Id reference to invite unknown.");
+            }
+            else
+            {
+                //if no Id was passed in, create a user.
                 da_invite = new DB_Invite();
                 da_invite.InvitedUser = invite.InvitedUser;
                 da_invite.InvitingUser = invite.InvitingUser;
@@ -48,10 +58,12 @@ namespace com.FOE.Server.DataAccess.Database
                 da_invite.GameId = invite.GameId;
 
                 context.DB_Invites.InsertOnSubmit(da_invite);
+                context.SubmitChanges();
             }
-            else
+
+            //Update the user
+            if (da_invite != null)
             {
-                //The only value thatll ever change in an invite is the status. If invite already existed in db, try to update status.
                 da_invite.Status = invite.Status;
             }
 
