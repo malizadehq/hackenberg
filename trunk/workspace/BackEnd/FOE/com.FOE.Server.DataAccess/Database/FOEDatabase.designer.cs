@@ -63,6 +63,9 @@ namespace com.FOE.Server.DataAccess.Database
     partial void InsertDB_Game(DB_Game instance);
     partial void UpdateDB_Game(DB_Game instance);
     partial void DeleteDB_Game(DB_Game instance);
+    partial void InsertDB_Stat(DB_Stat instance);
+    partial void UpdateDB_Stat(DB_Stat instance);
+    partial void DeleteDB_Stat(DB_Stat instance);
     #endregion
 		
 		public FOEDatabaseDataContext() : 
@@ -180,6 +183,14 @@ namespace com.FOE.Server.DataAccess.Database
 			get
 			{
 				return this.GetTable<DB_Game>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DB_Stat> DB_Stats
+		{
+			get
+			{
+				return this.GetTable<DB_Stat>();
 			}
 		}
 	}
@@ -367,6 +378,8 @@ namespace com.FOE.Server.DataAccess.Database
 		
 		private EntitySet<DB_Game> _DB_Games4;
 		
+		private EntitySet<DB_Stat> _DB_Stats;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -391,6 +404,7 @@ namespace com.FOE.Server.DataAccess.Database
 			this._DB_Games2 = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games2), new Action<DB_Game>(this.detach_DB_Games2));
 			this._DB_Games3 = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games3), new Action<DB_Game>(this.detach_DB_Games3));
 			this._DB_Games4 = new EntitySet<DB_Game>(new Action<DB_Game>(this.attach_DB_Games4), new Action<DB_Game>(this.detach_DB_Games4));
+			this._DB_Stats = new EntitySet<DB_Stat>(new Action<DB_Stat>(this.attach_DB_Stats), new Action<DB_Stat>(this.detach_DB_Stats));
 			OnCreated();
 		}
 		
@@ -584,6 +598,19 @@ namespace com.FOE.Server.DataAccess.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_Stat", Storage="_DB_Stats", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<DB_Stat> DB_Stats
+		{
+			get
+			{
+				return this._DB_Stats;
+			}
+			set
+			{
+				this._DB_Stats.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -722,6 +749,18 @@ namespace com.FOE.Server.DataAccess.Database
 		{
 			this.SendPropertyChanging();
 			entity.DB_User4 = null;
+		}
+		
+		private void attach_DB_Stats(DB_Stat entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User = this;
+		}
+		
+		private void detach_DB_Stats(DB_Stat entity)
+		{
+			this.SendPropertyChanging();
+			entity.DB_User = null;
 		}
 	}
 	
@@ -2921,6 +2960,949 @@ namespace com.FOE.Server.DataAccess.Database
 		{
 			this.SendPropertyChanging();
 			entity.DB_Game = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DB_Stats")]
+	public partial class DB_Stat : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private System.Guid _UserId;
+		
+		private System.Nullable<int> _GamesPlayed;
+		
+		private System.Nullable<int> _InfantryKilled;
+		
+		private System.Nullable<int> _TanksKilled;
+		
+		private System.Nullable<int> _FightersKilled;
+		
+		private System.Nullable<int> _BombersKilled;
+		
+		private System.Nullable<int> _BattleshipsKilled;
+		
+		private System.Nullable<int> _TransportsKilled;
+		
+		private System.Nullable<int> _SubsKilled;
+		
+		private System.Nullable<int> _GamesWon;
+		
+		private System.Nullable<int> _GamesLost;
+		
+		private System.Nullable<int> _InfantryLost;
+		
+		private System.Nullable<int> _TanksLost;
+		
+		private System.Nullable<int> _FightersLost;
+		
+		private System.Nullable<int> _BombersLost;
+		
+		private System.Nullable<int> _BattleshipsLost;
+		
+		private System.Nullable<int> _TransportsLost;
+		
+		private System.Nullable<int> _SubsLost;
+		
+		private System.Nullable<int> _InfantryBuilt;
+		
+		private System.Nullable<int> _TanksBuilt;
+		
+		private System.Nullable<int> _FightersBuilt;
+		
+		private System.Nullable<int> _BombersBuilt;
+		
+		private System.Nullable<int> _BattleshipsBuilt;
+		
+		private System.Nullable<int> _TransportsBuilt;
+		
+		private System.Nullable<int> _SubsBuilt;
+		
+		private System.Nullable<int> _MoneyEarned;
+		
+		private System.Nullable<int> _MoneySpent;
+		
+		private System.Nullable<int> _BattlesFought;
+		
+		private System.Nullable<int> _BattlesWon;
+		
+		private System.Nullable<int> _BattlesLost;
+		
+		private System.Nullable<int> _InvasionsFought;
+		
+		private System.Nullable<int> _InvasionsWon;
+		
+		private System.Nullable<int> _InvasionsLost;
+		
+		private System.Nullable<int> _CountriesLost;
+		
+		private System.Nullable<int> _CountriesTaken;
+		
+		private EntityRef<DB_User> _DB_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    partial void OnGamesPlayedChanging(System.Nullable<int> value);
+    partial void OnGamesPlayedChanged();
+    partial void OnInfantryKilledChanging(System.Nullable<int> value);
+    partial void OnInfantryKilledChanged();
+    partial void OnTanksKilledChanging(System.Nullable<int> value);
+    partial void OnTanksKilledChanged();
+    partial void OnFightersKilledChanging(System.Nullable<int> value);
+    partial void OnFightersKilledChanged();
+    partial void OnBombersKilledChanging(System.Nullable<int> value);
+    partial void OnBombersKilledChanged();
+    partial void OnBattleshipsKilledChanging(System.Nullable<int> value);
+    partial void OnBattleshipsKilledChanged();
+    partial void OnTransportsKilledChanging(System.Nullable<int> value);
+    partial void OnTransportsKilledChanged();
+    partial void OnSubsKilledChanging(System.Nullable<int> value);
+    partial void OnSubsKilledChanged();
+    partial void OnGamesWonChanging(System.Nullable<int> value);
+    partial void OnGamesWonChanged();
+    partial void OnGamesLostChanging(System.Nullable<int> value);
+    partial void OnGamesLostChanged();
+    partial void OnInfantryLostChanging(System.Nullable<int> value);
+    partial void OnInfantryLostChanged();
+    partial void OnTanksLostChanging(System.Nullable<int> value);
+    partial void OnTanksLostChanged();
+    partial void OnFightersLostChanging(System.Nullable<int> value);
+    partial void OnFightersLostChanged();
+    partial void OnBombersLostChanging(System.Nullable<int> value);
+    partial void OnBombersLostChanged();
+    partial void OnBattleshipsLostChanging(System.Nullable<int> value);
+    partial void OnBattleshipsLostChanged();
+    partial void OnTransportsLostChanging(System.Nullable<int> value);
+    partial void OnTransportsLostChanged();
+    partial void OnSubsLostChanging(System.Nullable<int> value);
+    partial void OnSubsLostChanged();
+    partial void OnInfantryBuiltChanging(System.Nullable<int> value);
+    partial void OnInfantryBuiltChanged();
+    partial void OnTanksBuiltChanging(System.Nullable<int> value);
+    partial void OnTanksBuiltChanged();
+    partial void OnFightersBuiltChanging(System.Nullable<int> value);
+    partial void OnFightersBuiltChanged();
+    partial void OnBombersBuiltChanging(System.Nullable<int> value);
+    partial void OnBombersBuiltChanged();
+    partial void OnBattleshipsBuiltChanging(System.Nullable<int> value);
+    partial void OnBattleshipsBuiltChanged();
+    partial void OnTransportsBuiltChanging(System.Nullable<int> value);
+    partial void OnTransportsBuiltChanged();
+    partial void OnSubsBuiltChanging(System.Nullable<int> value);
+    partial void OnSubsBuiltChanged();
+    partial void OnMoneyEarnedChanging(System.Nullable<int> value);
+    partial void OnMoneyEarnedChanged();
+    partial void OnMoneySpentChanging(System.Nullable<int> value);
+    partial void OnMoneySpentChanged();
+    partial void OnBattlesFoughtChanging(System.Nullable<int> value);
+    partial void OnBattlesFoughtChanged();
+    partial void OnBattlesWonChanging(System.Nullable<int> value);
+    partial void OnBattlesWonChanged();
+    partial void OnBattlesLostChanging(System.Nullable<int> value);
+    partial void OnBattlesLostChanged();
+    partial void OnInvasionsFoughtChanging(System.Nullable<int> value);
+    partial void OnInvasionsFoughtChanged();
+    partial void OnInvasionsWonChanging(System.Nullable<int> value);
+    partial void OnInvasionsWonChanged();
+    partial void OnInvasionsLostChanging(System.Nullable<int> value);
+    partial void OnInvasionsLostChanged();
+    partial void OnCountriesLostChanging(System.Nullable<int> value);
+    partial void OnCountriesLostChanged();
+    partial void OnCountriesTakenChanging(System.Nullable<int> value);
+    partial void OnCountriesTakenChanged();
+    #endregion
+		
+		public DB_Stat()
+		{
+			this._DB_User = default(EntityRef<DB_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._DB_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GamesPlayed", DbType="Int")]
+		public System.Nullable<int> GamesPlayed
+		{
+			get
+			{
+				return this._GamesPlayed;
+			}
+			set
+			{
+				if ((this._GamesPlayed != value))
+				{
+					this.OnGamesPlayedChanging(value);
+					this.SendPropertyChanging();
+					this._GamesPlayed = value;
+					this.SendPropertyChanged("GamesPlayed");
+					this.OnGamesPlayedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InfantryKilled", DbType="Int")]
+		public System.Nullable<int> InfantryKilled
+		{
+			get
+			{
+				return this._InfantryKilled;
+			}
+			set
+			{
+				if ((this._InfantryKilled != value))
+				{
+					this.OnInfantryKilledChanging(value);
+					this.SendPropertyChanging();
+					this._InfantryKilled = value;
+					this.SendPropertyChanged("InfantryKilled");
+					this.OnInfantryKilledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TanksKilled", DbType="Int")]
+		public System.Nullable<int> TanksKilled
+		{
+			get
+			{
+				return this._TanksKilled;
+			}
+			set
+			{
+				if ((this._TanksKilled != value))
+				{
+					this.OnTanksKilledChanging(value);
+					this.SendPropertyChanging();
+					this._TanksKilled = value;
+					this.SendPropertyChanged("TanksKilled");
+					this.OnTanksKilledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FightersKilled", DbType="Int")]
+		public System.Nullable<int> FightersKilled
+		{
+			get
+			{
+				return this._FightersKilled;
+			}
+			set
+			{
+				if ((this._FightersKilled != value))
+				{
+					this.OnFightersKilledChanging(value);
+					this.SendPropertyChanging();
+					this._FightersKilled = value;
+					this.SendPropertyChanged("FightersKilled");
+					this.OnFightersKilledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BombersKilled", DbType="Int")]
+		public System.Nullable<int> BombersKilled
+		{
+			get
+			{
+				return this._BombersKilled;
+			}
+			set
+			{
+				if ((this._BombersKilled != value))
+				{
+					this.OnBombersKilledChanging(value);
+					this.SendPropertyChanging();
+					this._BombersKilled = value;
+					this.SendPropertyChanged("BombersKilled");
+					this.OnBombersKilledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BattleshipsKilled", DbType="Int")]
+		public System.Nullable<int> BattleshipsKilled
+		{
+			get
+			{
+				return this._BattleshipsKilled;
+			}
+			set
+			{
+				if ((this._BattleshipsKilled != value))
+				{
+					this.OnBattleshipsKilledChanging(value);
+					this.SendPropertyChanging();
+					this._BattleshipsKilled = value;
+					this.SendPropertyChanged("BattleshipsKilled");
+					this.OnBattleshipsKilledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransportsKilled", DbType="Int")]
+		public System.Nullable<int> TransportsKilled
+		{
+			get
+			{
+				return this._TransportsKilled;
+			}
+			set
+			{
+				if ((this._TransportsKilled != value))
+				{
+					this.OnTransportsKilledChanging(value);
+					this.SendPropertyChanging();
+					this._TransportsKilled = value;
+					this.SendPropertyChanged("TransportsKilled");
+					this.OnTransportsKilledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubsKilled", DbType="Int")]
+		public System.Nullable<int> SubsKilled
+		{
+			get
+			{
+				return this._SubsKilled;
+			}
+			set
+			{
+				if ((this._SubsKilled != value))
+				{
+					this.OnSubsKilledChanging(value);
+					this.SendPropertyChanging();
+					this._SubsKilled = value;
+					this.SendPropertyChanged("SubsKilled");
+					this.OnSubsKilledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GamesWon", DbType="Int")]
+		public System.Nullable<int> GamesWon
+		{
+			get
+			{
+				return this._GamesWon;
+			}
+			set
+			{
+				if ((this._GamesWon != value))
+				{
+					this.OnGamesWonChanging(value);
+					this.SendPropertyChanging();
+					this._GamesWon = value;
+					this.SendPropertyChanged("GamesWon");
+					this.OnGamesWonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GamesLost", DbType="Int")]
+		public System.Nullable<int> GamesLost
+		{
+			get
+			{
+				return this._GamesLost;
+			}
+			set
+			{
+				if ((this._GamesLost != value))
+				{
+					this.OnGamesLostChanging(value);
+					this.SendPropertyChanging();
+					this._GamesLost = value;
+					this.SendPropertyChanged("GamesLost");
+					this.OnGamesLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InfantryLost", DbType="Int")]
+		public System.Nullable<int> InfantryLost
+		{
+			get
+			{
+				return this._InfantryLost;
+			}
+			set
+			{
+				if ((this._InfantryLost != value))
+				{
+					this.OnInfantryLostChanging(value);
+					this.SendPropertyChanging();
+					this._InfantryLost = value;
+					this.SendPropertyChanged("InfantryLost");
+					this.OnInfantryLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TanksLost", DbType="Int")]
+		public System.Nullable<int> TanksLost
+		{
+			get
+			{
+				return this._TanksLost;
+			}
+			set
+			{
+				if ((this._TanksLost != value))
+				{
+					this.OnTanksLostChanging(value);
+					this.SendPropertyChanging();
+					this._TanksLost = value;
+					this.SendPropertyChanged("TanksLost");
+					this.OnTanksLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FightersLost", DbType="Int")]
+		public System.Nullable<int> FightersLost
+		{
+			get
+			{
+				return this._FightersLost;
+			}
+			set
+			{
+				if ((this._FightersLost != value))
+				{
+					this.OnFightersLostChanging(value);
+					this.SendPropertyChanging();
+					this._FightersLost = value;
+					this.SendPropertyChanged("FightersLost");
+					this.OnFightersLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BombersLost", DbType="Int")]
+		public System.Nullable<int> BombersLost
+		{
+			get
+			{
+				return this._BombersLost;
+			}
+			set
+			{
+				if ((this._BombersLost != value))
+				{
+					this.OnBombersLostChanging(value);
+					this.SendPropertyChanging();
+					this._BombersLost = value;
+					this.SendPropertyChanged("BombersLost");
+					this.OnBombersLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BattleshipsLost", DbType="Int")]
+		public System.Nullable<int> BattleshipsLost
+		{
+			get
+			{
+				return this._BattleshipsLost;
+			}
+			set
+			{
+				if ((this._BattleshipsLost != value))
+				{
+					this.OnBattleshipsLostChanging(value);
+					this.SendPropertyChanging();
+					this._BattleshipsLost = value;
+					this.SendPropertyChanged("BattleshipsLost");
+					this.OnBattleshipsLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransportsLost", DbType="Int")]
+		public System.Nullable<int> TransportsLost
+		{
+			get
+			{
+				return this._TransportsLost;
+			}
+			set
+			{
+				if ((this._TransportsLost != value))
+				{
+					this.OnTransportsLostChanging(value);
+					this.SendPropertyChanging();
+					this._TransportsLost = value;
+					this.SendPropertyChanged("TransportsLost");
+					this.OnTransportsLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubsLost", DbType="Int")]
+		public System.Nullable<int> SubsLost
+		{
+			get
+			{
+				return this._SubsLost;
+			}
+			set
+			{
+				if ((this._SubsLost != value))
+				{
+					this.OnSubsLostChanging(value);
+					this.SendPropertyChanging();
+					this._SubsLost = value;
+					this.SendPropertyChanged("SubsLost");
+					this.OnSubsLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InfantryBuilt", DbType="Int")]
+		public System.Nullable<int> InfantryBuilt
+		{
+			get
+			{
+				return this._InfantryBuilt;
+			}
+			set
+			{
+				if ((this._InfantryBuilt != value))
+				{
+					this.OnInfantryBuiltChanging(value);
+					this.SendPropertyChanging();
+					this._InfantryBuilt = value;
+					this.SendPropertyChanged("InfantryBuilt");
+					this.OnInfantryBuiltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TanksBuilt", DbType="Int")]
+		public System.Nullable<int> TanksBuilt
+		{
+			get
+			{
+				return this._TanksBuilt;
+			}
+			set
+			{
+				if ((this._TanksBuilt != value))
+				{
+					this.OnTanksBuiltChanging(value);
+					this.SendPropertyChanging();
+					this._TanksBuilt = value;
+					this.SendPropertyChanged("TanksBuilt");
+					this.OnTanksBuiltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FightersBuilt", DbType="Int")]
+		public System.Nullable<int> FightersBuilt
+		{
+			get
+			{
+				return this._FightersBuilt;
+			}
+			set
+			{
+				if ((this._FightersBuilt != value))
+				{
+					this.OnFightersBuiltChanging(value);
+					this.SendPropertyChanging();
+					this._FightersBuilt = value;
+					this.SendPropertyChanged("FightersBuilt");
+					this.OnFightersBuiltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BombersBuilt", DbType="Int")]
+		public System.Nullable<int> BombersBuilt
+		{
+			get
+			{
+				return this._BombersBuilt;
+			}
+			set
+			{
+				if ((this._BombersBuilt != value))
+				{
+					this.OnBombersBuiltChanging(value);
+					this.SendPropertyChanging();
+					this._BombersBuilt = value;
+					this.SendPropertyChanged("BombersBuilt");
+					this.OnBombersBuiltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BattleshipsBuilt", DbType="Int")]
+		public System.Nullable<int> BattleshipsBuilt
+		{
+			get
+			{
+				return this._BattleshipsBuilt;
+			}
+			set
+			{
+				if ((this._BattleshipsBuilt != value))
+				{
+					this.OnBattleshipsBuiltChanging(value);
+					this.SendPropertyChanging();
+					this._BattleshipsBuilt = value;
+					this.SendPropertyChanged("BattleshipsBuilt");
+					this.OnBattleshipsBuiltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransportsBuilt", DbType="Int")]
+		public System.Nullable<int> TransportsBuilt
+		{
+			get
+			{
+				return this._TransportsBuilt;
+			}
+			set
+			{
+				if ((this._TransportsBuilt != value))
+				{
+					this.OnTransportsBuiltChanging(value);
+					this.SendPropertyChanging();
+					this._TransportsBuilt = value;
+					this.SendPropertyChanged("TransportsBuilt");
+					this.OnTransportsBuiltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubsBuilt", DbType="Int")]
+		public System.Nullable<int> SubsBuilt
+		{
+			get
+			{
+				return this._SubsBuilt;
+			}
+			set
+			{
+				if ((this._SubsBuilt != value))
+				{
+					this.OnSubsBuiltChanging(value);
+					this.SendPropertyChanging();
+					this._SubsBuilt = value;
+					this.SendPropertyChanged("SubsBuilt");
+					this.OnSubsBuiltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoneyEarned", DbType="Int")]
+		public System.Nullable<int> MoneyEarned
+		{
+			get
+			{
+				return this._MoneyEarned;
+			}
+			set
+			{
+				if ((this._MoneyEarned != value))
+				{
+					this.OnMoneyEarnedChanging(value);
+					this.SendPropertyChanging();
+					this._MoneyEarned = value;
+					this.SendPropertyChanged("MoneyEarned");
+					this.OnMoneyEarnedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoneySpent", DbType="Int")]
+		public System.Nullable<int> MoneySpent
+		{
+			get
+			{
+				return this._MoneySpent;
+			}
+			set
+			{
+				if ((this._MoneySpent != value))
+				{
+					this.OnMoneySpentChanging(value);
+					this.SendPropertyChanging();
+					this._MoneySpent = value;
+					this.SendPropertyChanged("MoneySpent");
+					this.OnMoneySpentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BattlesFought", DbType="Int")]
+		public System.Nullable<int> BattlesFought
+		{
+			get
+			{
+				return this._BattlesFought;
+			}
+			set
+			{
+				if ((this._BattlesFought != value))
+				{
+					this.OnBattlesFoughtChanging(value);
+					this.SendPropertyChanging();
+					this._BattlesFought = value;
+					this.SendPropertyChanged("BattlesFought");
+					this.OnBattlesFoughtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BattlesWon", DbType="Int")]
+		public System.Nullable<int> BattlesWon
+		{
+			get
+			{
+				return this._BattlesWon;
+			}
+			set
+			{
+				if ((this._BattlesWon != value))
+				{
+					this.OnBattlesWonChanging(value);
+					this.SendPropertyChanging();
+					this._BattlesWon = value;
+					this.SendPropertyChanged("BattlesWon");
+					this.OnBattlesWonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BattlesLost", DbType="Int")]
+		public System.Nullable<int> BattlesLost
+		{
+			get
+			{
+				return this._BattlesLost;
+			}
+			set
+			{
+				if ((this._BattlesLost != value))
+				{
+					this.OnBattlesLostChanging(value);
+					this.SendPropertyChanging();
+					this._BattlesLost = value;
+					this.SendPropertyChanged("BattlesLost");
+					this.OnBattlesLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InvasionsFought", DbType="Int")]
+		public System.Nullable<int> InvasionsFought
+		{
+			get
+			{
+				return this._InvasionsFought;
+			}
+			set
+			{
+				if ((this._InvasionsFought != value))
+				{
+					this.OnInvasionsFoughtChanging(value);
+					this.SendPropertyChanging();
+					this._InvasionsFought = value;
+					this.SendPropertyChanged("InvasionsFought");
+					this.OnInvasionsFoughtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InvasionsWon", DbType="Int")]
+		public System.Nullable<int> InvasionsWon
+		{
+			get
+			{
+				return this._InvasionsWon;
+			}
+			set
+			{
+				if ((this._InvasionsWon != value))
+				{
+					this.OnInvasionsWonChanging(value);
+					this.SendPropertyChanging();
+					this._InvasionsWon = value;
+					this.SendPropertyChanged("InvasionsWon");
+					this.OnInvasionsWonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InvasionsLost", DbType="Int")]
+		public System.Nullable<int> InvasionsLost
+		{
+			get
+			{
+				return this._InvasionsLost;
+			}
+			set
+			{
+				if ((this._InvasionsLost != value))
+				{
+					this.OnInvasionsLostChanging(value);
+					this.SendPropertyChanging();
+					this._InvasionsLost = value;
+					this.SendPropertyChanged("InvasionsLost");
+					this.OnInvasionsLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountriesLost", DbType="Int")]
+		public System.Nullable<int> CountriesLost
+		{
+			get
+			{
+				return this._CountriesLost;
+			}
+			set
+			{
+				if ((this._CountriesLost != value))
+				{
+					this.OnCountriesLostChanging(value);
+					this.SendPropertyChanging();
+					this._CountriesLost = value;
+					this.SendPropertyChanged("CountriesLost");
+					this.OnCountriesLostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountriesTaken", DbType="Int")]
+		public System.Nullable<int> CountriesTaken
+		{
+			get
+			{
+				return this._CountriesTaken;
+			}
+			set
+			{
+				if ((this._CountriesTaken != value))
+				{
+					this.OnCountriesTakenChanging(value);
+					this.SendPropertyChanging();
+					this._CountriesTaken = value;
+					this.SendPropertyChanged("CountriesTaken");
+					this.OnCountriesTakenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DB_User_DB_Stat", Storage="_DB_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public DB_User DB_User
+		{
+			get
+			{
+				return this._DB_User.Entity;
+			}
+			set
+			{
+				DB_User previousValue = this._DB_User.Entity;
+				if (((previousValue != value) 
+							|| (this._DB_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DB_User.Entity = null;
+						previousValue.DB_Stats.Remove(this);
+					}
+					this._DB_User.Entity = value;
+					if ((value != null))
+					{
+						value.DB_Stats.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DB_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
