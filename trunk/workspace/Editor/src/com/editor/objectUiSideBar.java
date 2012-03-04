@@ -74,9 +74,9 @@ public class objectUiSideBar
 		pMainEditor.getStage().addActor(NewBtn);        
 
 		FoeButtonIcon NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth() - 32;
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 64;
 		NewBtnIcon.y = 64;
-		NewBtnIcon.initTexture(pMainEditor.pMyAssets,0,64);
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,0);
 		NewBtnIcon.setClickListener(new ClickListener() 
 		{
 			@Override
@@ -88,23 +88,9 @@ public class objectUiSideBar
 		pMainEditor.getStage().addActor(NewBtnIcon);
 		
 		NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth() - 64;
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 128;
 		NewBtnIcon.y = 64;
-		NewBtnIcon.initTexture(pMainEditor.pMyAssets,128,64);
-		NewBtnIcon.setClickListener(new ClickListener() 
-		{
-			@Override
-			public void click(Actor arg0) 
-			{
-				pMainEditor.Scroll(0,-68);
-			}			
-		});
-		pMainEditor.getStage().addActor(NewBtnIcon);
-		
-		NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth() - 96;
-		NewBtnIcon.y = 64;
-		NewBtnIcon.initTexture(pMainEditor.pMyAssets,64,64);
+		NewBtnIcon.initTexture(pMainEditor.pMyAssets,1);
 		NewBtnIcon.setClickListener(new ClickListener() 
 		{
 			@Override
@@ -115,46 +101,5 @@ public class objectUiSideBar
 		});
 		pMainEditor.getStage().addActor(NewBtnIcon);
    
-		NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth() - 64;
-		NewBtnIcon.y = 32;
-		NewBtnIcon.initTexture(pMainEditor.pMyAssets,64,96);
-		NewBtnIcon.setClickListener(new ClickListener() 
-		{
-			@Override
-			public void click(Actor arg0) 
-			{
-				pMainEditor.Scroll(0,68);
-			}			
-		});
-		pMainEditor.getStage().addActor(NewBtnIcon);
-		
-		NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth()-96;
-		NewBtnIcon.y = 32;
-		NewBtnIcon.initTexture(pMainEditor.pMyAssets,0,96);
-		NewBtnIcon.setClickListener(new ClickListener() 
-		{
-			@Override
-			public void click(Actor arg0) 
-			{
-				pMainEditor.Scroll(68,0);
-			}			
-		});
-		pMainEditor.getStage().addActor(NewBtnIcon);
-		
-		NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth()-32;
-		NewBtnIcon.y = 32;
-		NewBtnIcon.initTexture(pMainEditor.pMyAssets,128,96);
-		NewBtnIcon.setClickListener(new ClickListener() 
-		{
-			@Override
-			public void click(Actor arg0) 
-			{
-				pMainEditor.Scroll(-68,0);
-			}			
-		});
-		pMainEditor.getStage().addActor(NewBtnIcon);
 	}
 }

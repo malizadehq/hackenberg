@@ -1,38 +1,46 @@
 package com.editor;
 
-import com.badlogic.gdx.audio.analysis.FFT;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-public class FoeButtonIcon extends FoeButton 
+public class FoeButtonIcon extends Button 
 {
-	public FoeButtonIcon(String text, Skin skin) {
+	protected TextureRegion 	UnPressed;
+	protected TextureRegion 	Pressed;
+	
+	protected TextureRegion 	UnPressedIcon;
+	protected TextureRegion 	PressedIcon;
+	
+	public FoeButtonIcon(String text, Skin skin) 
+	{
 		super(text, skin);
-		// TODO Auto-generated constructor stub
 	}
 
-	public void initTexture(assets myAssets,int xCord,int yCord)
+	public void initTexture(assets myAssets,int iIconIndex)
 	{
-		UnPressed	= new TextureRegion(myAssets.pEditorUiTexture,xCord,yCord,32,32);
-		Pressed		= new TextureRegion(myAssets.pEditorUiTexture,xCord+32,yCord,32,32);
-		width 		= 32;
-		height 		= 32;
-		isPressed	= false;
+		Pressed			= new TextureRegion(myAssets.pButtonsTexture,64,0,64,64);
+		UnPressed		= new TextureRegion(myAssets.pButtonsTexture,0,0,64,64);
+		PressedIcon		= new TextureRegion(myAssets.pIconsTexture,0,64*iIconIndex,64,64);
+		UnPressedIcon	= new TextureRegion(myAssets.pIconsTexture,64,64*iIconIndex,64,64);
+		width 			= 64;
+		height 			= 64;
+		isPressed		= false;
 	}
 
 	public void draw (SpriteBatch batch, float parentAlpha) 
-	{
+	{	
 		if (isPressed) 
 		{
 			batch.draw(Pressed, x, y);
+			batch.draw(PressedIcon, x, y);
 		} 
 		else 
 		{
 			batch.draw(UnPressed, x, y);
+			batch.draw(UnPressedIcon, x, y);
 		}
 	}
 }
