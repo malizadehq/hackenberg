@@ -34,6 +34,8 @@ public class TileEditor extends Game
 	private Vector2					vLastTouch;
 	private String					sEditMode;
 	
+	private FoeUiBase				pWindow;
+	
 	public static final int TILES_WIDTH		=	100;
 	public static final int TILES_HEIGHT	=	60;
 	public static final int TILE_WIDTH		=	64;
@@ -53,12 +55,15 @@ public class TileEditor extends Game
 		setLoadingManager(new objectLoadingManager(this));
 		vTiles 			= new ArrayList<objectTile>();
 		vText 			= new ArrayList<objectText>();
-		vUi 			= new ArrayList<objectUi>();		
+		vUi 			= new ArrayList<objectUi>();
 			
 		vText.add( new objectText("Creating Tiles..",0,Gdx.graphics.getHeight(),pMyAssets.pixelFont));
 		vText.add( new objectText("Mouse Pos",0,Gdx.graphics.getHeight()-15,pMyAssets.pixelFont));
 		vText.add( new objectText("Cam Pos",0,Gdx.graphics.getHeight()-30,pMyAssets.pixelFont));
  
+		pWindow			= new FoeUiBase();
+		pWindow.initUi(pMyAssets,this,300,300,"Omg Here's a tip","Sone is gay, so gay. He is soo freakin gay. Like small boys, big boys, boys coverd in shit and animals that have a penis.. or a tentacle. Stay away from his, please, im telling you just stay the fuck away from him.");
+		
 		iDebugRender 	= 0;
 		bShowGrid 		= true;
 		bTouching 		= false;
@@ -136,16 +141,21 @@ public class TileEditor extends Game
 			Gdx.gl11.glScalef(1.0f, 1.0f, 1.0f);
 			renderUi();
 			renderText();
+			if(pWindow != null)
+				pWindow.render(SpriteDrawer);	
 			SpriteDrawer.end();
 			getStage().act(Gdx.graphics.getDeltaTime());
 			getStage().draw();
 			handleInput();
 			pTileCamera.TickCamera(Gdx.graphics.getDeltaTime());
+			
 		}
 	}
 	
 	public void handleInput()
-	{
+	{	
+		if(pWindow != null)
+			return;
 		
 		if(!IsTouchingMenu())
 		{
@@ -368,5 +378,11 @@ public class TileEditor extends Game
 			sEditMode = "";
 		else
 			sEditMode = string;	
+	}
+	
+	public void CloseWindow()
+	{
+		pWindow.destroy();
+		pWindow = null;
 	}
 }

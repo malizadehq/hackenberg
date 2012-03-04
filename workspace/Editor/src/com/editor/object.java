@@ -8,4 +8,7 @@ public class object
 	{
 
 	}
+	public void destroy()
+	{
+	}
 }
