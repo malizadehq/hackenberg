@@ -26,13 +26,24 @@ public class FoeButton extends Button
 
 	public void initTexture(assets myAssets,String sText)
 	{
+		initTexture(myAssets,sText,0.0f);
+	}
+	public void initTexture(assets myAssets,String sText,float fFixedWidth)
+	{
 		Pressed			= new TextureRegion(myAssets.pEditorUiTexture,0,0,103,32);
 		UnPressed		= new TextureRegion(myAssets.pEditorUiTexture,0,32,103,32);
 		myFont			= myAssets.pixelHeaderFont;
 		myFontPressed	= myAssets.pixelMainFont;
 		myLabel 		= sText;
-		width 			= myLabel.length() * myFont.getSpaceWidth();
-		width*=0.5f;
+		
+		if(fFixedWidth == 0.0f)
+		{
+			width 			= myLabel.length() * myFont.getSpaceWidth();
+			width*=0.5f;
+		}
+		else
+			width = fFixedWidth;
+		
 		width+=32;		// Padding
 		height 			= 34;
 		

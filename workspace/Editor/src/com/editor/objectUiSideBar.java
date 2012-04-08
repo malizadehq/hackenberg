@@ -16,9 +16,9 @@ public class objectUiSideBar
 		Skin sSkin = new Skin(fHandler, fHandlerB);
 		
 		FoeButton NewBtn = new FoeButton("Add Tile",sSkin);
-		NewBtn.x = Gdx.graphics.getWidth() - 100;
+		NewBtn.x = Gdx.graphics.getWidth() - 120;
 		NewBtn.y = Gdx.graphics.getHeight() - 50;
-		NewBtn.initTexture(pMainEditor.pMyAssets,"Add Tile");
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Add Tile",70.0f);
 		NewBtn.bToggleButton = true;
 		NewBtn.setClickListener(new ClickListener() 
 		{
@@ -31,9 +31,9 @@ public class objectUiSideBar
 		pMainEditor.getStage().addActor(NewBtn);
 		
 		NewBtn = new FoeButton("Rem Tile",sSkin);
-		NewBtn.x = Gdx.graphics.getWidth() - 100;
+		NewBtn.x = Gdx.graphics.getWidth() - 120;
 		NewBtn.y = Gdx.graphics.getHeight() - 100;
-		NewBtn.initTexture(pMainEditor.pMyAssets,"Rem Tile");
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Rem Tile",70.0f);
 		NewBtn.bToggleButton = true;
 		NewBtn.setClickListener(new ClickListener() 
 		{
@@ -46,9 +46,9 @@ public class objectUiSideBar
 		pMainEditor.getStage().addActor(NewBtn);
 		
 		NewBtn = new FoeButton("Fixup",sSkin);
-		NewBtn.x = Gdx.graphics.getWidth() - 100;
+		NewBtn.x = Gdx.graphics.getWidth() - 120;
 		NewBtn.y = Gdx.graphics.getHeight() - 150;
-		NewBtn.initTexture(pMainEditor.pMyAssets,"Fixup");
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Fixup",70.0f);
 		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
@@ -60,9 +60,9 @@ public class objectUiSideBar
 		pMainEditor.getStage().addActor(NewBtn);
 		
 		NewBtn = new FoeButton("Toggle Grid",sSkin);
-		NewBtn.x = Gdx.graphics.getWidth() - 100;
-		NewBtn.y = Gdx.graphics.getHeight() - 300;
-		NewBtn.initTexture(pMainEditor.pMyAssets,"Toggle Grid");
+		NewBtn.x = Gdx.graphics.getWidth() - 120;
+		NewBtn.y = Gdx.graphics.getHeight() - 200;
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Toggle Grid",70.0f);
 		NewBtn.setClickListener(new ClickListener() 
 		{
 			@Override
@@ -73,8 +73,36 @@ public class objectUiSideBar
 		});
 		pMainEditor.getStage().addActor(NewBtn);        
 
+		NewBtn = new FoeButton("Save",sSkin);
+		NewBtn.x = Gdx.graphics.getWidth() - 120;
+		NewBtn.y = Gdx.graphics.getHeight() - 250;
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Save",70.0f);
+		NewBtn.setClickListener(new ClickListener() 
+		{
+			@Override
+			public void click(Actor arg0) 
+			{
+				pMainEditor.SaveMap();
+			}			
+		});
+		pMainEditor.getStage().addActor(NewBtn);     
+		
+		NewBtn = new FoeButton("Load",sSkin);
+		NewBtn.x = Gdx.graphics.getWidth() - 120;
+		NewBtn.y = Gdx.graphics.getHeight() - 300;
+		NewBtn.initTexture(pMainEditor.pMyAssets,"Load",70.0f);
+		NewBtn.setClickListener(new ClickListener() 
+		{
+			@Override
+			public void click(Actor arg0) 
+			{
+				pMainEditor.LoadMap();
+			}			
+		});
+		pMainEditor.getStage().addActor(NewBtn);    
+		
 		FoeButtonIcon NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth() - 64;
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 60;
 		NewBtnIcon.y = 64;
 		NewBtnIcon.initTexture(pMainEditor.pMyAssets,0);
 		NewBtnIcon.setClickListener(new ClickListener() 
@@ -88,7 +116,7 @@ public class objectUiSideBar
 		pMainEditor.getStage().addActor(NewBtnIcon);
 		
 		NewBtnIcon = new FoeButtonIcon("",sSkin);
-		NewBtnIcon.x = Gdx.graphics.getWidth() - 128;
+		NewBtnIcon.x = Gdx.graphics.getWidth() - 120;
 		NewBtnIcon.y = 64;
 		NewBtnIcon.initTexture(pMainEditor.pMyAssets,1);
 		NewBtnIcon.setClickListener(new ClickListener() 
