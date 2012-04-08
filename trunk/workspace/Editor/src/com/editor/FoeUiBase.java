@@ -69,7 +69,7 @@ public class FoeUiBase extends object
 		pOkButton = new FoeButton("",sSkin);
 		pOkButton.x = x;
 		pOkButton.y = y;
-		pOkButton.initTexture(myAssets,"I Know DO IT");
+		pOkButton.initTexture(myAssets,"Okay");
 		pOkButton.fixPos(height, width,false);
 		pOkButton.setClickListener(new ClickListener() 
 		{
@@ -84,7 +84,7 @@ public class FoeUiBase extends object
 		pCancelButton = new FoeButton("",sSkin);
 		pCancelButton.x = x;
 		pCancelButton.y = y;
-		pCancelButton.initTexture(myAssets,"I like gay mm...gay");
+		pCancelButton.initTexture(myAssets,"Cancel");
 		pCancelButton.fixPos(height, width,true);
 		pCancelButton.setClickListener(new ClickListener() 
 		{

@@ -1,5 +1,7 @@
 package com.editor;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import org.lwjgl.openal.Util;
@@ -60,9 +62,6 @@ public class TileEditor extends Game
 		vText.add( new objectText("Creating Tiles..",0,Gdx.graphics.getHeight(),pMyAssets.pixelFont));
 		vText.add( new objectText("Mouse Pos",0,Gdx.graphics.getHeight()-15,pMyAssets.pixelFont));
 		vText.add( new objectText("Cam Pos",0,Gdx.graphics.getHeight()-30,pMyAssets.pixelFont));
- 
-		pWindow			= new FoeUiBase();
-		pWindow.initUi(pMyAssets,this,300,300,"Omg Here's a tip","Sone is gay, so gay. He is soo freakin gay. Like small boys, big boys, boys coverd in shit and animals that have a penis.. or a tentacle. Stay away from his, please, im telling you just stay the fuck away from him.");
 		
 		iDebugRender 	= 0;
 		bShowGrid 		= true;
@@ -384,5 +383,106 @@ public class TileEditor extends Game
 	{
 		pWindow.destroy();
 		pWindow = null;
+	}
+
+	public void SaveMap() 
+	{
+		String sMap = GenerateTileString();
+		FileHandle file = Gdx.files.external("Map.foe");
+		OutputStream out = file.write(false);
+		try 
+		{
+			for(int i = 0; i < sMap.length(); i++)
+				out.write(sMap.charAt(i));
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				out.close();
+			} 
+			catch (IOException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		String sPopUp = "Map Saved [";
+		sPopUp+=file.length();
+		sPopUp+=" bytes ]";
+		pWindow			= new FoeUiBase();
+		pWindow.initUi(pMyAssets,this,Gdx.graphics.getWidth()*0.5f,Gdx.graphics.getHeight()*0.5f,"Saved Map",sPopUp);
+	}
+
+	public void LoadMap() 
+	{
+		FileHandle file = Gdx.files.external("Map.foe");
+		String sLoadedMap = file.readString();
+		
+		int iLastComma			= 0;
+		int	iTileIndex			= 0;
+
+		for(int i = 1; i < sLoadedMap.length();i++)
+		{
+			if(sLoadedMap.charAt(i) == ',')
+			{
+				Boolean bSetToLand = sLoadedMap.charAt(iLastComma+1) == '1';
+				int iAmount= Integer.parseInt(sLoadedMap.substring(iLastComma+2, i));
+				for(int j = 0; j <= iAmount; j++)
+				{
+					vTiles.get(j+iTileIndex).bIsLand = bSetToLand;
+				}
+				iTileIndex+=iAmount;
+				iLastComma = i;
+			}
+		}
+		getLoadingManager().ReFixTiles();
+		String sPopUp = "Map Loaded [";
+		sPopUp+=file.length();
+		sPopUp+=" bytes ]";
+		pWindow			= new FoeUiBase();
+		pWindow.initUi(pMyAssets,this,Gdx.graphics.getWidth()*0.5f,Gdx.graphics.getHeight()*0.5f,"Loaded Map",sPopUp);
+	}
+
+	public String GenerateTileString()
+	{
+		String sSaveString 	= ",";
+		boolean bLastLand 	= false;
+		int		iCount 		= 1;
+		
+		if(vTiles.get(0).bIsLand)
+		{
+			bLastLand = true;
+		}
+		for(int i = 1; i < vTiles.size()-1;i++)
+		{
+			if(vTiles.get(i).bIsLand && bLastLand)			// Matching add to counter
+				iCount++;	
+			else if(!vTiles.get(i).bIsLand && !bLastLand)	// Matching add to counter
+				iCount++;
+			else											// NOT matching finish count
+			{
+				if(bLastLand)
+				{
+					sSaveString+="1";
+				}
+				else
+				{
+					sSaveString+="0";
+				}
+				sSaveString+=iCount;
+				sSaveString+=",";
+				iCount = 1;
+				bLastLand = !bLastLand;
+			}
+		}
+		
+		return sSaveString;	
 	}
 }
