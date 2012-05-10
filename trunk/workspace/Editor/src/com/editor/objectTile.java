@@ -10,7 +10,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class objectTile extends object
 {
 	private Texture 			texture;
-	private TextureRegion		region;	
+	private Texture 			textureBorders;
+	private TextureRegion		region;
+	private TextureRegion		regionBorders;
 	
 	private int					cordX;	
 	private int					cordY;
@@ -19,9 +21,13 @@ public class objectTile extends object
 	public float				fPosY;
 	
 	private int					iTileType;
+	private int					iCountryID;
+	
 	private int[][]				mFriends;
+	private int[][]				mFriendsBorders;
 	private ArrayList<int[][]>	mTilePresets;
 	public Boolean				bIsLand;
+	public Boolean				bDrawBorders;
 	private Sound				pCreateSound;
 	private float				fLandingTimer;
 	private float				fLandingTimerMax;
@@ -40,8 +46,12 @@ public class objectTile extends object
 		
 		this.pOwner		= pOwner;
 		pCreateSound 	= pOwner.pMyAssets.pCreateSound;
+		
 		texture 		= pOwner.pMyAssets.pIsoGrassTexture;
 		region			= new TextureRegion(texture,0,0,64,64);
+	
+		textureBorders 	= pOwner.pMyAssets.pIsoBorder_A;
+		regionBorders	= new TextureRegion(textureBorders,0,0,64,64);
 		
 		cordX 			= iTilePosX;
 		cordY 			= iTilePosY;
@@ -53,10 +63,10 @@ public class objectTile extends object
 		setLandingTimer(0.0f);
 		
 		mFriends 		= new int[3][3];
+		mFriendsBorders = new int[3][3];
 		mTilePresets	= new ArrayList<int[][]>();
-		
-		if(!bIsLand)
-			return; 		// Water currently only blue so
+		iCountryID 		= 0;
+		bDrawBorders	= false;
 		
 		// Add the presets to the list
 		int[][]	mPresetA = {{0,0,0},{0,0,0},{0,0,0}}; // water on all sides
@@ -93,6 +103,10 @@ public class objectTile extends object
 		mTilePresets.add(mPresetP); // 15
 	}
 
+	public void setCountryID(int iNewCountryID)
+	{
+		iCountryID = iNewCountryID;
+	}
 	public void setTileType(int iNewTileType)
 	{
 		iTileType = iNewTileType;
@@ -104,6 +118,19 @@ public class objectTile extends object
 		else
 			region	= new TextureRegion(texture,0,0,50,50);
 	}
+	
+	public void setBorderType(int iNewBorderType) 
+	{
+		if(iNewBorderType > 1)
+		{
+			int[] textureSpace = GetTextureSpace(iNewBorderType);
+			regionBorders	= new TextureRegion(textureBorders,textureSpace[0]*TileEditor.TILE_WIDTH,textureSpace[1]*TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH);
+			bDrawBorders = true;
+		}
+		else
+			bDrawBorders = false;
+	}
+	
 	private int[] GetTextureSpace(int iTileType) 
 	{
 		int[] xy = new int[2];
@@ -230,11 +257,11 @@ public class objectTile extends object
 	}
 	public void render(SpriteBatch SpriteDrawer)
 	{
+		int[] pos = pOwner.CoordsToXY(cordX,cordY);
 		if(bIsLand)
-		{
-			int[] pos = pOwner.CoordsToXY(cordX,cordY); 
 			SpriteDrawer.draw(region, pos[0], pos[1]);
-		}
+		if(iCountryID != 0 && bDrawBorders)
+			SpriteDrawer.draw(regionBorders, pos[0], pos[1]);
 	}
 	public int getTileType() 
 	{
@@ -260,6 +287,46 @@ public class objectTile extends object
 		}
 	}
 
+	public void FriendIsSameCountry(int iClock,int bIsSame)
+	{
+		switch(iClock)
+		{
+		case 0:
+			mFriendsBorders[0][1] = bIsSame;
+			break;
+		case 1:
+			mFriendsBorders[1][2] = bIsSame;
+			break;	
+		case 2:
+			mFriendsBorders[2][1] = bIsSame;
+			break;
+		case 3:
+			mFriendsBorders[1][0] = bIsSame;
+			break;
+		}
+	}
+	
+	void FindMatchingBorders()
+	{	
+		for(int i = 0; i < mTilePresets.size(); i++)
+		{
+			Boolean bMatch = true;
+			
+			if(mTilePresets.get(i)[0][1] != mFriendsBorders[0][1]
+			|| mTilePresets.get(i)[1][0] != mFriendsBorders[1][0]
+			|| mTilePresets.get(i)[1][2] != mFriendsBorders[1][2]
+			|| mTilePresets.get(i)[2][1] != mFriendsBorders[2][1])
+			{
+				bMatch = false;
+			}
+			if(bMatch)
+			{
+				setBorderType(i);
+				break;
+			}
+		}
+	}
+	
 	void FindMatchingTiles()
 	{
 		if(!bIsLand)
@@ -297,5 +364,10 @@ public class objectTile extends object
 	public void setLandingTimer(float fLandingTimer) 
 	{
 		this.fLandingTimer = fLandingTimer;
+	}
+
+	public int getCountryID() 
+	{
+		return iCountryID;
 	}
 }

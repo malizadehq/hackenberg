@@ -26,7 +26,12 @@ public class assets
 	public Texture		pEditorUiTexture;
 	public Texture		pEditorUiTiles;
 	public Texture		pIsoGrassTexture;
+	
+	// borders
+	public Texture		pIsoBorder_A;
+	
 	public Pixmap 		MapPixmap;
+	public Pixmap 		MapPixmap_Borders_A;
 	
 	public Texture		pIconsTexture;
 	public Texture		pButtonsTexture;
@@ -49,13 +54,19 @@ public class assets
 		pIsoGrassTexture	= new Texture(Gdx.files.internal("res/tiles/iso_grass.png"));
 		pGrassTexture		= new Texture(Gdx.files.internal("res/tiles/tile_grass_01.png"));
 		pEditorUiTexture	= new Texture(Gdx.files.internal("res/ui/editor_ui.png"));
+		pIsoBorder_A		= new Texture(Gdx.files.internal("res/tiles/iso_borders_A.png"));
 		
 		pButtonsTexture		= new Texture(Gdx.files.internal("res/ui/buttons.png"));
 		pIconsTexture		= new Texture(Gdx.files.internal("res/ui/icons.png"));
 		pEditorUiTiles		= new Texture(Gdx.files.internal("res/ui/UI_Tiles.png"));
 		
-		FileHandle fHandler = new FileHandle("res/maps/editor_map.png");
-		MapPixmap		 	= new Pixmap(fHandler);
+		FileHandle fHand	= new FileHandle("res/maps/editor_map.png");
+		MapPixmap		 	= new Pixmap(fHand);
+	
+		FileHandle fHandB	= new FileHandle("res/maps/editor_map_borders_A.png");
+		MapPixmap_Borders_A = new Pixmap(fHandB);
+		
+		
 		pCreateSound 		= (Sound) Gdx.audio.newSound(Gdx.files.internal("res/sound/poff.wav"));
 		
 	}
