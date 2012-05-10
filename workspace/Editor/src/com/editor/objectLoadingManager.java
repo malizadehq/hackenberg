@@ -81,6 +81,9 @@ public class objectLoadingManager
 				
 				objectTile newTile = null;
 				newTile = new objectTile(x,y,(iPixelValue > 0),pOwner);
+				
+				if(pOwner.pMyAssets.MapPixmap_Borders_A.getPixel(x, TileEditor.TILES_HEIGHT - y - 1) > 0)
+					newTile.setCountryID(1);
 				pOwner.addTile(newTile);
 			}
 			iStartIndex++;
@@ -107,12 +110,22 @@ public class objectLoadingManager
 				pOwner.GetTile(i).FindMatchingTiles();
 			}
 			
+			if(pOwner.GetTile(i).getCountryID() != 0)
+			{
+				for(int j = 0; j < 4; j++)
+				{
+					pOwner.GetTile(i).FriendIsSameCountry( j,pOwner.IsCountry(pOwner.FriendToIndex(i,j),pOwner.GetTile(i).getCountryID()) );
+				}
+				pOwner.GetTile(i).FindMatchingBorders();
+			}
+			
 			iNrFixed++;
 			iStartIndex++;
 			
 			if(iNrFixed > 100)
 				return;
 		}
+		
 		pLoadingText.SetDrawString("Fixup Tiles");
 		LoadingState = eLoadingState.eDone;
 	}

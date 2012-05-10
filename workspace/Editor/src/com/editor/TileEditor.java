@@ -103,6 +103,13 @@ public class TileEditor extends Game
 		
 		return 0;
 	}
+	public int IsCountry(int index,int iCountry)
+	{
+		if(vTiles.size() > index && index >= 0 && vTiles.get(index).getCountryID() == iCountry)
+			return 1;
+		
+		return 0;
+	}
 	@Override
 	public void dispose() 
 	{
@@ -358,11 +365,13 @@ public class TileEditor extends Game
 			pTileCamera.fViewZoom-=0.10f;
 	}
 
-	public objectLoadingManager getLoadingManager() {
+	public objectLoadingManager getLoadingManager() 
+	{
 		return pLoadingManager;
 	}
 
-	public void setLoadingManager(objectLoadingManager pLoadingManager) {
+	public void setLoadingManager(objectLoadingManager pLoadingManager) 
+	{
 		this.pLoadingManager = pLoadingManager;
 	}
 
