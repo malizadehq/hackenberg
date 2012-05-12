@@ -84,6 +84,15 @@ public class objectLoadingManager
 				
 				if(pOwner.pMyAssets.MapPixmap_Borders_A.getPixel(x, TileEditor.TILES_HEIGHT - y - 1) > 0)
 					newTile.setCountryID(1);
+				else if(pOwner.pMyAssets.MapPixmap_Borders_B.getPixel(x, TileEditor.TILES_HEIGHT - y - 1) > 0)
+					newTile.setCountryID(2);
+				else if(pOwner.pMyAssets.MapPixmap_Borders_C.getPixel(x, TileEditor.TILES_HEIGHT - y - 1) > 0)
+					newTile.setCountryID(3);
+				else if(pOwner.pMyAssets.MapPixmap_Borders_D.getPixel(x, TileEditor.TILES_HEIGHT - y - 1) > 0)
+					newTile.setCountryID(4);
+				else if(pOwner.pMyAssets.MapPixmap_Borders_E.getPixel(x, TileEditor.TILES_HEIGHT - y - 1) > 0)
+					newTile.setCountryID(5);
+				
 				pOwner.addTile(newTile);
 			}
 			iStartIndex++;

@@ -3,6 +3,7 @@ package com.editor;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.openal.Wav.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,8 +12,10 @@ public class objectTile extends object
 {
 	private Texture 			texture;
 	private Texture 			textureBorders;
+	private Texture 			textureLandMask;
 	private TextureRegion		region;
 	private TextureRegion		regionBorders;
+	private TextureRegion		regionLandMask;
 	
 	private int					cordX;	
 	private int					cordY;
@@ -32,6 +35,7 @@ public class objectTile extends object
 	private float				fLandingTimer;
 	private float				fLandingTimerMax;
 	private TileEditor			pOwner;
+	private Color				CountryColor;
 	
 	enum eTileRelation
 	{
@@ -52,6 +56,9 @@ public class objectTile extends object
 	
 		textureBorders 	= pOwner.pMyAssets.pIsoBorder_A;
 		regionBorders	= new TextureRegion(textureBorders,0,0,64,64);
+		
+		textureLandMask = pOwner.pMyAssets.pIsoLandMask;
+		regionLandMask	= new TextureRegion(textureLandMask,0,0,64,64);
 		
 		cordX 			= iTilePosX;
 		cordY 			= iTilePosY;
@@ -106,6 +113,26 @@ public class objectTile extends object
 	public void setCountryID(int iNewCountryID)
 	{
 		iCountryID = iNewCountryID;
+		Color NewColor = new Color();
+		switch(iNewCountryID)
+		{
+		case 1:
+			NewColor.set(1, 1, 1, 0.25f);
+			break;
+		case 2:
+			NewColor.set(0, 0, 1, 0.25f);
+			break;
+		case 3:
+			NewColor.set(1, 0, 0, 0.25f);
+			break;
+		case 4:
+			NewColor.set(0, 1, 0, 0.25f);
+			break;
+		case 5:
+			NewColor.set(1, 1, 0, 0.25f);
+			break;
+		}
+		setCountryColor(NewColor);
 	}
 	public void setTileType(int iNewTileType)
 	{
@@ -114,7 +141,10 @@ public class objectTile extends object
 		int[] textureSpace = GetTextureSpace(iTileType);
 	
 		if(bIsLand)
-			region	= new TextureRegion(texture,textureSpace[0]*TileEditor.TILE_WIDTH,textureSpace[1]*TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH);
+		{
+			region			= new TextureRegion(texture,textureSpace[0]*TileEditor.TILE_WIDTH,textureSpace[1]*TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH);
+			regionLandMask	= new TextureRegion(textureLandMask,textureSpace[0]*TileEditor.TILE_WIDTH,textureSpace[1]*TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH);
+		}
 		else
 			region	= new TextureRegion(texture,0,0,50,50);
 	}
@@ -124,6 +154,18 @@ public class objectTile extends object
 		if(iNewBorderType > 1)
 		{
 			int[] textureSpace = GetTextureSpace(iNewBorderType);
+		
+			if(iCountryID == 1)
+				textureBorders 	= pOwner.pMyAssets.pIsoBorder_A;
+			else if(iCountryID == 2)
+				textureBorders 	= pOwner.pMyAssets.pIsoBorder_B;
+			else if(iCountryID == 3)
+				textureBorders 	= pOwner.pMyAssets.pIsoBorder_C;
+			else if(iCountryID == 4)
+				textureBorders 	= pOwner.pMyAssets.pIsoBorder_D;
+			else if(iCountryID == 5)
+				textureBorders 	= pOwner.pMyAssets.pIsoBorder_E;
+			
 			regionBorders	= new TextureRegion(textureBorders,textureSpace[0]*TileEditor.TILE_WIDTH,textureSpace[1]*TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH,TileEditor.TILE_WIDTH);
 			bDrawBorders = true;
 		}
@@ -258,10 +300,24 @@ public class objectTile extends object
 	public void render(SpriteBatch SpriteDrawer)
 	{
 		int[] pos = pOwner.CoordsToXY(cordX,cordY);
+		
 		if(bIsLand)
 			SpriteDrawer.draw(region, pos[0], pos[1]);
-		if(iCountryID != 0 && bDrawBorders)
-			SpriteDrawer.draw(regionBorders, pos[0], pos[1]);
+		
+		if(iCountryID != 0)
+		{
+			// Note, drawing another sprite here really kills performance
+			// Should probably try to some trick instead of this
+			// or create one version of each land tile.
+			if(bIsLand)
+			{
+				SpriteDrawer.setColor(CountryColor);
+				SpriteDrawer.draw(regionLandMask, pos[0], pos[1]);	
+				SpriteDrawer.setColor(1,1,1,1);
+			}
+			if(bDrawBorders)
+				SpriteDrawer.draw(regionBorders, pos[0], pos[1]);
+		}
 	}
 	public int getTileType() 
 	{
@@ -369,5 +425,13 @@ public class objectTile extends object
 	public int getCountryID() 
 	{
 		return iCountryID;
+	}
+
+	public Color getCountryColor() {
+		return CountryColor;
+	}
+
+	public void setCountryColor(Color countryColor) {
+		CountryColor = countryColor;
 	}
 }
