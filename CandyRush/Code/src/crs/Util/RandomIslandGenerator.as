@@ -79,7 +79,7 @@ package crs.Util
 		
 		private function pickRandomIslandTileMap():void
 		{
-			var randomNumber:uint = RNG.generateNumber(0, 10);
+			var randomNumber:uint = RNG.generateNumber(0, 16);
 			switch(randomNumber)
 			{
 				case 0:
@@ -90,53 +90,83 @@ package crs.Util
 				case 1:
 					m_tileMapPowerups = Resource.ISLAND_1_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_1_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_1
+					m_tileMapString = Resource.ISLAND_1;
 					break;
 				case 2:
 					m_tileMapPowerups = Resource.ISLAND_2_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_2_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_2
+					m_tileMapString = Resource.ISLAND_2;
 					break;
 				case 3:
 					m_tileMapPowerups = Resource.ISLAND_3_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_3_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_3
+					m_tileMapString = Resource.ISLAND_3;
 					break;
 				case 4:
 					m_tileMapPowerups = Resource.ISLAND_4_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_4_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_4
+					m_tileMapString = Resource.ISLAND_4;
 					break;
 				case 5:
 					m_tileMapPowerups = Resource.ISLAND_5_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_5_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_5
+					m_tileMapString = Resource.ISLAND_5;
 					break;
 				case 6:
 					m_tileMapPowerups = Resource.ISLAND_6_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_6_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_6
+					m_tileMapString = Resource.ISLAND_6;
 					break;
 				case 7:
 					m_tileMapPowerups = Resource.ISLAND_7_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_7_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_7
+					m_tileMapString = Resource.ISLAND_7;
 					break;
 				case 8:
 					m_tileMapPowerups = Resource.ISLAND_8_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_8_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_8
+					m_tileMapString = Resource.ISLAND_8;
 					break;
 				case 9:
 					m_tileMapPowerups = Resource.ISLAND_9_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_9_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_9
+					m_tileMapString = Resource.ISLAND_9;
 					break;
 				case 10:
 					m_tileMapPowerups = Resource.ISLAND_10_POWERUPS;
 					m_tileMapLawyers = Resource.ISLAND_10_LAWYERS;					
-					m_tileMapString = Resource.ISLAND_10
+					m_tileMapString = Resource.ISLAND_10;
 					break;
+				case 11:
+					m_tileMapPowerups = Resource.ISLAND_11_POWERUPS;
+					m_tileMapLawyers = Resource.ISLAND_11_LAWYERS;					
+					m_tileMapString = Resource.ISLAND_11;
+					break;
+				case 12:
+					m_tileMapPowerups = Resource.ISLAND_12_POWERUPS;
+					m_tileMapLawyers = Resource.ISLAND_12_LAWYERS;					
+					m_tileMapString = Resource.ISLAND_12;
+					break;
+				case 13:
+					m_tileMapPowerups = Resource.ISLAND_13_POWERUPS;
+					m_tileMapLawyers = Resource.ISLAND_13_LAWYERS;					
+					m_tileMapString = Resource.ISLAND_13;
+					break;
+				case 14:
+					m_tileMapPowerups = Resource.ISLAND_14_POWERUPS;
+					m_tileMapLawyers = Resource.ISLAND_14_LAWYERS;					
+					m_tileMapString = Resource.ISLAND_14;
+					break;
+				case 15:
+					m_tileMapPowerups = Resource.ISLAND_15_POWERUPS;
+					m_tileMapLawyers = Resource.ISLAND_15_LAWYERS;					
+					m_tileMapString = Resource.ISLAND_15;
+					break;
+				case 16:
+					m_tileMapPowerups = Resource.ISLAND_16_POWERUPS;
+					m_tileMapLawyers = Resource.ISLAND_16_LAWYERS;					
+					m_tileMapString = Resource.ISLAND_16;
+					break;					
 			}
 		}		
 	}

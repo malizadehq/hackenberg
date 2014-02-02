@@ -145,8 +145,13 @@ package crs.GameStates{
 		
 		override public function update():void
 		{
-			Ax.background = AxColor.fromHex(0xf1e2f1);
-			if (player.isDashing) 
+			if (player.isDazed())
+			{
+				king.update();
+				return;
+			}
+			
+			if (player.m_isDashing) 
 			{
 				m_velocityMultiplier = 3;
 				AxParticleSystem.emit("dashEffect", player.center.x, player.center.y);
@@ -166,10 +171,11 @@ package crs.GameStates{
 			//to fool the engine that he has a vel but still not move the player.
 			if (player.isTouching(RIGHT | UP))
 			{
-				player.hurt();
+				king.catchStuckPlayer();
+				player.daze();
 			} else if (player.y > GameSettings.windowHeight)
 			{
-				player.hurt();
+				player.fall();
 			} else 
 			{
 				player.x = 100;
@@ -183,6 +189,11 @@ package crs.GameStates{
 			{
 				Ax.collide(player, m_tilemaps.members[i], null, TILEMAP_COLLIDER);
 			}
+		}
+		
+		public function playerStuck():void
+		{
+			king.catchStuckPlayer();
 		}
 		
 		public function updateChaseBarUI():void
@@ -225,7 +236,7 @@ package crs.GameStates{
 				m_scoreCounter.pickedUpPowerup();
 			} else if (target is Lawyer && (target as Lawyer).isAlive())
 			{
-				if (player.isDashing)
+				if (player.m_isDashing)
 				{
 					var fistYPos:int = (player.y + GameSettings.dashFistYPosition) - target.y;
 					var lawyerHitArea:int = Lawyer.HEAD_SHOT;
@@ -264,8 +275,9 @@ package crs.GameStates{
 					AxParticleSystem.emit("bloodEffect", target.x, target.y + fistYPos);
 				} else
 				{
-					//You got sued and died in Gulag.				
-					player.hurt();
+					//You got sued and died in Gulag.
+					king.catchStuckPlayer();
+					player.daze();
 				}
 			}
 		}		
