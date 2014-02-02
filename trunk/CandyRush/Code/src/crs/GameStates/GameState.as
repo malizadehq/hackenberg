@@ -380,6 +380,8 @@ package crs.GameStates{
 			
 			m_chaseBarMeter = new AxSprite((GameSettings.windowWidth * 0.5) - 85 + 19, -1, Resource.CHASE_BAR_METER, GameSettings.windowWidth, GameSettings.windowHeight);
 			m_chaseBarMeter.grow(0.01, 0.01, 1);
+			//update once manually to start the grow process. (teehee)
+			m_chaseBarMeter.update();
 			add(m_chaseBarMeter);
 		}
 		
