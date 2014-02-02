@@ -35,7 +35,7 @@ package crs.GameStates
 			Ax.background = AxColor.fromHex(0xf1e2f1);
 			
 			Registry.highScore.push(Registry.playerModel.getScore());
-			Registry.highScore = Registry.highScore.sort();
+			Registry.highScore = Registry.highScore.sort(Array.NUMERIC);
 			Registry.highScore = Registry.highScore.reverse();
 			
 			m_gameOverDialogue = new AxSprite(GameSettings.windowWidth * 0.5 - 150, 100, null, GameSettings.windowWidth, GameSettings.windowHeight);

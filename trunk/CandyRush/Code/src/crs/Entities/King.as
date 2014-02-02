@@ -145,6 +145,11 @@ package crs.Entities
 			super.update();
 		}
 		
+		public function catchStuckPlayer():void
+		{
+			m_state = STATE_CHASE_PLAYER;
+		}
+		
 		//Grow 10%, play anim and reset frameCounterSinceLastScale.
 		private function eatCandy():void
 		{

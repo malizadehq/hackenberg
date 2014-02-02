@@ -12,13 +12,14 @@ package crs.Entities{
 
 	public class Player extends AxSprite {
 		
-		private var hasJumped:Boolean = false;
-		private var hasDoubleJumped:Boolean = false;
-		public var isDashing:Boolean = false;
-		private var originalGravity:int = 650;		
-		private var curGravity:int = 650;
-		private var dashFrameCounter:int = 0;
-		private var dashMaxFrames:int = 20;		
+		public var m_isDashing:Boolean = false;		
+		private var m_hasJumped:Boolean = false;
+		private var m_hasDoubleJumped:Boolean = false;
+		private var m_originalGravity:int = 650;		
+		private var m_curGravity:int = 650;
+		private var m_dashFrameCounter:int = 0;
+		private var m_dashMaxFrames:int = 20;	
+		private var m_isDazed:Boolean = false;
 		
 		public function Player(x:Number, y:Number, worldWidth:Number, worldHeight:Number) {
 			super(x, y);
@@ -26,7 +27,7 @@ package crs.Entities{
 			loadRunAnim();
 			
 			drag.x = 300;
-			acceleration.y = curGravity;
+			acceleration.y = m_curGravity;
 			worldBounds = new AxRect(0, 0, worldWidth, worldHeight + 100);
 			bounds(50, 50, 0, 20);
 		}
@@ -35,23 +36,23 @@ package crs.Entities{
 		{
 			if (isTouching(DOWN))
 			{
-				hasJumped = false;
-				hasDoubleJumped = false;
+				m_hasJumped = false;
+				m_hasDoubleJumped = false;
 			}
 
-			if (!isDashing)
+			if (!m_isDashing)
 			{
 				if (Ax.keys.pressed(AxKey.Z))
 				{
 					var isAllowedToJump:Boolean = false;
-					if (!hasJumped)
+					if (!m_hasJumped)
 					{
 						isAllowedToJump = true;
-						hasJumped = true;
-					} else if (!hasDoubleJumped)
+						m_hasJumped = true;
+					} else if (!m_hasDoubleJumped)
 					{
 						isAllowedToJump = true;
-						hasDoubleJumped = true;					
+						m_hasDoubleJumped = true;					
 					}
 					
 					if (isAllowedToJump)
@@ -67,10 +68,10 @@ package crs.Entities{
 				
 				if (!isTouching(DOWN) && Ax.keys.held(AxKey.Z) && velocity.y > 0)
 				{
-					acceleration.y = curGravity * 0.5;
+					acceleration.y = m_curGravity * 0.5;
 				}else
 				{
-					acceleration.y = curGravity;
+					acceleration.y = m_curGravity;
 				}			
 				
 				if (velocity.y < 0) {
@@ -83,9 +84,9 @@ package crs.Entities{
 				}				
 			} else
 			{
-				++dashFrameCounter;
+				++m_dashFrameCounter;
 				animate("dash");				
-				if (dashFrameCounter >= dashMaxFrames)
+				if (m_dashFrameCounter >= m_dashMaxFrames)
 				{
 					endDash();
 				}
@@ -103,11 +104,11 @@ package crs.Entities{
 			load(Resource.ANIM_DASH, 100, 70);
 			addAnimation("dash", [0, 1, 2, 3], 8, true);
 			bounds(50, 50, 0, 20);
-			hasJumped = false;
-			hasDoubleJumped = true;
+			m_hasJumped = false;
+			m_hasDoubleJumped = true;
 			
-			isDashing = true;
-			curGravity = 0;
+			m_isDashing = true;
+			m_curGravity = 0;
 			acceleration.y = 0;
 			velocity.y = 0;
 			
@@ -138,9 +139,9 @@ package crs.Entities{
 			addAnimation("fall", [4], 1, false);
 			bounds(50, 50, 0, 20);
 			
-			isDashing = false;
-			curGravity = originalGravity;
-			dashFrameCounter = 0;
+			m_isDashing = false;
+			m_curGravity = m_originalGravity;
+			m_dashFrameCounter = 0;
 		}
 		
 		public function animateDashHit():void
@@ -162,11 +163,22 @@ package crs.Entities{
 			addAnimation("fall", [4], 1, false);
 		}
 		
-		public function hurt():void
+		public function fall():void
 		{
+			daze();
+			Ax.pushState(new GameOverState());			
+		}
+		
+		public function isDazed():Boolean
+		{
+			return m_isDazed;
+		}
+		
+		public function daze():void
+		{
+			m_isDazed = true;
 			velocity.x = 0;
-			velocity.y = 0;				
-			Ax.pushState(new GameOverState());
+			velocity.y = 0;
 		}
 	}
 }

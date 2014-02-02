@@ -116,6 +116,7 @@ package crs.Util{
 														"61,42,42,42,102,102,42,42,42,63\n" +
 														"81,42,102,82,42,102,42,42,42,83\n" +
 														"121,42,42,42,42,42,42,42,42,83\n";
+
 		public static const ISLAND_3_POWERUPS:Array = [1,-1];
 		public static const ISLAND_3_LAWYERS:Array = [7, -1];			
 		
@@ -134,6 +135,7 @@ package crs.Util{
 														"81,42,46,19,44,62,46,19,41,103\n" +
 														"121,42,103,19,44,42,63,19,44,123\n" +
 														"121,42,43,19,41,42,43,19,44,43\n";
+
 		public static const ISLAND_5_POWERUPS:Array = [1,-1];
 		public static const ISLAND_5_LAWYERS:Array = [7, -1];			
 		
@@ -155,12 +157,13 @@ package crs.Util{
 		public static const ISLAND_7_POWERUPS:Array = [1,-1];
 		public static const ISLAND_7_LAWYERS:Array = [7, -1];			
 		
-		public static const ISLAND_8:String =   		"19,19,19,19,19,19,19,19,7,6\n" +
+		public static const ISLAND_8:String =   		"19,19,19,19,19,19,19,19,19,19\n" +
+														"19,19,19,19,19,19,19,19,7,6\n" +
 														"7,8,2,2,8,9,19,19,27,26\n" +
 														"27,28,22,22,28,29,19,19,41,46\n" +
 														"61,42,42,42,42,123,19,19,44,123\n" +
-														"61,42,42,42,42,123,19,19,44,123\n" +
 														"81,42,42,42,42,46,19,19,44,46\n";
+
 		public static const ISLAND_8_POWERUPS:Array = [1,-1];
 		public static const ISLAND_8_LAWYERS:Array = [7, -1];
 		
@@ -182,6 +185,66 @@ package crs.Util{
 														"81,63,61,83,41,46,44,43,41,43\n";
 
 		public static const ISLAND_10_POWERUPS:Array = [1,-1];
-		public static const ISLAND_10_LAWYERS:Array = [7, -1];	
+		public static const ISLAND_10_LAWYERS:Array = [7, -1];
+		
+		public static const ISLAND_11:String =   		"1,3,19,19,19,4,2,8,3,19\n" +
+														"21,26,19,19,19,21,22,22,23,19\n" +
+														"161,163,19,19,19,13,11,11,15,19\n" +
+														"121,46,1,2,2,2,2,2,2,3\n" +
+														"61,103,21,22,22,22,22,22,22,23\n" +
+														"81,63,164,162,162,162,122,162,162,146\n";
+
+		public static const ISLAND_11_POWERUPS:Array = [1,-1];
+		public static const ISLAND_11_LAWYERS:Array = [7, -1];	
+		
+		public static const ISLAND_12:String =   		"19,19,4,5,8,8,2,8,3,19\n" +
+														"19,19,24,25,25,25,25,22,23,19\n" +
+														"7,9,10,14,14,11,11,11,15,19\n" +
+														"27,29,1,2,5,5,5,5,2,3\n" +
+														"44,46,21,22,25,22,25,25,22,23\n" +
+														"44,46,41,42,42,122,122,42,42,146\n";
+
+		public static const ISLAND_12_POWERUPS:Array = [1,-1];
+		public static const ISLAND_12_LAWYERS:Array = [7, -1];	
+		
+		public static const ISLAND_13:String =   		"7,8,4,5,8,8,2,8,3,19\n" +
+														"27,28,28,25,25,25,25,22,23,19\n" +
+														"13,14,11,14,14,11,11,11,15,19\n" +
+														"4,5,5,2,5,2,5,5,6,19\n" +
+														"24,25,25,25,22,25,25,25,26,19\n" +
+														"61,48,182,48,48,45,48,48,48,19\n";
+
+		public static const ISLAND_13_POWERUPS:Array = [1,-1];
+		public static const ISLAND_13_LAWYERS:Array = [7, -1];	
+		
+		public static const ISLAND_14:String =   		"7,8,8,5,8,8,2,8,3,19\n" +
+														"27,28,28,25,25,25,25,22,23,19\n" +
+														"13,14,11,14,14,11,11,11,15,19\n" +
+														"4,5,5,2,5,2,5,5,6,19\n" +
+														"24,25,25,25,22,25,25,25,26,19\n" +
+														"61,48,182,48,48,45,48,48,48,19\n";
+
+		public static const ISLAND_14_POWERUPS:Array = [1,-1];
+		public static const ISLAND_14_LAWYERS:Array = [7, -1];	
+		
+		public static const ISLAND_15:String =   		"7,8,8,9,19,19,19,7,3,19\n" +
+														"27,28,28,29,19,19,19,27,23,19\n" +
+														"161,142,42,186,19,19,19,10,12,19\n" +
+														"181,42,42,46,5,2,5,5,6,19\n" +
+														"141,42,42,42,22,25,25,25,26,19\n" +
+														"61,48,182,48,48,45,48,48,48,19\n";
+
+		public static const ISLAND_15_POWERUPS:Array = [1,-1];
+		public static const ISLAND_15_LAWYERS:Array = [7, -1];	
+		
+		public static const ISLAND_16:String =   		"19,19,19,4,5,6,19,19,19,19\n" +
+														"19,19,19,24,25,26,19,19,19,19\n" +
+														"4,6,19,13,14,15,19,7,9,19\n" +
+														"24,26,19,19,19,19,19,27,29,19\n" +
+														"44,46,8,8,8,8,8,81,86,19\n" +
+														"61,48,28,28,28,28,28,48,66,19\n";
+
+		public static const ISLAND_16_POWERUPS:Array = [1,-1];
+		public static const ISLAND_16_LAWYERS:Array = [7, -1];			
 	}
 }
