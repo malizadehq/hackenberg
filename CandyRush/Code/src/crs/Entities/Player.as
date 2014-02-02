@@ -1,6 +1,7 @@
 package crs.Entities{
 	import adobe.utils.CustomActions;
 	import org.axgl.Ax;
+	import org.axgl.AxPoint;
 	import org.axgl.AxRect;
 	import org.axgl.AxSprite;
 	import org.axgl.AxVector;
@@ -85,7 +86,7 @@ package crs.Entities{
 				{
 					if (++m_footstepFrameCounter == 1)
 					{
-						Ax.sound(Resource.SOUND_FOOTSTEP, 0.01);
+						Ax.sound(Resource.SOUND_FOOTSTEP, 0.02);
 					} else if (m_footstepFrameCounter == 13)
 					{
 						m_footstepFrameCounter = 0;
