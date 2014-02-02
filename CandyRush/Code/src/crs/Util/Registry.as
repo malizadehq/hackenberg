@@ -24,5 +24,7 @@ package crs.Util
 		public static var tilemaps:AxGroup;
 		/** The music handler **/
 		public static var musicHandler:MusicHandler;
+		/** Persistent (per session) high score storage **/
+		public static var highScore:Array;
 	}
 }

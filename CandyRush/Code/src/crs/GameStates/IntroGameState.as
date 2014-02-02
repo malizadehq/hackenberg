@@ -51,6 +51,7 @@ package crs.GameStates
 			m_introSprite = new AxSprite(0, 0, null, GameSettings.windowWidth, GameSettings.windowHeight);
 			
 			Registry.musicHandler = new MusicHandler();
+			Registry.highScore = new Array();
 		}
 		
 		override public function update():void 
