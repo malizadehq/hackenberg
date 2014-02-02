@@ -127,7 +127,6 @@ package crs.GameStates{
 
 			Registry.player = player;
 			Registry.gameState = this;
-			
 
             setupParticleEffects();
 			
@@ -411,39 +410,73 @@ package crs.GameStates{
 		{
 			var animationString:String = "";
 			
+			var effect:AxParticleEffect = new AxParticleEffect("comboEffect", Resource.PARTICLE_WHITE, 2);
+			effect.x = new AxRange(0, -10);
+			effect.y = new AxRange(0, 5);
+			effect.xVelocity = new AxRange(50, -100);
+			effect.yVelocity = new AxRange(-50, 100);
+			effect.lifetime = new AxRange(1.5, 1.75);
+			effect.startScale = new AxRange(1, 3);
+			effect.endScale = new AxRange(0, 1);
+			
 			switch(Registry.playerModel.getComboLevel())
 			{
 				case PlayerModel.COMBOLVL_NONE:
 					animationString = "comboState_None";
+					effect = null;
 					break;
 				case PlayerModel.COMBOLVL_D:
 					animationString = "comboState_D";
+					effect.amount = 5;
 					Ax.sound(Resource.SOUND_COMBO_0);
 					break;
 				case PlayerModel.COMBOLVL_C:
-					animationString = "comboState_C";	
+					animationString = "comboState_C";
+					effect.amount = 15;
 					Ax.sound(Resource.SOUND_COMBO_1);
 					break;
 				case PlayerModel.COMBOLVL_B:
+					effect.amount = 30;
 					animationString = "comboState_B";
+					effect.xVelocity = new AxRange(50, -125);
+					effect.yVelocity = new AxRange(-50, 125);					
 					Ax.sound(Resource.SOUND_COMBO_2);
 					break;
 				case PlayerModel.COMBOLVL_A:
 					animationString = "comboState_A";
+					effect.amount = 50;
+					effect.xVelocity = new AxRange(50, -150);
+					effect.yVelocity = new AxRange(-50, 150);		
 					Ax.sound(Resource.SOUND_COMBO_3);
 					break;
 				case PlayerModel.COMBOLVL_S:
 					animationString = "comboState_S";
+					effect.xVelocity = new AxRange(50, -175);
+					effect.yVelocity = new AxRange(-50, 175);						
+					effect.amount = 100;
 					Ax.sound(Resource.SOUND_COMBO_4);
 					break;
 				case PlayerModel.COMBOLVL_SS:
 					animationString = "comboState_SS";
+					effect.xVelocity = new AxRange(50, -220);
+					effect.yVelocity = new AxRange(-50, 220);	
+					effect.amount = 200;
 					Ax.sound(Resource.SOUND_COMBO_5);
 					break;
 				case PlayerModel.COMBOLVL_SSS:
+					effect.xVelocity = new AxRange(50, -300);
+					effect.yVelocity = new AxRange(-50, 300);					
 					animationString = "comboState_SSS";
+					effect.amount = 500;
 					Ax.sound(Resource.SOUND_COMBO_6);
 					break;
+			}
+			
+			if (effect != null)
+			{
+				effect.color(new AxColor(0.0, 0.0, 0.0), new AxColor(0.1, 0.0, 0.0), new AxColor(0.0, 0.0, 0.0), new AxColor(1, 0, 0));
+				m_particles.add(AxParticleSystem.register(effect));
+				AxParticleSystem.emit("comboEffect", m_comboUI.x + 40, m_comboUI.y + 25);
 			}
 			
 			m_comboUI.animate(animationString);
