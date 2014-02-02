@@ -91,6 +91,10 @@ package crs.Util
 			{	
 				var iSpawnX:int = m_tileMapLawyers[0];
 				var iSpawnY:int = m_tileMapLawyers[1];
+				if (iSpawnY < 0)
+					iSpawnY = 0;
+				if (iSpawnX < 0)
+					iSpawnX = 0;
 				var iIndex:int = tileMapToUse.getTileIndexAt(iSpawnX, iSpawnY);
 				
 				while (iIndex == 0 || iIndex > 18)
