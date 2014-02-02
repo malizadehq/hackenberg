@@ -47,6 +47,8 @@ package crs.Entities
 		
 		public function hitLawyer(hitArea:int):void
 		{
+			m_isAlive = false;
+			
 			switch(hitArea)
 			{
 				case HEAD_SHOT:
@@ -62,10 +64,8 @@ package crs.Entities
 					addAnimation("death", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, false);
 					break;
 			}
-
 			//Death tiles are larger than life tiles so we need to move the lawyer back.
 			x -= 50;			
-			m_isAlive = false;
 		}
 		
 		public function isAlive():Boolean

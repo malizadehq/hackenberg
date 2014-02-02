@@ -147,6 +147,7 @@ package crs.GameStates{
 		{
 			if (player.isDazed())
 			{
+				king.catchStuckPlayer();
 				king.update();
 				return;
 			}
