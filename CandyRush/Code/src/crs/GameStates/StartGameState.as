@@ -39,11 +39,12 @@ package crs.GameStates
 			Registry.musicHandler.playMusic(Resource.MUSIC_START);
 			m_startGameAnim = new AxSprite((GameSettings.windowWidth - 429) * 0.5, (GameSettings.windowHeight - 147) * 0.5, null, GameSettings.windowWidth, GameSettings.windowHeight);
 			m_startGameAnim.load(Resource.START_GAME_INTRO, 429, 147);
-			m_startGameAnim.addAnimation("play", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 11, false, function():void {
+			m_startGameAnim.addAnimation("play", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13,14,15], 11, false, function():void {
 				Ax.camera.flash(0.5, 0xFFFFFFFF);
 				Registry.musicHandler.playMusic(Resource.MUSIC_GAME);
 				Ax.popState();
 			});
+			m_startGameAnim.addAnimation("keypress", [0, 1, 2, 3, 4], 11, false)
 			add(m_startGameAnim);
 			
 			m_computerAnim = new AxSprite((GameSettings.windowWidth - 285) * 0.5, m_startGameAnim.y - 140, null, GameSettings.windowWidth, GameSettings.windowHeight);
@@ -65,6 +66,7 @@ package crs.GameStates
 						Ax.sound(Resource.SOUND_INTRO_KEYPRESS);
 						m_computerAnim.load(Resource.START_COMPUTER, 285, 140);
 						m_computerAnim.addAnimation("choose", [0, 1, 2, 3, 4, 5], 3, true);
+						m_startGameAnim.animate("keypress",true);
 					}				
 				break;
 				case STATE_CHOOSE:
@@ -82,6 +84,7 @@ package crs.GameStates
 						Ax.sound(Resource.SOUND_INTRO_KEYPRESS);
 						m_computerAnim.load(Resource.START_COMPUTER_HELP, 285, 140);
 						m_computerAnim.addAnimation("help", [0, 1, 2, 3, 4, 5], 3, true);
+						m_startGameAnim.animate("keypress",true);
 					}
 					break;
 				case STATE_START:
