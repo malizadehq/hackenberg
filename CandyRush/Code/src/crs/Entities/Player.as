@@ -20,6 +20,7 @@ package crs.Entities{
 		private var m_dashFrameCounter:int = 0;
 		private var m_dashMaxFrames:int = 20;	
 		private var m_isDazed:Boolean = false;
+		private var m_footstepFrameCounter:uint = 0;
 		
 		public function Player(x:Number, y:Number, worldWidth:Number, worldHeight:Number) {
 			super(x, y);
@@ -76,10 +77,19 @@ package crs.Entities{
 				
 				if (velocity.y < 0) {
 					animate("jump");
+					m_footstepFrameCounter = 0;
 				} else if (velocity.y > 0) {
 					animate("fall");
+					m_footstepFrameCounter = 0;
 				} else
 				{
+					if (++m_footstepFrameCounter == 1)
+					{
+						Ax.sound(Resource.SOUND_FOOTSTEP, 0.01);
+					} else if (m_footstepFrameCounter == 13)
+					{
+						m_footstepFrameCounter = 0;
+					}
 					animate("run");	
 				}				
 			} else
@@ -101,9 +111,10 @@ package crs.Entities{
 		
 		private function dash():void
 		{
+			y -= 5;
 			load(Resource.ANIM_DASH, 100, 70);
+			bounds(50, 50, 0, 20);			
 			addAnimation("dash", [0, 1, 2, 3], 8, true);
-			bounds(50, 50, 0, 20);
 			m_hasJumped = false;
 			m_hasDoubleJumped = true;
 			
@@ -147,6 +158,7 @@ package crs.Entities{
 		public function animateDashHit():void
 		{
 			load(Resource.ANIM_DASH_HIT, 100, 70);
+			bounds(50, 50, 0, 20);
 			addAnimation("dashHit", [0, 1, 2, 3, 4, 5, 6, 7], 8, false, function():void 
 			{
 				loadRunAnim();
@@ -179,9 +191,11 @@ package crs.Entities{
 			m_isDazed = true;
 			velocity.x = 0;
 			velocity.y = 0;
+			/*
 			load(Resource.ANIM_DEAD, 75, 75);
 			addAnimation("dead", [1], 1, true);
 			animate("dead");
+			*/
 			Ax.sound(Resource.SOUND_COMMON_SPLAT_0);
 			Ax.camera.shake(0.35, 8);
 		}

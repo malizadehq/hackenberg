@@ -147,7 +147,10 @@ package crs.Entities
 		
 		public function catchStuckPlayer():void
 		{
-			m_state = STATE_CHASE_PLAYER;
+			if (m_state < STATE_CHASE_PLAYER)
+			{
+				m_state = STATE_CHASE_PLAYER;	
+			}			
 		}
 		
 		//Grow 10%, play anim and reset frameCounterSinceLastScale.
