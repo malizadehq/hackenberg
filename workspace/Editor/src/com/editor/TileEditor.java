@@ -34,7 +34,8 @@ public class TileEditor extends Game
 	private Stage					pStage;
 	private Boolean					bTouching;
 	private Vector2					vLastTouch;
-	private String					sEditMode;
+	private int						iBrush;
+	private int						iCountry;
 	
 	private FoeUiBase				pWindow;
 	
@@ -180,7 +181,7 @@ public class TileEditor extends Game
 			}
 			else if(bTouching && Gdx.input.isTouched())
 			{
-				if(sEditMode == "Add")
+				if(iBrush == 1)
 				{
 					int iNewSelectTile = getClosestTile(Gdx.input.getX(),Gdx.input.getY());
 					if(iNewSelectTile != iSelectedTile)
@@ -190,7 +191,7 @@ public class TileEditor extends Game
 						AddTile();
 					}
 				}
-				else if(sEditMode == "Rem")
+				else if(iBrush == 2)
 				{
 					int iNewSelectTile = getClosestTile(Gdx.input.getX(),Gdx.input.getY());
 					if(iNewSelectTile != iSelectedTile)
@@ -379,14 +380,6 @@ public class TileEditor extends Game
 	{
 		pTileCamera.AddScroll(x,y);		
 	}
-
-	public void SetEditMode(String string) 
-	{
-		if(string == sEditMode)
-			sEditMode = "";
-		else
-			sEditMode = string;	
-	}
 	
 	public void CloseWindow()
 	{
@@ -493,5 +486,13 @@ public class TileEditor extends Game
 		}
 		
 		return sSaveString;	
+	}
+
+	public void SetBrush(int iNewBrush,int iNewCountry) 
+	{
+		if(iBrush == i && iNewCountry == iCountry)
+			iBrush = 0;
+		else
+			iBrush = i;
 	}
 }
