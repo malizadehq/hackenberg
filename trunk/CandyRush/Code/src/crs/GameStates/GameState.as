@@ -84,17 +84,17 @@ package crs.GameStates{
 		override public function create():void 
 		{
 			super.create();
-
+			
 			Ax.background = AxColor.fromHex(0xf1e2f1);
 			setupScrollingBGs();
 			
 			// Add powerups and lawyers to the colliders group, which we collide with the player
 			m_collidersGroup.add(m_powerups).add(m_lawyers);
-			add(m_collidersGroup);			
+			add(m_collidersGroup);
 			
 			setupStartTilemaps();			
 			
-			player = new Player(150, 100, GameSettings.windowWidth, GameSettings.windowHeight);
+			player = new Player(150, 150, GameSettings.windowWidth, GameSettings.windowHeight);
 			add(player);
 			king = new King();
 			add(king);
@@ -112,7 +112,6 @@ package crs.GameStates{
 			setupComboUI();
 			setupScoreUI();
 			setupScoreText();
-			Ax.music(Resource.MUSIC);
 			
 			TILEMAP_COLLIDER = new AxCollider;
 		}

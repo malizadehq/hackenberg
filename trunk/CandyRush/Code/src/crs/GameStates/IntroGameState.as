@@ -2,6 +2,7 @@ package crs.GameStates
 {
 	import crs.Entities.Entity;
 	import crs.Util.GameSettings;
+	import crs.Util.MusicHandler;
 	import crs.Util.Resource;
 	import crs.Util.Registry;
 	
@@ -48,6 +49,8 @@ package crs.GameStates
 			m_introState = STATE_UNSTARTED;
 			m_loadIntroFrameFunction = loadIntroFrame;
 			m_introSprite = new AxSprite(0, 0, null, GameSettings.windowWidth, GameSettings.windowHeight);
+			
+			Registry.musicHandler = new MusicHandler();
 		}
 		
 		override public function update():void 

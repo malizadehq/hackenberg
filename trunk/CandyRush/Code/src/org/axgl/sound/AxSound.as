@@ -1,4 +1,4 @@
-package org.axgl.sound {
+﻿package org.axgl.sound {
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
@@ -75,6 +75,7 @@ package org.axgl.sound {
 		 * Destroys the sound, freeing up resources used.
 		 */
 		override public function destroy():void {
+			soundChannel.stop();
 			soundChannel.removeEventListener(Event.SOUND_COMPLETE, destroy);
 			sound = null;
 			soundChannel = null;
