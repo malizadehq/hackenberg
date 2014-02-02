@@ -179,8 +179,9 @@ package crs.Entities{
 			m_isDazed = true;
 			velocity.x = 0;
 			velocity.y = 0;
-			load(Resource.ANIM_DEAD, 50, 50);
-			addAnimation("dead", [0], 1, true);
+			load(Resource.ANIM_DEAD, 75, 75);
+			addAnimation("dead", [1], 1, true);
+			animate("dead");
 			Ax.sound(Resource.SOUND_COMMON_SPLAT_0);
 			Ax.camera.shake(0.35, 8);
 		}
