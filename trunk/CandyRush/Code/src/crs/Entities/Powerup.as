@@ -96,6 +96,21 @@ package crs.Entities
 		public function setCollected(collectible:Boolean):void
 		{
 			m_isCollected = collectible;
+			if (m_isCollected)
+			{
+				switch(RNG.generateNumber(0, 2))
+				{
+					case 0:
+						Ax.sound(Resource.SOUND_EAT_0);
+					break;
+					case 1:
+						Ax.sound(Resource.SOUND_EAT_1);
+					break;
+					case 2:
+						Ax.sound(Resource.SOUND_EAT_2);
+					break;
+				}
+			}
 		}
 		
 		public function isCollected():Boolean

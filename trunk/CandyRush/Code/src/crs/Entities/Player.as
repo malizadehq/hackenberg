@@ -7,6 +7,7 @@ package crs.Entities{
 	import org.axgl.input.AxKey;
 	
 	import crs.Util.Resource;
+	import crs.Util.RNG;
 
 	//TODO: Subclass from Entity
 	public class Player extends AxSprite {
@@ -109,6 +110,22 @@ package crs.Entities{
 			curGravity = 0;
 			acceleration.y = 0;
 			velocity.y = 0;
+			
+			switch(RNG.generateNumber(0, 3))
+			{
+				case 0:
+					Ax.sound(Resource.SOUND_DASH_START_0);
+				break;
+				case 1:
+					Ax.sound(Resource.SOUND_DASH_START_1);
+				break;
+				case 2:
+					Ax.sound(Resource.SOUND_DASH_START_2);
+				break;
+				case 3:
+					Ax.sound(Resource.SOUND_DASH_START_3);
+				break;
+			}
 			
 			Ax.camera.shake(0.33, 1);
 		}

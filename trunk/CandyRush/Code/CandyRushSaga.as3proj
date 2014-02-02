@@ -17,7 +17,6 @@
   <classpaths>
     <class path="src" />
     <class path="res" />
-    <class path="res" />
   </classpaths>
   <!-- Build options -->
   <build>
