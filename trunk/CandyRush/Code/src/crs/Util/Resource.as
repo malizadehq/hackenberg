@@ -20,6 +20,7 @@ package crs.Util{
 		[Embed(source = "/Animations/Intro/intro0001.png")] public static const INTRO_1:Class;
 		[Embed(source = "/Animations/Intro/intro0002.png")] public static const INTRO_2:Class;
 		[Embed(source = "/Animations/Intro/intro0003.png")] public static const INTRO_3:Class;
+		[Embed(source = "/Animations/Intro/IntroBackdrop.png")] public static const INTRO_BACKDROP:Class;
 		[Embed(source = "/Animations/Intro/start.png")] public static const START_GAME_INTRO:Class;
 		[Embed(source = "/Animations/Intro/start_computer.png")] public static const START_COMPUTER:Class;
 		[Embed(source = "/Animations/Intro/start_computer_help.png")] public static const START_COMPUTER_HELP:Class;
