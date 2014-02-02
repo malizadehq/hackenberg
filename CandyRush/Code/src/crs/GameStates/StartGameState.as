@@ -20,6 +20,8 @@ package crs.GameStates
 	{
 		private var m_startGameAnim:AxSprite;
 		private var m_computerAnim:AxSprite;
+		private var m_startBackdrop:AxSprite;
+		
 		private var m_state:uint = STATE_CHOOSE;
 		
 		private static var STATE_CHOOSE:uint = 0;
@@ -37,6 +39,11 @@ package crs.GameStates
 
 			Ax.background = AxColor.fromHex(0xf1e2f1);
 			Registry.musicHandler.playMusic(Resource.MUSIC_START);
+			
+			m_startBackdrop = new AxSprite(0.0, 0.0, null, GameSettings.windowWidth, GameSettings.windowHeight);
+			m_startBackdrop.load(Resource.INTRO_BACKDROP, 600, 400);
+			add(m_startBackdrop);
+			
 			m_startGameAnim = new AxSprite((GameSettings.windowWidth - 429) * 0.5, (GameSettings.windowHeight - 147) * 0.5, null, GameSettings.windowWidth, GameSettings.windowHeight);
 			m_startGameAnim.load(Resource.START_GAME_INTRO, 429, 147);
 			m_startGameAnim.addAnimation("play", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12,13,14,15], 11, false, function():void {
@@ -91,6 +98,7 @@ package crs.GameStates
 					m_startGameAnim.animate("play");
 					m_startGameAnim.velocity.x = -200;
 					m_computerAnim.velocity.x = -200;
+					m_startBackdrop.velocity.x = -200;
 					break;
 			}
 			
