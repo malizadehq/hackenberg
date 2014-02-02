@@ -85,7 +85,8 @@ package crs.GameStates
 						Ax.camera.reset();
 						Ax.camera.fadeIn(m_fadeTime);
 						m_introSprite.load(Resource.INTRO_2, 600, 400);
-						add(m_introSprite);					
+						add(m_introSprite);
+						
 					 });
 				}
 			} else if (m_frameCounter >= m_frameThreshold_1)
@@ -97,7 +98,8 @@ package crs.GameStates
 						Ax.camera.reset();
 						Ax.camera.fadeIn(m_fadeTime);
 						m_introSprite.load(Resource.INTRO_1, 600, 400);
-						add(m_introSprite);					
+						add(m_introSprite);	
+						Ax.sound(Resource.SOUND_CARL_HELLO);
 					 });
 				}
 			} else

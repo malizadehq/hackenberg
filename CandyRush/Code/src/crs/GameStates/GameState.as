@@ -146,8 +146,7 @@ package crs.GameStates{
 		{
 			if (player.isDazed())
 			{
-				king.catchStuckPlayer();
-				king.update();
+				king.update();	
 				return;
 			}
 			
@@ -428,47 +427,47 @@ package crs.GameStates{
 				case PlayerModel.COMBOLVL_D:
 					animationString = "comboState_D";
 					effect.amount = 5;
-					Ax.sound(Resource.SOUND_COMBO_0);
+					Ax.sound(Resource.SOUND_COMBO_0,3);
 					break;
 				case PlayerModel.COMBOLVL_C:
 					animationString = "comboState_C";
 					effect.amount = 15;
-					Ax.sound(Resource.SOUND_COMBO_1);
+					Ax.sound(Resource.SOUND_COMBO_1,3);
 					break;
 				case PlayerModel.COMBOLVL_B:
 					effect.amount = 30;
 					animationString = "comboState_B";
 					effect.xVelocity = new AxRange(50, -125);
 					effect.yVelocity = new AxRange(-50, 125);					
-					Ax.sound(Resource.SOUND_COMBO_2);
+					Ax.sound(Resource.SOUND_COMBO_2,3);
 					break;
 				case PlayerModel.COMBOLVL_A:
 					animationString = "comboState_A";
 					effect.amount = 50;
 					effect.xVelocity = new AxRange(50, -150);
 					effect.yVelocity = new AxRange(-50, 150);		
-					Ax.sound(Resource.SOUND_COMBO_3);
+					Ax.sound(Resource.SOUND_COMBO_3,3);
 					break;
 				case PlayerModel.COMBOLVL_S:
 					animationString = "comboState_S";
 					effect.xVelocity = new AxRange(50, -175);
 					effect.yVelocity = new AxRange(-50, 175);						
 					effect.amount = 100;
-					Ax.sound(Resource.SOUND_COMBO_4);
+					Ax.sound(Resource.SOUND_COMBO_4,3);
 					break;
 				case PlayerModel.COMBOLVL_SS:
 					animationString = "comboState_SS";
 					effect.xVelocity = new AxRange(50, -220);
 					effect.yVelocity = new AxRange(-50, 220);	
 					effect.amount = 200;
-					Ax.sound(Resource.SOUND_COMBO_5);
+					Ax.sound(Resource.SOUND_COMBO_5,3);
 					break;
 				case PlayerModel.COMBOLVL_SSS:
 					effect.xVelocity = new AxRange(50, -300);
 					effect.yVelocity = new AxRange(-50, 300);					
 					animationString = "comboState_SSS";
 					effect.amount = 500;
-					Ax.sound(Resource.SOUND_COMBO_6);
+					Ax.sound(Resource.SOUND_COMBO_6,3);
 					break;
 			}
 			

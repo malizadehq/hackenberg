@@ -69,7 +69,13 @@ package crs.Util{
 		//EAT 
 		[Embed(source="../../../res/Sound/eat_candy_0.mp3")] public static const SOUND_EAT_0:Class;
 		[Embed(source="../../../res/Sound/eat_candy_1.mp3")] public static const SOUND_EAT_1:Class;
-		[Embed(source="../../../res/Sound/eat_candy_2.mp3")] public static const SOUND_EAT_2:Class;
+		[Embed(source = "../../../res/Sound/eat_candy_2.mp3")] public static const SOUND_EAT_2:Class;
+		
+		//Jump
+		[Embed(source="../../../res/Sound/jump_0.mp3")] public static const SOUND_JUMP_0:Class;
+		[Embed(source="../../../res/Sound/jump_1.mp3")] public static const SOUND_JUMP_1:Class;
+		[Embed(source="../../../res/Sound/jump_2.mp3")] public static const SOUND_JUMP_2:Class;
+		
 		//[Embed(source = "/Font/8BITWONDER.TTF", fontFamily = "8BITWONDER", embedAsCFF = "true")] public static const FONT:String;
 		
 		[Embed(source = "/Sound/Music_Start.mp3")] public static const MUSIC_START:Class;
@@ -79,6 +85,7 @@ package crs.Util{
 		[Embed(source = "../../../res/Sound/common_splat_0.mp3")] public static const SOUND_COMMON_SPLAT_0:Class;
 		[Embed(source = "../../../res/Sound/intro_explosion.mp3")] public static const SOUND_INTRO_EXPLOSION:Class;
 		[Embed(source = "../../../res/Sound/intro_keypress.mp3")] public static const SOUND_INTRO_KEYPRESS:Class;
+		[Embed(source = "../../../res/Sound/carl_hello.mp3")] public static const SOUND_CARL_HELLO:Class;
 		
 		public static const START_ISLAND:String =  		"7,2,5,5,2,2,2,5,2,3\n" +
 														"27,22,25,25,22,22,22,25,22,23\n" +
