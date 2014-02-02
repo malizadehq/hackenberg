@@ -46,9 +46,10 @@ package crs.Util
 		
 		private function generateValidYPos(referencePosition:AxPoint):int
 		{
+			var maxHeightBetweenIslands:uint = 150;
 			var yPos:uint = RNG.generateNumber(30, GameSettings.windowHeight - 130);
-			yPos = yPos > (GameSettings.windowHeight - 130) ? GameSettings.windowHeight - 130 : yPos;
-			yPos = yPos < 30 ? 30 : yPos;
+			
+			
 			
 			return yPos;
 		}
@@ -78,7 +79,7 @@ package crs.Util
 		
 		private function pickRandomIslandTileMap():void
 		{
-			var randomNumber:uint = RNG.generateNumber(0, 6);
+			var randomNumber:uint = RNG.generateNumber(0, 10);
 			switch(randomNumber)
 			{
 				case 0:
