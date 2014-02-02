@@ -22,13 +22,15 @@ package crs.Util{
 		[Embed(source = "/Animations/Intro/intro0003.png")] public static const INTRO_3:Class;
 		[Embed(source = "/Animations/Intro/start.png")] public static const START_GAME_INTRO:Class;
 		[Embed(source = "/Animations/Intro/start_computer.png")] public static const START_COMPUTER:Class;
+		[Embed(source = "/Animations/UI/gameover.png")] public static const GAME_OVER_DIALOGUE:Class;
 		
 		[Embed(source = "/Backdrop/backdrop_ground.png")] public static const BACKDROP_GROUND_A:Class;
 		[Embed(source = "/Backdrop/backdrop_groundB.png")] public static const BACKDROP_GROUND_B:Class;
 		[Embed(source = "/Backdrop/backdrop_cloudA.png")] public static const CLOUD_A:Class;
 		[Embed(source = "/Backdrop/backdrop_cloudB.png")] public static const CLOUD_B:Class;
 		[Embed(source = "/Backdrop/backdrop_cloudC.png")] public static const CLOUD_C:Class;
-		
+
+		[Embed(source = "/UI/gameoverHighscore.png")] public static const HIGH_SCORE:Class;		
 		[Embed(source = "/UI/TopUI.png")] public static const CHASE_BAR:Class;
 		[Embed(source = "/UI/TopUI_bar.png")] public static const CHASE_BAR_METER:Class;
 		[Embed(source = "/UI/MainUI.png")] public static const COMBO_UI:Class;
