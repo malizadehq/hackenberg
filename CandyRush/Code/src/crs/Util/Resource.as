@@ -10,6 +10,7 @@ package crs.Util{
 		[Embed(source = "/Animations/Dude/anim_run.png")] public static const ANIM_RUN:Class;
 		[Embed(source = "/Animations/Dude/anim_dash.png")] public static const ANIM_DASH:Class;
 		[Embed(source = "/Animations/Dude/anim_dash_hit.png")] public static const ANIM_DASH_HIT:Class;
+		[Embed(source = "/Animations/Dude/anim_dead.png")] public static const ANIM_DEAD:Class;
 		[Embed(source = "/Animations/Lawyer/lawyer_idle.png")] public static const LAWYER_IDLE:Class;
 		[Embed(source = "/Animations/Lawyer/lawyer_death_head.png")] public static const LAWYER_DEATH_HEAD:Class;
 		[Embed(source = "/Animations/Lawyer/lawyer_death_torso.png")] public static const LAWYER_DEATH_TORSO:Class;

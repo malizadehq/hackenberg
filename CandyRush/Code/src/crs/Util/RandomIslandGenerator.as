@@ -6,7 +6,7 @@ package crs.Util
 	
 	import crs.Entities.Powerup;
 	import crs.Entities.Lawyer;
-	
+	import crs.Util.RNG;
 	/**
 	 * ...
 	 * @author Sone
@@ -62,13 +62,51 @@ package crs.Util
 			{
 				powerupPos = new AxPoint(m_tileMapPowerups[0] * GameSettings.tileSize + tileMapToUse.x,
 										 m_tileMapPowerups[1] * GameSettings.tileSize + tileMapToUse.y);
+										 
+				if (powerupPos.y < 10)
+				{
+					var iTestX:int = 0;
+					var iTestY:int = 0;
+					var iTestIndex:int = tileMapToUse.getTileIndexAt(0, 0);
+					
+					for (iTestY = 0; iTestY < 7; iTestY++ )
+					{
+						for (iTestX = 0; iTestX < 9; iTestX++ )
+						{
+							iTestIndex = tileMapToUse.getTileIndexAt(iTestX, iTestY);
+							if (iTestIndex != 0 && iTestIndex < 17 )
+							{
+								powerupPos = new AxPoint(iTestX * GameSettings.tileSize + tileMapToUse.x,
+								iTestY * GameSettings.tileSize + tileMapToUse.y);
+								iTestY = 7; // Hack to break..omg
+								iTestX = 9;// Hack to break..omg
+								break;
+							}
+						}
+					}
+				}
 			}
 		
 			if (m_tileMapLawyers.length != 0)
-			{
-				lawyerPos = new AxPoint(m_tileMapLawyers[0] * GameSettings.tileSize + tileMapToUse.x,
-										m_tileMapLawyers[1] * GameSettings.tileSize + tileMapToUse.y);
-			}
+			{	
+				var iSpawnX:int = m_tileMapLawyers[0];
+				var iSpawnY:int = m_tileMapLawyers[1];
+				var iIndex:int = tileMapToUse.getTileIndexAt(iSpawnX, iSpawnY);
+				
+				while (iIndex == 0 || iIndex > 18)
+				{
+					iSpawnX = RNG.generateNumber(0, 8);
+					iSpawnY = RNG.generateNumber(0, 6);
+					iIndex = tileMapToUse.getTileIndexAt(iSpawnX, iSpawnY)
+				}
+				
+				lawyerPos = new AxPoint(iSpawnX * GameSettings.tileSize + tileMapToUse.x,
+						iSpawnY * GameSettings.tileSize + tileMapToUse.y);
+						
+				if (lawyerPos.y > 400)
+					return;
+			} 
+			
 			
 			var newPowerup:Powerup = new Powerup(new int(powerupPos.x), new int(powerupPos.y));
 			Registry.gameState.addPowerup(newPowerup);
