@@ -27,8 +27,9 @@ package crs.Entities
 		private static var STATE_IDLE:uint = 1;
 		private static var STATE_EATING:uint = 2;
 		private static var STATE_CHASE_PLAYER:uint = 3;
-		private static var STATE_EAT_PLAYER:uint = 4;
-		private static var STATE_ATE_PLAYER:uint = 5;
+		private static var STATE_CAUGHT_PLAYER:uint = 4;
+		private static var STATE_EAT_PLAYER:uint = 5;
+		private static var STATE_ATE_PLAYER:uint = 6;
 		
 		public function King()
 		{
@@ -115,10 +116,8 @@ package crs.Entities
 					{
 						catchPlayer();
 					}
-					
-					calculateShrinkKing();
 					break;
-				case STATE_EAT_PLAYER:
+				case STATE_CAUGHT_PLAYER:
 					var kingPos1:AxVector = new AxVector(center.x, center.y);
 					var centerPos1:AxVector = new AxVector(GameSettings.windowWidth * 0.5, GameSettings.windowHeight * 0.5);
 					var directionVec1:AxVector = getDirectionBetweenVectors(kingPos1, centerPos1);
@@ -133,6 +132,8 @@ package crs.Entities
 						velocity.y = 0;
 						eatPlayer();
 					}
+					break;
+				case STATE_EAT_PLAYER:
 					break;
 				case STATE_ATE_PLAYER:
 					break;
@@ -157,12 +158,14 @@ package crs.Entities
 		
 		private function eatPlayer():void
 		{
+			m_state = STATE_EAT_PLAYER;
 			animate("eatPlayer");
 		}
 		
 		private function catchPlayer():void
 		{
-			m_state = STATE_EAT_PLAYER;
+			m_state = STATE_CAUGHT_PLAYER;
+			Registry.player.eat();
 			playCaughtPlayerAnim();
 		}
 		
