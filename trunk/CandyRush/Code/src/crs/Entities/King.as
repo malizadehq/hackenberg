@@ -138,7 +138,7 @@ package crs.Entities
 				case STATE_EAT_PLAYER:
 					break;
 				case STATE_ATE_PLAYER:
-					Ax.pushState(new GameOverState())
+					Ax.pushState(new GameOverState());
 					break;
 			}
 			

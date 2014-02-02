@@ -20,6 +20,7 @@ package crs.GameStates
 		private var m_gameOverDialogue:AxSprite;
 		private var m_highScoreList:AxSprite;
 		private var m_highScoreText:AxText;
+		private var m_frameCounter:uint = 0;
 		
 		public function GameOverState() 
 		{
@@ -69,20 +70,25 @@ package crs.GameStates
 		override public function update():void
 		{
 			Ax.background = AxColor.fromHex(0xf1e2f1);
-
+			++m_frameCounter;
 			m_gameOverDialogue.animate("play");
 
-			if (Ax.keys.pressed(AxKey.Z))
+			if (m_frameCounter >= 20)
 			{
-				Ax.camera.fadeOut(0.5, 0xff000000, function():void {
-					Ax.camera.reset();
-					Ax.camera.fadeIn(0.5);
-					Ax.popState();
-					Ax.popState();
-					Registry.gameState = new GameState();
-					Ax.pushState(Registry.gameState);
-					Ax.pushState(new StartGameState());
-				});				
+				if (Ax.keys.pressed(AxKey.Z))
+				{
+					Ax.camera.fadeOut(0.5, 0xff000000, function():void {
+						Ax.camera.reset();
+						Ax.camera.fadeIn(0.5);
+						while (Ax.states.length > 0)
+						{
+							Ax.popState();
+						}
+						Registry.gameState = new GameState();
+						Ax.pushState(Registry.gameState);
+						Ax.pushState(new StartGameState(true));
+					});				
+				}
 			}
 			
 			super.update();

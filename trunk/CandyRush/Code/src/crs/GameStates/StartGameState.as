@@ -23,14 +23,17 @@ package crs.GameStates
 		private var m_startBackdrop:AxSprite;
 		
 		private var m_state:uint = STATE_CHOOSE;
+		private var m_instantStart:Boolean = false;
 		
 		private static var STATE_CHOOSE:uint = 0;
 		private static var STATE_START:uint = 1;
 		private static var STATE_HELP:uint = 2;
 		
-		public function StartGameState() 
+		public function StartGameState(instantStart:Boolean) 
 		{
 			super();
+			
+			m_instantStart = instantStart;
 		}
 		
 		override public function create():void
@@ -58,6 +61,11 @@ package crs.GameStates
 			m_computerAnim.load(Resource.START_COMPUTER, 285, 140);
 			m_computerAnim.addAnimation("choose", [0, 1, 2, 3, 4, 5], 3, true);
 			add(m_computerAnim);
+			
+			if (m_instantStart)
+			{
+				startGame();
+			}
 		}
 		
 		override public function update():void
@@ -81,9 +89,7 @@ package crs.GameStates
 					
 					if (Ax.keys.pressed(AxKey.Z))
 					{
-						m_state = STATE_START;
-						Ax.sound(Resource.SOUND_INTRO_KEYPRESS);
-						Ax.sound(Resource.SOUND_INTRO_EXPLOSION);
+						startGame();
 					}
 					if (Ax.keys.pressed(AxKey.X))
 					{
@@ -103,6 +109,13 @@ package crs.GameStates
 			}
 			
 			super.update();
+		}
+		
+		private function startGame():void 
+		{
+			m_state = STATE_START;
+			Ax.sound(Resource.SOUND_INTRO_KEYPRESS);
+			Ax.sound(Resource.SOUND_INTRO_EXPLOSION);
 		}
 	}
 

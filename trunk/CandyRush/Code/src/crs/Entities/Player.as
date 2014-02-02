@@ -6,10 +6,10 @@ package crs.Entities{
 	import org.axgl.AxVector;
 	import org.axgl.input.AxKey;
 	
+	import crs.GameStates.GameOverState;
 	import crs.Util.Resource;
 	import crs.Util.RNG;
 
-	//TODO: Subclass from Entity
 	public class Player extends AxSprite {
 		
 		private var hasJumped:Boolean = false;
@@ -27,7 +27,7 @@ package crs.Entities{
 			
 			drag.x = 300;
 			acceleration.y = curGravity;
-			worldBounds = new AxRect(0, 0, worldWidth, worldHeight);
+			worldBounds = new AxRect(0, 0, worldWidth, worldHeight + 100);
 			bounds(50, 50, 0, 20);
 		}
 		
@@ -164,7 +164,9 @@ package crs.Entities{
 		
 		public function hurt():void
 		{
-			flash(0.2, 0xffff0000, null);
+			velocity.x = 0;
+			velocity.y = 0;				
+			Ax.pushState(new GameOverState());
 		}
 	}
 }
