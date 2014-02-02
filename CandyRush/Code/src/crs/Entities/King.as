@@ -9,7 +9,9 @@ package crs.Entities
 	import crs.Util.Registry;
 	import crs.Util.VectorHelper;
 	import crs.Util.GameSettings;
+	import crs.GameStates.GameOverState;
 	
+	import org.axgl.Ax;
 	import org.axgl.AxPoint;
 	import org.axgl.AxVector;
 	import org.axgl.effect.sprite.AxFlickerSpriteEffect;
@@ -119,7 +121,7 @@ package crs.Entities
 					break;
 				case STATE_CAUGHT_PLAYER:
 					var kingPos1:AxVector = new AxVector(center.x, center.y);
-					var centerPos1:AxVector = new AxVector(GameSettings.windowWidth * 0.5, GameSettings.windowHeight * 0.5);
+					var centerPos1:AxVector = new AxVector(GameSettings.windowWidth * 0.5 - width * 0.5, 100);
 					var directionVec1:AxVector = getDirectionBetweenVectors(kingPos1, centerPos1);
 					
 					velocity.x = directionVec1.x * m_mediumVel;
@@ -136,6 +138,7 @@ package crs.Entities
 				case STATE_EAT_PLAYER:
 					break;
 				case STATE_ATE_PLAYER:
+					Ax.pushState(new GameOverState())
 					break;
 			}
 			

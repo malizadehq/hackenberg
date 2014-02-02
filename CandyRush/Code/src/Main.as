@@ -14,9 +14,9 @@ package
 	{
 		public function Main():void 
 		{
-			//super(IntroGameState);
+			super(IntroGameState);
 			//super(StartGameState);
-			super(GameState);			
+			//super(GameState);			
 		}
 		
 		override public function create():void {
