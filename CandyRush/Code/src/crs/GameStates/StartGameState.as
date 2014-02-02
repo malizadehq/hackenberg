@@ -10,6 +10,7 @@ package crs.GameStates
 	import crs.GameStates.GameState;
 	import crs.Util.Resource;
 	import crs.Util.GameSettings;
+	import crs.Util.Registry;
 	
 	/**
 	 * ...
@@ -33,12 +34,14 @@ package crs.GameStates
 		{
 			super.create();
 
-			Ax.background = AxColor.fromHex(0xf1e2f1);			
+			Ax.background = AxColor.fromHex(0xf1e2f1);
+			Registry.musicHandler.playMusic(Resource.MUSIC_START);
 			
 			m_startGameAnim = new AxSprite((GameSettings.windowWidth - 429) * 0.5, (GameSettings.windowHeight - 147) * 0.5, null, GameSettings.windowWidth, GameSettings.windowHeight);
 			m_startGameAnim.load(Resource.START_GAME_INTRO, 429, 147);
 			m_startGameAnim.addAnimation("play", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 11, false, function():void {
 				Ax.camera.flash(0.5, 0xFFFFFFFF);
+				Registry.musicHandler.playMusic(Resource.MUSIC_GAME);
 				Ax.popState();
 			});
 			add(m_startGameAnim);

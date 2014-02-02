@@ -65,7 +65,8 @@ package crs.Util{
 		[Embed(source="../../../res/Sound/eat_candy_2.mp3")] public static const SOUND_EAT_2:Class;
 		//[Embed(source = "/Font/8BITWONDER.TTF", fontFamily = "8BITWONDER", embedAsCFF = "true")] public static const FONT:String;
 		
-		[Embed(source = "/Sound/Driven.mp3")] public static const MUSIC:Class;
+		[Embed(source = "/Sound/Music_Start.mp3")] public static const MUSIC_START:Class;
+		[Embed(source = "/Sound/Music_Game.mp3")] public static const MUSIC_GAME:Class;
 		
 		
 		public static const START_ISLAND:String =  		"7,2,5,5,2,2,2,5,2,3\n" +

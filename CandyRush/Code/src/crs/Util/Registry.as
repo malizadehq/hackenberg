@@ -22,5 +22,7 @@ package crs.Util
 		public static var playerModel:PlayerModel;
 		/** The Active tilemaps **/
 		public static var tilemaps:AxGroup;
+		/** The music handler **/
+		public static var musicHandler:MusicHandler;
 	}
 }
