@@ -112,7 +112,7 @@ package crs.GameStates{
 			setupComboUI();
 			setupScoreUI();
 			setupScoreText();
-			//Ax.music(Resource.MUSIC);
+			Ax.music(Resource.MUSIC);
 			
 			TILEMAP_COLLIDER = new AxCollider;
 		}
