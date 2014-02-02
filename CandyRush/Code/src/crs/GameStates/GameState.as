@@ -72,6 +72,8 @@ package crs.GameStates{
 		/** Game model **/
 		private var m_gameModel:PlayerModel;
 
+		private var m_startBackdrop:AxSprite;
+		
 		//TODO: move to settings
 		private var tilemap:AxTilemap;
 		private var player:Player;
@@ -98,10 +100,16 @@ package crs.GameStates{
 			add(player);
 			king = new King();
 			add(king);
+			
 			Registry.player = player;
 			Registry.gameState = this;
 			gameVelocity = GameSettings.gameStartSpeed;
 
+			m_startBackdrop = new AxSprite(-250.0, 0.0, null, GameSettings.windowWidth, GameSettings.windowHeight);
+			m_startBackdrop.load(Resource.INTRO_BACKDROP, 600, 400);
+			add(m_startBackdrop);
+			m_startBackdrop.velocity.x = gameVelocity;
+			
             setupParticleEffects();
 			
 			Registry.floatingScoreTexts = new AxGroup;
