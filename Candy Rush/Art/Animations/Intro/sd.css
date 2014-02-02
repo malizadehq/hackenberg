@@ -1,0 +1,26 @@
+/* ----------------------------------------------------
+   created with http://www.codeandweb.com/texturepacker 
+   ----------------------------------------------------
+   $TexturePacker:SmartUpdate:645a1c41ba0a21cbfad8bf40b916e37f:041389b1231a2af75f4b6c9e777394ff:65bd35be75ec92b639233c7b4988511c$
+   ----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(start_computer_help.png);}
+
+.start_screen_help0000 {width:285px; height:140px; background-position: -0px -0px}
+.start_screen_help0001 {width:285px; height:140px; background-position: -285px -0px}
+.start_screen_help0002 {width:285px; height:140px; background-position: -570px -0px}
+.start_screen_help0003 {width:285px; height:140px; background-position: -855px -0px}
+.start_screen_help0004 {width:285px; height:140px; background-position: -1140px -0px}
+.start_screen_help0005 {width:285px; height:140px; background-position: -1425px -0px}
+.start_screen_help0006 {width:285px; height:140px; background-position: -0px -0px}
+.start_screen_help0007 {width:285px; height:140px; background-position: -285px -0px}
+.start_screen_help0008 {width:285px; height:140px; background-position: -570px -0px}
+.start_screen_help0009 {width:285px; height:140px; background-position: -855px -0px}
+.start_screen_help0010 {width:285px; height:140px; background-position: -1140px -0px}
+.start_screen_help0011 {width:285px; height:140px; background-position: -1425px -0px}
