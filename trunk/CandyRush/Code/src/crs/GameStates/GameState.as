@@ -111,16 +111,16 @@ package crs.GameStates{
 			
 			var effect:AxParticleEffect = new AxParticleEffect("glassEffect", Resource.PARTICLE_WHITE, 2);
 			effect.x = new AxRange(0, 30);
-			effect.y = new AxRange(0, 100);
-			effect.xVelocity = new AxRange(30, 200);
-			effect.yVelocity = new AxRange(0, -30);
-			effect.lifetime = new AxRange(2.5, 2.75);
+			effect.y = new AxRange(0, 5);
+			effect.xVelocity = new AxRange(30, 150);
+			effect.yVelocity = new AxRange(40, 70);
+			effect.lifetime = new AxRange(1.5, 1.75);
 			effect.amount = 50;
-			effect.startScale = new AxRange(1, 2);
+			effect.startScale = new AxRange(1, 3);
 			effect.endScale = new AxRange(0, 1);
 			//effect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
 			m_particles.add(AxParticleSystem.register(effect));
-			AxParticleSystem.emit("glassEffect", 50, 100);
+			AxParticleSystem.emit("glassEffect", 50, 150);
 			
 			player = new Player(150, 150, GameSettings.windowWidth, GameSettings.windowHeight);
 			add(player);
