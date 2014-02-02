@@ -163,6 +163,9 @@ package crs.Entities
 		{
 			m_state = STATE_EAT_PLAYER;
 			animate("eatPlayer");
+			Ax.camera.shake(0.35, 8);
+			Ax.sound(Resource.SOUND_EAT_1);
+			Ax.sound(Resource.SOUND_COMMON_SPLAT_0);
 		}
 		
 		private function catchPlayer():void
@@ -170,6 +173,8 @@ package crs.Entities
 			m_state = STATE_CAUGHT_PLAYER;
 			Registry.player.eat();
 			playCaughtPlayerAnim();
+			Ax.camera.shake(0.35, 2);
+			Ax.sound(Resource.SOUND_EAT_0);
 		}
 		
 		public function startKing():void
