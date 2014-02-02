@@ -96,20 +96,39 @@ package crs.GameStates{
 			
 			setupStartTilemaps();			
 			
-			player = new Player(150, 150, GameSettings.windowWidth, GameSettings.windowHeight);
-			add(player);
 			king = new King();
 			add(king);
 			
-			Registry.player = player;
-			Registry.gameState = this;
 			gameVelocity = GameSettings.gameStartSpeed;
-
-			m_startBackdrop = new AxSprite(-250.0, 0.0, null, GameSettings.windowWidth, GameSettings.windowHeight);
-			m_startBackdrop.load(Resource.INTRO_BACKDROP, 600, 400);
+			
+			m_startBackdrop = new AxSprite(-400.0, 0.0, null, GameSettings.windowWidth, GameSettings.windowHeight);
+			m_startBackdrop.load(Resource.INTRO_BACKDROP_B, 600, 400);
 			add(m_startBackdrop);
 			m_startBackdrop.velocity.x = gameVelocity;
 			
+			m_particles = new AxGroup;
+			add(m_particles);
+			
+			var effect:AxParticleEffect = new AxParticleEffect("glassEffect", Resource.PARTICLE_WHITE, 2);
+			effect.x = new AxRange(0, 30);
+			effect.y = new AxRange(0, 100);
+			effect.xVelocity = new AxRange(30, 200);
+			effect.yVelocity = new AxRange(0, -30);
+			effect.lifetime = new AxRange(2.5, 2.75);
+			effect.amount = 50;
+			effect.startScale = new AxRange(1, 2);
+			effect.endScale = new AxRange(0, 1);
+			//effect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
+			m_particles.add(AxParticleSystem.register(effect));
+			AxParticleSystem.emit("glassEffect", 50, 100);
+			
+			player = new Player(150, 150, GameSettings.windowWidth, GameSettings.windowHeight);
+			add(player);
+
+			Registry.player = player;
+			Registry.gameState = this;
+			
+
             setupParticleEffects();
 			
 			Registry.floatingScoreTexts = new AxGroup;
@@ -334,7 +353,7 @@ package crs.GameStates{
 			m_particles = new AxGroup;
 			add(m_particles);
 			
-			var effect:AxParticleEffect = new AxParticleEffect("bloodEffect", Resource.PARTICLE, 2);
+			var effect:AxParticleEffect = new AxParticleEffect("bloodEffect", Resource.PARTICLE_RED, 2);
 			effect.xVelocity = new AxRange(0, 200);
 			effect.yVelocity = new AxRange(-30, 30);
 			effect.lifetime = new AxRange(0.5, 0.75);

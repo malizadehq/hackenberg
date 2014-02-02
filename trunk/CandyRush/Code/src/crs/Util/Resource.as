@@ -1,6 +1,7 @@
 package crs.Util{
 	public class Resource {
-		[Embed(source = "/Sprites/2x2_red_shaded.png")] public static const PARTICLE:Class;
+		[Embed(source = "/Sprites/2x2_red_shaded.png")] public static const PARTICLE_RED:Class;
+		[Embed(source = "/Sprites/2x2_white.png")] public static const PARTICLE_WHITE:Class;
 		[Embed(source = "/Sprites/Candy.png")] public static const POWERUP:Class;
 		
 		[Embed(source = "/Tiles/tilemap.png")] public static const TILES:Class;
@@ -21,6 +22,7 @@ package crs.Util{
 		[Embed(source = "/Animations/Intro/intro0002.png")] public static const INTRO_2:Class;
 		[Embed(source = "/Animations/Intro/intro0003.png")] public static const INTRO_3:Class;
 		[Embed(source = "/Animations/Intro/IntroBackdrop.png")] public static const INTRO_BACKDROP:Class;
+		[Embed(source = "/Animations/Intro/IntroBackdropB.png")] public static const INTRO_BACKDROP_B:Class;
 		[Embed(source = "/Animations/Intro/start.png")] public static const START_GAME_INTRO:Class;
 		[Embed(source = "/Animations/Intro/start_computer.png")] public static const START_COMPUTER:Class;
 		[Embed(source = "/Animations/Intro/start_computer_help.png")] public static const START_COMPUTER_HELP:Class;
@@ -37,7 +39,6 @@ package crs.Util{
 		[Embed(source = "/UI/TopUI_bar.png")] public static const CHASE_BAR_METER:Class;
 		[Embed(source = "/UI/MainUI.png")] public static const COMBO_UI:Class;
 		[Embed(source = "/UI/MainUI0000.png")] public static const SCORE_UI:Class;
-		
 		
 		//Sound
 		// Combo Sounds
