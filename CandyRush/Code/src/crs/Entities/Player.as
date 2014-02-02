@@ -43,7 +43,7 @@ package crs.Entities{
 				
 			if (isTouching(DOWN))
 			{
-				if(m_hasJumped)
+				if(m_hasJumped || m_hasDoubleJumped)
 					Ax.sound(Resource.SOUND_JUMP_1, 1.0);
 				m_hasJumped = false;
 				m_hasDoubleJumped = false;
