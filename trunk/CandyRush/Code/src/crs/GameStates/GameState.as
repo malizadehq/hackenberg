@@ -78,7 +78,7 @@ package crs.GameStates{
 		private var m_acceleration:Number = -0.1;
 		private var m_velocityMultiplier:int = 1;
 		
-		public static var gameVelocity:int = 0;
+		public static var gameVelocity:Number = 0;
  
 		override public function create():void 
 		{
@@ -91,6 +91,8 @@ package crs.GameStates{
 			m_collidersGroup.add(m_powerups).add(m_lawyers);
 			add(m_collidersGroup);			
 			
+			setupStartTilemaps();			
+			
 			player = new Player(150, 100, GameSettings.windowWidth, GameSettings.windowHeight);
 			add(player);
 			king = new King();
@@ -98,10 +100,9 @@ package crs.GameStates{
 			Registry.player = player;
 			Registry.gameState = this;
 			gameVelocity = GameSettings.gameStartSpeed;
-			
-            setupParticleEffects();
-			setupStartTilemaps();
 
+            setupParticleEffects();
+			
 			Registry.floatingScoreTexts = new AxGroup;
 			add(Registry.floatingScoreTexts);
 			m_gameModel = Registry.playerModel = new PlayerModel();
