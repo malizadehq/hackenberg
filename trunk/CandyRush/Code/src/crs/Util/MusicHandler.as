@@ -25,7 +25,7 @@ package crs.Util
 				m_sound = null;
 			}
 			
-			setSound(Ax.music(music, m_musicVolume));			
+			//setSound(Ax.music(music, m_musicVolume));			
 		}
 		
 		private function setSound(sound:AxSound):void
