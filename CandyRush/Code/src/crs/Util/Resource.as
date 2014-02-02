@@ -22,6 +22,7 @@ package crs.Util{
 		[Embed(source = "/Animations/Intro/intro0003.png")] public static const INTRO_3:Class;
 		[Embed(source = "/Animations/Intro/start.png")] public static const START_GAME_INTRO:Class;
 		[Embed(source = "/Animations/Intro/start_computer.png")] public static const START_COMPUTER:Class;
+		[Embed(source = "/Animations/Intro/start_computer_help.png")] public static const START_COMPUTER_HELP:Class;
 		[Embed(source = "/Animations/UI/gameover.png")] public static const GAME_OVER_DIALOGUE:Class;
 		
 		[Embed(source = "/Backdrop/backdrop_ground.png")] public static const BACKDROP_GROUND_A:Class;
@@ -71,7 +72,7 @@ package crs.Util{
 		//Misc
 		[Embed(source = "../../../res/Sound/common_splat_0.mp3")] public static const SOUND_COMMON_SPLAT_0:Class;
 		[Embed(source = "../../../res/Sound/intro_explosion.mp3")] public static const SOUND_INTRO_EXPLOSION:Class;
-		
+		[Embed(source = "../../../res/Sound/intro_keypress.mp3")] public static const SOUND_INTRO_KEYPRESS:Class;
 		
 		public static const START_ISLAND:String =  		"7,2,5,5,2,2,2,5,2,3\n" +
 														"27,22,25,25,22,22,22,25,22,23\n" +

@@ -24,6 +24,7 @@ package crs.GameStates
 		
 		private static var STATE_CHOOSE:uint = 0;
 		private static var STATE_START:uint = 1;
+		private static var STATE_HELP:uint = 2;
 		
 		public function StartGameState() 
 		{
@@ -56,17 +57,31 @@ package crs.GameStates
 			Ax.background = AxColor.fromHex(0xf1e2f1);
 			switch(m_state)
 			{
+				case STATE_HELP:
+					m_computerAnim.animate("help");
+					if (Ax.keys.pressed(AxKey.Z) || Ax.keys.pressed(AxKey.X))
+					{
+						m_state = STATE_CHOOSE;
+						Ax.sound(Resource.SOUND_INTRO_KEYPRESS);
+						m_computerAnim.load(Resource.START_COMPUTER, 285, 140);
+						m_computerAnim.addAnimation("choose", [0, 1, 2, 3, 4, 5], 3, true);
+					}				
+				break;
 				case STATE_CHOOSE:
 					m_computerAnim.animate("choose");
 					
 					if (Ax.keys.pressed(AxKey.Z))
 					{
 						m_state = STATE_START;
+						Ax.sound(Resource.SOUND_INTRO_KEYPRESS);
 						Ax.sound(Resource.SOUND_INTRO_EXPLOSION);
 					}
 					if (Ax.keys.pressed(AxKey.X))
 					{
-						
+						m_state = STATE_HELP;
+						Ax.sound(Resource.SOUND_INTRO_KEYPRESS);
+						m_computerAnim.load(Resource.START_COMPUTER_HELP, 285, 140);
+						m_computerAnim.addAnimation("help", [0, 1, 2, 3, 4, 5], 3, true);
 					}
 					break;
 				case STATE_START:
