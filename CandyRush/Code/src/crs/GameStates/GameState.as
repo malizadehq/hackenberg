@@ -148,6 +148,9 @@ package crs.GameStates{
 			if (player.isTouching(RIGHT | UP))
 			{
 				player.hurt();
+			} else if (player.y > GameSettings.windowHeight)
+			{
+				player.hurt();
 			} else 
 			{
 				player.x = 100;
@@ -242,7 +245,7 @@ package crs.GameStates{
 					AxParticleSystem.emit("bloodEffect", target.x, target.y + fistYPos);
 				} else
 				{
-					//You got sued and died in Gulag.
+					//You got sued and died in Gulag.				
 					player.hurt();
 				}
 			}
