@@ -14,8 +14,8 @@ package crs.Entities{
 	public class Player extends AxSprite {
 		
 		public var m_isDashing:Boolean = false;		
-		private var m_hasJumped:Boolean = false;
-		private var m_hasDoubleJumped:Boolean = false;
+		private var m_hasJumped:Boolean = true;
+		private var m_hasDoubleJumped:Boolean = true;
 		private var m_originalGravity:int = 650;		
 		private var m_curGravity:int = 650;
 		private var m_dashFrameCounter:int = 0;
@@ -36,10 +36,18 @@ package crs.Entities{
 		
 		override public function update():void 
 		{
+			if (m_isDazed)
+			{
+				return;
+			}
+				
 			if (isTouching(DOWN))
 			{
+				if(m_hasJumped)
+					Ax.sound(Resource.SOUND_JUMP_1, 1.0);
 				m_hasJumped = false;
 				m_hasDoubleJumped = false;
+				
 			}
 
 			if (!m_isDashing)
@@ -51,10 +59,12 @@ package crs.Entities{
 					{
 						isAllowedToJump = true;
 						m_hasJumped = true;
+						Ax.sound(Resource.SOUND_JUMP_0, 0.45);
 					} else if (!m_hasDoubleJumped)
 					{
 						isAllowedToJump = true;
-						m_hasDoubleJumped = true;					
+						m_hasDoubleJumped = true;
+						Ax.sound(Resource.SOUND_JUMP_2, 0.45);
 					}
 					
 					if (isAllowedToJump)
@@ -86,7 +96,7 @@ package crs.Entities{
 				{
 					if (++m_footstepFrameCounter == 1)
 					{
-						Ax.sound(Resource.SOUND_FOOTSTEP, 0.02);
+						//Ax.sound(Resource.SOUND_FOOTSTEP, 0.11);
 					} else if (m_footstepFrameCounter == 13)
 					{
 						m_footstepFrameCounter = 0;
@@ -112,7 +122,9 @@ package crs.Entities{
 		
 		private function dash():void
 		{
-			y -= 5;
+			if (m_isDazed)
+				return;
+				
 			load(Resource.ANIM_DASH, 100, 70);
 			bounds(50, 50, 0, 20);			
 			addAnimation("dash", [0, 1, 2, 3], 8, true);
@@ -145,6 +157,9 @@ package crs.Entities{
 		
 		private function endDash():void
 		{
+			if (m_isDazed)
+				return;
+				
 			load(Resource.ANIM_RUN, 70, 70);
 			addAnimation("run", [0,1,2,3,4,5,6], 11, true);
 			addAnimation("jump", [3], 1, false);
@@ -158,6 +173,9 @@ package crs.Entities{
 		
 		public function animateDashHit():void
 		{
+			if (m_isDazed)
+				return;
+				
 			load(Resource.ANIM_DASH_HIT, 100, 70);
 			bounds(50, 50, 0, 20);
 			addAnimation("dashHit", [0, 1, 2, 3, 4, 5, 6, 7], 8, false, function():void 
@@ -170,6 +188,9 @@ package crs.Entities{
 		
 		public function loadRunAnim():void
 		{
+			if (m_isDazed)
+				return;
+				
 			load(Resource.ANIM_RUN, 70, 70);
 			addAnimation("run", [0,1,2,3,4,5,6], 11, true);
 			addAnimation("jump", [3], 1, false);
@@ -189,14 +210,13 @@ package crs.Entities{
 		
 		public function daze():void
 		{
+			if (m_isDazed)
+				return;
 			m_isDazed = true;
+			x = 100;
 			velocity.x = 0;
 			velocity.y = 0;
-			/*
-			load(Resource.ANIM_DEAD, 75, 75);
-			addAnimation("dead", [1], 1, true);
-			animate("dead");
-			*/
+				
 			Ax.sound(Resource.SOUND_COMMON_SPLAT_0);
 			Ax.camera.shake(0.35, 8);
 		}
