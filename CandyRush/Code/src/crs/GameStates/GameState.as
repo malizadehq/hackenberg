@@ -157,7 +157,9 @@ package crs.GameStates{
 		
 		public function updateChaseBarUI():void
 		{
-			m_chaseBarMeter.grow(1, Registry.playerModel.getKingWillEatYouPercent(), 1);
+			var kingWillEatYouPercent:Number = Registry.playerModel.getKingWillEatYouPercent();
+			kingWillEatYouPercent = kingWillEatYouPercent > 1 ? 1 : kingWillEatYouPercent;
+			m_chaseBarMeter.grow(1, kingWillEatYouPercent, 1);
 		}
 		
 		private function cameraShakeEffect():void
@@ -457,10 +459,5 @@ package crs.GameStates{
 		{
 			m_lawyers.add(newLawyer);
 		}
-		
-		public function addTilemap(tilemap:AxTilemap):void
-		{
-			//m_tilemaps.add
-		}		
 	}
 }

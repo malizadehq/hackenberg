@@ -92,6 +92,11 @@ package crs.Entities{
 			super.update();
 		}
 		
+		public function eat():void
+		{
+			destroy();
+		}
+		
 		private function dash():void
 		{
 			load(Resource.ANIM_DASH, 100, 70);
