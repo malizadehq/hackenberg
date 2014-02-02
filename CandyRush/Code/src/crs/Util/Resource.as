@@ -33,6 +33,34 @@ package crs.Util{
 		[Embed(source = "/UI/TopUI_bar.png")] public static const CHASE_BAR_METER:Class;
 		[Embed(source = "/UI/MainUI.png")] public static const COMBO_UI:Class;
 		[Embed(source = "/UI/MainUI0000.png")] public static const SCORE_UI:Class;
+		
+		
+		//Sound
+		// Combo Sounds
+		[Embed(source = "/Sound/combo_0.mp3")] public static const SOUND_COMBO_0:Class;
+		[Embed(source = "/Sound/combo_1.mp3")] public static const SOUND_COMBO_1:Class;
+		[Embed(source = "/Sound/combo_2.mp3")] public static const SOUND_COMBO_2:Class;
+		[Embed(source = "/Sound/combo_3.mp3")] public static const SOUND_COMBO_3:Class;
+		[Embed(source = "/Sound/combo_4.mp3")] public static const SOUND_COMBO_4:Class;
+		[Embed(source = "/Sound/combo_5.mp3")] public static const SOUND_COMBO_5:Class;
+		[Embed(source = "/Sound/combo_6.mp3")] public static const SOUND_COMBO_6:Class;
+		[Embed(source = "/Sound/combo_7.mp3")] public static const SOUND_COMBO_7:Class;
+		
+		//Dash
+		[Embed(source="../../../res/Sound/dash_start_0.mp3")] public static const SOUND_DASH_START_0:Class;
+		[Embed(source="../../../res/Sound/dash_start_1.mp3")] public static const SOUND_DASH_START_1:Class;
+		[Embed(source="../../../res/Sound/dash_start_2.mp3")] public static const SOUND_DASH_START_2:Class;
+		[Embed(source="../../../res/Sound/dash_start_3.mp3")] public static const SOUND_DASH_START_3:Class;
+		
+		[Embed(source="../../../res/Sound/dash_hit_0.mp3")] public static const SOUND_DASH_HIT_0:Class;
+		[Embed(source="../../../res/Sound/dash_hit_1.mp3")] public static const SOUND_DASH_HIT_1:Class;
+		[Embed(source="../../../res/Sound/dash_hit_2.mp3")] public static const SOUND_DASH_HIT_2:Class;
+		[Embed(source="../../../res/Sound/dash_hit_3.mp3")] public static const SOUND_DASH_HIT_3:Class;
+		
+		//EAT 
+		[Embed(source="../../../res/Sound/eat_candy_0.mp3")] public static const SOUND_EAT_0:Class;
+		[Embed(source="../../../res/Sound/eat_candy_1.mp3")] public static const SOUND_EAT_1:Class;
+		[Embed(source="../../../res/Sound/eat_candy_2.mp3")] public static const SOUND_EAT_2:Class;
 		//[Embed(source = "/Font/8BITWONDER.TTF", fontFamily = "8BITWONDER", embedAsCFF = "true")] public static const FONT:String;
 		
 		//[Embed(source = "/Sound/Driven.mp3")] public static const MUSIC:Class;

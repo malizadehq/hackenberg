@@ -32,6 +32,7 @@ package crs.GameStates{
 	import crs.Entities.Powerup;
 	import crs.Entities.Player;
 	import crs.Entities.Lawyer;
+	import crs.Util.RNG;
 	
 	public class GameState extends AxState {
 		/** The tilemap collider **/
@@ -216,6 +217,21 @@ package crs.GameStates{
 					cameraShakeEffect();
 					
 					player.animateDashHit();
+					switch(RNG.generateNumber(0, 3))
+					{
+						case 0:
+							Ax.sound(Resource.SOUND_DASH_HIT_0);
+						break;
+						case 1:
+							Ax.sound(Resource.SOUND_DASH_HIT_1);
+						break;
+						case 2:
+							Ax.sound(Resource.SOUND_DASH_HIT_2);
+						break;
+						case 3:
+							Ax.sound(Resource.SOUND_DASH_HIT_3);
+						break;
+					}
 					AxParticleSystem.emit("bloodEffect", target.x, target.y + fistYPos);
 				} else
 				{
@@ -352,6 +368,7 @@ package crs.GameStates{
 		public function setNewComboLevel(comboLevel:uint):void
 		{
 			var animationString:String = "";
+			
 			switch(Registry.playerModel.getComboLevel())
 			{
 				case PlayerModel.COMBOLVL_NONE:
@@ -359,24 +376,31 @@ package crs.GameStates{
 					break;
 				case PlayerModel.COMBOLVL_D:
 					animationString = "comboState_D";
+					Ax.sound(Resource.SOUND_COMBO_0);
 					break;
 				case PlayerModel.COMBOLVL_C:
-					animationString = "comboState_C";
+					animationString = "comboState_C";	
+					Ax.sound(Resource.SOUND_COMBO_1);
 					break;
 				case PlayerModel.COMBOLVL_B:
 					animationString = "comboState_B";
+					Ax.sound(Resource.SOUND_COMBO_2);
 					break;
 				case PlayerModel.COMBOLVL_A:
 					animationString = "comboState_A";
+					Ax.sound(Resource.SOUND_COMBO_3);
 					break;
 				case PlayerModel.COMBOLVL_S:
 					animationString = "comboState_S";
+					Ax.sound(Resource.SOUND_COMBO_4);
 					break;
 				case PlayerModel.COMBOLVL_SS:
 					animationString = "comboState_SS";
+					Ax.sound(Resource.SOUND_COMBO_5);
 					break;
 				case PlayerModel.COMBOLVL_SSS:
 					animationString = "comboState_SSS";
+					Ax.sound(Resource.SOUND_COMBO_6);
 					break;
 			}
 			
