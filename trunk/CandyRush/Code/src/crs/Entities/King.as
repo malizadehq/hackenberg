@@ -233,7 +233,10 @@ package crs.Entities
 		
 		private function doneEating():void
 		{
-			playIdleAnim();
+			if (m_state < STATE_CHASE_PLAYER)
+			{
+				playIdleAnim();
+			}
 		}
 		
 		private function getDirectionBetweenVectors(fromVec:AxVector, toVec:AxVector):AxVector 
