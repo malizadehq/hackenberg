@@ -24,6 +24,7 @@ package crs.Entities
 		{
 			super(x, y, null);
 			load(Resource.LAWYER_IDLE, 100, 100);
+			bounds(77, 92, 9, 0);
 			addAnimation("idle", [0, 1, 2, 3, 4, 5, 6, 7, 8], 4, true);
 		}
 		
