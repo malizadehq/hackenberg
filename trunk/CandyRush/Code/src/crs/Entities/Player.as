@@ -22,6 +22,9 @@ package crs.Entities{
 		private var m_dashMaxFrames:int = 20;	
 		private var m_isDazed:Boolean = false;
 		private var m_footstepFrameCounter:uint = 0;
+		//50, 50, 0, 20 are the "real" bounds
+		private var m_playerBounds:AxPoint = new AxPoint(30, 30);
+		private var m_playerBoundOffset:AxPoint = new AxPoint(10, 40);
 		
 		public function Player(x:Number, y:Number, worldWidth:Number, worldHeight:Number) {
 			super(x, y);
@@ -31,7 +34,7 @@ package crs.Entities{
 			drag.x = 300;
 			acceleration.y = m_curGravity;
 			worldBounds = new AxRect(0, 0, worldWidth, worldHeight + 100);
-			bounds(50, 50, 0, 20);
+			setPlayerRunBounds();
 		}
 		
 		override public function update():void 
@@ -87,13 +90,16 @@ package crs.Entities{
 				}			
 				
 				if (velocity.y < 0) {
+					//setPlayerJumpBounds();
 					animate("jump");
 					m_footstepFrameCounter = 0;
 				} else if (velocity.y > 0) {
+					//setPlayerJumpBounds();
 					animate("fall");
 					m_footstepFrameCounter = 0;
 				} else
 				{
+					//setPlayerRunBounds();
 					if (++m_footstepFrameCounter == 1)
 					{
 						//Ax.sound(Resource.SOUND_FOOTSTEP, 0.11);
@@ -126,7 +132,7 @@ package crs.Entities{
 				return;
 				
 			load(Resource.ANIM_DASH, 100, 70);
-			bounds(50, 50, 0, 20);			
+			setPlayerRunBounds();
 			addAnimation("dash", [0, 1, 2, 3], 8, true);
 			m_hasJumped = false;
 			m_hasDoubleJumped = true;
@@ -160,11 +166,7 @@ package crs.Entities{
 			if (m_isDazed)
 				return;
 				
-			load(Resource.ANIM_RUN, 70, 70);
-			addAnimation("run", [0,1,2,3,4,5,6], 11, true);
-			addAnimation("jump", [3], 1, false);
-			addAnimation("fall", [4], 1, false);
-			bounds(50, 50, 0, 20);
+			loadRunAnim();
 			
 			m_isDashing = false;
 			m_curGravity = m_originalGravity;
@@ -177,7 +179,7 @@ package crs.Entities{
 				return;
 				
 			load(Resource.ANIM_DASH_HIT, 100, 70);
-			bounds(50, 50, 0, 20);
+			setPlayerRunBounds();
 			addAnimation("dashHit", [0, 1, 2, 3, 4, 5, 6, 7], 8, false, function():void 
 			{
 				loadRunAnim();
@@ -192,6 +194,7 @@ package crs.Entities{
 				return;
 				
 			load(Resource.ANIM_RUN, 70, 70);
+			setPlayerRunBounds();
 			addAnimation("run", [0,1,2,3,4,5,6], 11, true);
 			addAnimation("jump", [3], 1, false);
 			addAnimation("fall", [4], 1, false);
@@ -220,5 +223,15 @@ package crs.Entities{
 			Ax.sound(Resource.SOUND_COMMON_SPLAT_0);
 			Ax.camera.shake(0.35, 8);
 		}
+		
+		private function setPlayerRunBounds():void
+		{
+			bounds(m_playerBounds.x, m_playerBounds.y, m_playerBoundOffset.x, m_playerBoundOffset.y);
+		}
+		
+		private function setPlayerJumpBounds():void
+		{
+			bounds(m_playerBounds.x, m_playerBounds.y - 20, m_playerBoundOffset.x, m_playerBoundOffset.y);
+		}		
 	}
 }

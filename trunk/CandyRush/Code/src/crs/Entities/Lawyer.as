@@ -6,6 +6,7 @@ package crs.Entities
 	 */
 	
 	import crs.Util.Resource;
+	import org.axgl.AxSprite;
 	
 	import org.axgl.AxPoint;
 	
@@ -15,8 +16,8 @@ package crs.Entities
 		public static var TORSO_SHOT:int = 1;
 		public static var LEG_SHOT:int = 2;
 		
-		public static var HEAD_SHOT_MIN_YPOS:int = 46;
-		public static var TORSO_SHOT_MIN_YPOS:int = 76;
+		public static var HEAD_SHOT_MIN_YPOS:int = 56;
+		public static var TORSO_SHOT_MIN_YPOS:int = 86;
 		
 		private var m_isAlive:Boolean = true;
 		
@@ -24,10 +25,12 @@ package crs.Entities
 		{
 			super(x, y, null);
 			load(Resource.LAWYER_IDLE, 100, 100);
-			bounds(77, 92, 9, 0);
+			//These are the "correct" bound. They dont feel correct though, so I'm making them smaller.
+			//bounds(77, 92, 9, 0);
+			bounds(20, 90, 30, -10);
 			addAnimation("idle", [0, 1, 2, 3, 4, 5, 6, 7, 8], 4, true);
 		}
-		
+
 		public override function update():void
 		{
 			super.update();

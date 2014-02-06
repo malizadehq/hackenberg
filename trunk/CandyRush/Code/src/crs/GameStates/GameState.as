@@ -90,11 +90,11 @@ package crs.GameStates{
 			Ax.background = AxColor.fromHex(0xf1e2f1);
 			setupScrollingBGs();
 			
+			setupStartTilemaps();			
+			
 			// Add powerups and lawyers to the colliders group, which we collide with the player
 			m_collidersGroup.add(m_powerups).add(m_lawyers);
-			add(m_collidersGroup);
-			
-			setupStartTilemaps();			
+			add(m_collidersGroup);			
 			
 			king = new King();
 			add(king);
@@ -235,6 +235,12 @@ package crs.GameStates{
 				m_scoreCounter.pickedUpPowerup();
 			} else if (target is Lawyer && (target as Lawyer).isAlive())
 			{
+				//HACK!!!!!! Collision detection between lawyer and player in y-axis felt off. tweaking this here.
+				if ((target.y - player.y) > player.height - 20)
+				{
+					return;
+				}
+				
 				if (player.m_isDashing)
 				{
 					var fistYPos:int = (player.y + GameSettings.dashFistYPosition) - target.y;
