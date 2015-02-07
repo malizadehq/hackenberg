@@ -3,12 +3,11 @@ package lgj.Entities {
 	import org.axgl.AxRect;
 	import org.axgl.AxVector;
 	
-	import lgj.VectorHelper;
-	import lgj.Resource;
+	import lgj.Util.VectorHelper;
+	import lgj.Util.Resource;
 	import lgj.Settings;
 	
     public class Player extends AxSprite {
-		private var m_isDashing:Boolean = false;
 		private var m_dashFramesRemaining:int = 0;
 		private var m_dashVector:AxVector = new AxVector();
 		
@@ -20,7 +19,7 @@ package lgj.Entities {
         public function Player(x:Number, y:Number, worldWidth:Number, worldHeight:Number) {
 			super(x, y);
 
-			worldBounds = new AxRect(0, 0, worldWidth, worldHeight + 100);
+			worldBounds = new AxRect(0, 0, worldWidth, worldHeight - 50);
 
             load(Resource.PLAYER, 32, 32);
 			addAnimations();
@@ -33,7 +32,7 @@ package lgj.Entities {
 				case m_idleState:
 					break;
 				case m_readyState:
-					acceleration.y = Settings.GRAVITY;
+					//acceleration.y = Settings.GRAVITY;
 					break;
 				case m_dashingState:
 					--m_dashFramesRemaining;
@@ -71,7 +70,7 @@ package lgj.Entities {
 			velocity = VectorHelper.multiplyVectorWithNumber(normalizedVector, Settings.DASH_SPEED);
 			
 			m_state = m_dashingState;
-			acceleration.y = 0;
+			//acceleration.y = 0;
 		}
 		
 		private function stopDash():void {
@@ -85,6 +84,10 @@ package lgj.Entities {
             addAnimation("walk", [1,2,3,4, 5], 16, true);
             addAnimation("jump", [2], 1, false);
             addAnimation("fall", [3], 1, false);
+		}
+		
+		public function isDashing():Boolean {
+			return new Boolean(m_state == m_dashingState);
 		}
     }
 }

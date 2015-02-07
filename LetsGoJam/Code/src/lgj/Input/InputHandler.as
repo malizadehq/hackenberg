@@ -2,7 +2,7 @@ package lgj.Input
 {
 	import org.axgl.AxVector;
 	import flash.events.MouseEvent;
-	import lgj.VectorHelper;
+	import lgj.Util.VectorHelper;
 	
 	public class InputHandler 
 	{
