@@ -47,7 +47,7 @@ package lgj.Entities {
 			
 			animate("walk");
 			
-            super.update();			
+            super.update();
         }
 		
 		//returns whether the player will be at the end of the world at the next tick or not.
