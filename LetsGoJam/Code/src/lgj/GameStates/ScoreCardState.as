@@ -8,6 +8,7 @@ package lgj.GameStates
 	import org.axgl.render.AxColor;
 	import org.axgl.particle.AxParticleSystem;
 	import org.axgl.Ax;
+	import org.axgl.input.AxKey;
 	
 	import lgj.Util.Resource;
 	import lgj.Util.RNG;
@@ -51,9 +52,9 @@ package lgj.GameStates
 		private var m_cameraShakeDurationIncrease:Number = 0.1;
 		
 		private var m_scoreTickFrequency:int = 30;
-		private var m_scoreTickFrequencyMax:int = 4;
-		private var m_scoreTickFrequencyIncreaseInterval:int = 50;
-		private var m_scoreTickFrequencyIncrease:int = 1;
+		private var m_scoreTickFrequencyMax:int = 2;
+		private var m_scoreTickFrequencyIncreaseInterval:int = 30;
+		private var m_scoreTickFrequencyIncrease:int = 3;
 		private var m_scoreTickFrameCounter:int = 0;
 		private var m_scoreTickFrequencyIncreaseFrameCounter:int = 0;
 		private var m_countingScore:Boolean = true;
@@ -166,8 +167,14 @@ package lgj.GameStates
 						m_countingScore = false;
 					}
 				}
+			} else {
+				if (Ax.keys.pressed(AxKey.ANY) || Ax.mouse.down(0))
+				{
+					Ax.soundVolume = 1;
+					Ax.popState();
+					Ax.pushState(new StartMenuState(true));
+				}
 			}
-
 		}
 		
 		private function spawnScoreImage(x:int, y:int, resource:Class, frameWidth:int, frameHeight:int):void

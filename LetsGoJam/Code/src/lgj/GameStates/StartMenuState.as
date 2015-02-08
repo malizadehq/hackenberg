@@ -26,6 +26,7 @@ package lgj.GameStates
 		private var m_introSpriteBG:AxSprite;
 		
 		private var m_fadeTime:Number = 0.5;
+		private var m_skipLogoSpawning = false;
 		
 		override public function create():void
 		{
@@ -35,12 +36,29 @@ package lgj.GameStates
 			m_introSpriteC = new AxSprite(0, -100, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			m_introSpriteD = new AxSprite(0, -100, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			m_introSpriteBG = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			
+			if (m_skipLogoSpawning) {
+				//Set to something high to skip logo spawning sequence.
+				m_LogoCounter = 10;
+				
+				m_introSpriteA.load(Resource.TITLE_0, 600, 400);
+				add(m_introSpriteA);
+				m_introSpriteB.load(Resource.TITLE_1, 600, 400);
+				add(m_introSpriteB);
+				m_introSpriteC.load(Resource.TITLE_2, 600, 400);
+				add(m_introSpriteC);
+				m_introSpriteD.load(Resource.TITLE_3, 600, 400);
+				add(m_introSpriteD);
+			}			
 		}
-		public function StartMenuState() 
+		
+		public function StartMenuState(skipLogos:Boolean = false) 
 		{
 			m_introSpriteBG = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			m_introSpriteBG.load(Resource.BACKGROUND_INSIDE, 600, 400);
 			add(m_introSpriteBG);
+			
+			m_skipLogoSpawning = skipLogos;
 		}
 		override public function update():void 
 		{
