@@ -3,7 +3,7 @@ package lgj.GameStates
 	//import crs.Entities.Entity;
 	import lgj.Settings;
 	//import crs.Util.MusicHandler;
-	import lgj.Resource;
+	import lgj.Util.Resource;
 	//import crs.Util.Registry;
 	
 	import org.axgl.AxSprite;
