@@ -24,6 +24,7 @@ package lgj.GameStates
 	import lgj.Settings;
 	import lgj.Util.RNG;
 	import lgj.Entities.Dolphin;
+	import lgj.Util.Registry;
 
 	public class GameState extends AxState
 	{
@@ -34,8 +35,10 @@ package lgj.GameStates
 		
 		//Collider group for dolphins and player
 		private var m_playerDolphinCollider:AxGroup = new AxGroup();
-		//Collider group for the last level giblets that nothing else will collide with.
-		private var m_lastLevelGiblets:AxGroup = new AxGroup();
+		//Collider group for objets that will not be interacted with
+		private var m_uninteractableObjects:AxGroup = new AxGroup();
+		//Decals that will always be furtherst behind in z order
+		private var m_backgroundDecals:AxGroup = new AxGroup();
 		//Dolphin group
 		private var m_spawnedObjects:AxGroup = new AxGroup();
 		private var m_particles:AxGroup;
@@ -64,6 +67,7 @@ package lgj.GameStates
 			m_background = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			m_background.load(Resource.BACKGROUND, 600, 400);
 			add(m_background);
+			add(m_backgroundDecals);
 			
 			Ax.stage2D.addEventListener(MouseEvent.MOUSE_DOWN, m_inputHandler.onMouseDownHandler);
 			Ax.stage2D.addEventListener(MouseEvent.MOUSE_UP, m_inputHandler.onMouseUpHandler);
@@ -74,10 +78,13 @@ package lgj.GameStates
 			calculateNextDolphinSpawn();
 			add(m_spawnedObjects);
 			m_playerDolphinCollider.add(m_spawnedObjects).add(m_player);
-			add(m_lastLevelGiblets);
+			add(m_uninteractableObjects);
 			
 			m_particles = new AxGroup;
 			add(m_particles);
+			
+			Registry.gameState = this;
+			Registry.player = m_player;
         }
         
         override public function update():void {
@@ -185,20 +192,9 @@ package lgj.GameStates
 		}
 		
 		private function spawnDolphinGiblets(x:int, y:int, parentVelocity:AxVector, gibletNumber:int = -1):void {
-			var giblet1:DolphinGiblet;
-			var giblet2:DolphinGiblet;
-			var velocityModifier:AxVector = new AxVector(RNG.generateNumber( -50, 50),
-														 RNG.generateNumber( -50, 50), 0);
-			
-			if(gibletNumber == -1) {
-				giblet1 = new DolphinGiblet(x, y, 0);
-				giblet1.velocity = new AxVector(parentVelocity.x + velocityModifier.x, parentVelocity.y + velocityModifier.y);
-				m_spawnedObjects.add(giblet1);
-			
-				
-				giblet2 = new DolphinGiblet(x, y, 3);
-				giblet2.velocity = new AxVector(parentVelocity.x - velocityModifier.x, parentVelocity.y - velocityModifier.y);
-				m_spawnedObjects.add(giblet2);
+			if (gibletNumber == -1) {
+				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, 0));
+				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, 3));
 			} else {
 				var newGibletNumber1:uint;
 				var newGibletNumber2:uint;
@@ -209,15 +205,28 @@ package lgj.GameStates
 					newGibletNumber1 = 4;
 					newGibletNumber2 = 5;					
 				}
-				giblet1 = new DolphinGiblet(x, y, newGibletNumber1);
-				giblet1.velocity = new AxVector(parentVelocity.x + velocityModifier.x, parentVelocity.y + velocityModifier.y);
-				m_lastLevelGiblets.add(giblet1);
-				
-				giblet2 = new DolphinGiblet(x, y, newGibletNumber2);
-				giblet2.velocity = new AxVector(parentVelocity.x - velocityModifier.x, parentVelocity.y - velocityModifier.y);				
-				m_lastLevelGiblets.add(giblet2);
+				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber1));
+				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber2));
 			}
-		}			
+		}
+		
+		private function createSingleGiblet(x:int, y:int, parentVelocity:AxVector, playerVelocity:AxVector, gibletNumber:int):DolphinGiblet {
+			var giblet:DolphinGiblet;
+			var velocityModifier:AxVector = new AxVector(RNG.generateNumber( -50, 50),
+														 RNG.generateNumber( -50, 50), 0);
+			
+			giblet = new DolphinGiblet(x, y, gibletNumber);
+			giblet.velocity = new AxVector(parentVelocity.x + velocityModifier.x, parentVelocity.y + velocityModifier.y);
+			giblet.giveVelocityBasedRotation(parentVelocity);
+			
+			//Calculate extra velocity boost from players velocity
+			giblet.velocity = VectorHelper.addAxVectorToAxVector(giblet.velocity, VectorHelper.multiplyVectorWithNumber(playerVelocity, 0.3));
+			return giblet;
+		}
+		
+		public function spawnBloodDecal(x:int, y:int, resource:Class):void {
+			m_backgroundDecals.add(new AxSprite(x, y, resource, 64, 64));
+		}
 	}
 
 }
