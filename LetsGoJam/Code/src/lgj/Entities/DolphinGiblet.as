@@ -29,8 +29,6 @@ package lgj.Entities
 		private var m_hasSpawnedBounceBlood:Boolean = false;
 		private var m_hasSpawnedStationaryBlood:Boolean = false;
 		private var m_isStationary:Boolean = false;
-		
-		public var HasBeenCooked:Boolean = false;
 
 		public function DolphinGiblet(x:Number, y:Number, gibletPart:uint)
 		{
