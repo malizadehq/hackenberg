@@ -55,9 +55,6 @@ package lgj.Entities {
 					break;
 			}
 						
-			if (m_hitCooldown > 0) {
-				--m_hitCooldown;
-			}
 			
 			if (velocity.y == 0) {
 				velocity.x = 0;
@@ -126,7 +123,7 @@ package lgj.Entities {
 		}
 		
 		public function hit():void {
-			m_hitCooldown = Settings.HIT_COOLDOWN_FRAMES;
+			
 		}
     }
 }

@@ -89,7 +89,7 @@ package lgj.Entities
 			velocity.x = RNG.generateNumber(m_flopMinJumpSpeed.x, m_flopMaxJumpSpeed.x);
 		}
 		
-		public function hit():void {
+		public override function hit():void {
 			destroy();
 		}
 	}

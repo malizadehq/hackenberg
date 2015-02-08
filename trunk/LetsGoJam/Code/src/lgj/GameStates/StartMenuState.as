@@ -18,7 +18,7 @@ package lgj.GameStates
 	{
 		private var m_LogoCounter:uint = 0;
 		private var m_frameCounter:uint = 0;
-		private var m_iStartGameTimer:uint = 0;
+		private var m_iStartGameTimer:int = 0;
 		private var m_introSpriteA:AxSprite;
 		private var m_introSpriteB:AxSprite;
 		private var m_introSpriteC:AxSprite;

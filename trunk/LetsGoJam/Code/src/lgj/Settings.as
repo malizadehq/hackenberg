@@ -21,6 +21,7 @@ package lgj
 		public static var FLOOR_HEIGHT_RANDOM_MIN:int = -10;
 		public static var FLOOR_HEIGHT_RANDOM_MAX:int = 40;
 		public static var SLOWMOTION_RATE:uint = 5;
+		public static var HIT_COOLDOWN_FRAMES:uint = 20;
 		
 		//Pot settings
 		public static var POT_POSITION:AxPoint = new AxPoint(WINDOW_WIDTH - 175, WINDOW_HEIGHT - 225);
@@ -32,7 +33,6 @@ package lgj
 		//Player settings
 		public static var DASH_SPEED:Number = 1000;
 		public static var DASH_DRAG_TO_FRAMES_CONVERSION_RATE:Number = 0.05;
-		public static var HIT_COOLDOWN_FRAMES:uint = 20;
 		
 		//Dolphin and giblets settings
 		public static var BOUNCE_VELOCITY_DECREASE:AxVector = new AxVector(15, 10, 0);
