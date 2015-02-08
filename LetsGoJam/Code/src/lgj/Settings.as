@@ -24,6 +24,11 @@ package lgj
 		//Player settings
 		public static var DASH_SPEED:Number = 1000;
 		public static var DASH_DRAG_TO_FRAMES_CONVERSION_RATE:Number = 0.05;
+		public static var HIT_COOLDOWN_FRAMES:uint = 20;
+		
+		//Dolphin and giblets settings
+		public static var BOUNCE_VELOCITY_DECREASE:AxVector = new AxVector(15, 10, 0);
+		public static var BOUNCE_COOLDOWN_FRAMES:uint = 5;
 	}
 
 }
