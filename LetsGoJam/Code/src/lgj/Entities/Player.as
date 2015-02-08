@@ -10,6 +10,7 @@ package lgj.Entities {
 	import lgj.Util.VectorHelper;
 	import lgj.Util.Resource;
 	import lgj.Settings;
+	import lgj.Util.RNG;
 	import lgj.Util.Registry;
 	
     public class Player extends AxSprite {
@@ -38,9 +39,10 @@ package lgj.Entities {
 			super.update();
 			switch(m_state) {
 				case m_idleState:
-					break;
+					break; 
 				case m_readyState:
 					acceleration.y = Settings.GRAVITY * 2;
+					animate("idle");
 					break;
 				case m_dashingState:
 					--m_dashFramesRemaining;
@@ -52,8 +54,7 @@ package lgj.Entities {
 				default:
 					break;
 			}
-			
-			animate("idle");
+						
 			if (m_hitCooldown > 0) {
 				--m_hitCooldown;
 			}
@@ -87,6 +88,19 @@ package lgj.Entities {
 			acceleration.y = 0;
 			
 			flip = velocity.x < 0 ? LEFT : RIGHT;
+			
+			switch(RNG.generateNumber(0, 2))
+			{
+				case 0:
+					animate("hit1");
+				break;
+				case 1:
+					animate("hit2");
+				break;
+				case 2:
+					animate("hit3");
+				break;
+			}
 		}
 		
 		private function stopDash():void {
@@ -95,8 +109,12 @@ package lgj.Entities {
 			m_dashFramesRemaining = 0;
 		}
 		
-		private function addAnimations():void {
-			addAnimation("idle", [0, 1, 2, 3, 4, 5], 6, true);
+		private function addAnimations():void 
+		{
+			addAnimation("idle", [3, 4, 5, 6, 7, 8], 10, true);
+			addAnimation("hit1", [0], 1, true);
+			addAnimation("hit2", [1], 1, true);
+			addAnimation("hit3", [2], 1, true);
 		}
 		
 		public function canHit():Boolean {

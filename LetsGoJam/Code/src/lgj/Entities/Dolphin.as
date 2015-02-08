@@ -29,7 +29,7 @@ package lgj.Entities
 		{
 			super(x, y, Resource.DOLPHIN);
 			load(Resource.DOLPHIN, 128, 32);
-			addAnimation("flying", [0], 1, true);
+			addAnimation("flying", [0, 1, 2, 3, 4, 5], 20, true);
 			worldBounds = new AxRect(-100, 0, Settings.WINDOW_WIDTH + 150, Settings.WINDOW_HEIGHT - Settings.FLOOR_HEIGHT);
 			acceleration.y = Settings.GRAVITY;
 			

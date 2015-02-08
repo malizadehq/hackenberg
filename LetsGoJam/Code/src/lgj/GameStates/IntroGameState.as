@@ -160,7 +160,6 @@ package lgj.GameStates
 				Ax.camera.reset();
 				Ax.camera.fadeIn(m_fadeTime);
 				Ax.popState();
-				Ax.pushState(new GameState());
 				Ax.pushState(new StartMenuState());
 			});
 		}

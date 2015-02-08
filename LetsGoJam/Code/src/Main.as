@@ -3,7 +3,7 @@ package
 	import org.axgl.Ax;
 	import org.axgl.render.AxColor;
 	
-	import lgj.GameStates.TitleState;
+	import lgj.GameStates.ReadyState;
 	import lgj.GameStates.IntroGameState;
 	
 	public class Main extends Ax

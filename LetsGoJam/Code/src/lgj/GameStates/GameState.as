@@ -200,23 +200,32 @@ package lgj.GameStates
 				
 				cameraShakeEffect();
 				
-				/*
+				
+				switch(RNG.generateNumber(0, 1))
+				{
+					case 0:
+						Ax.sound(Resource.HIT_SWORDIMPACT_SOUND_0);
+					break;
+					case 1:
+						Ax.sound(Resource.HIT_SWORDIMPACT_SOUND_0);
+					break;
+				}
+				
 				switch(RNG.generateNumber(0, 3))
 				{
 					case 0:
-						Ax.sound(Resource.HIT_DOLPHIN_SOUND_0);
+						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_0);
 					break;
 					case 1:
-						Ax.sound(Resource.HIT_DOLPHIN_SOUND_1);
+						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
 					break;
 					case 2:
-						Ax.sound(Resource.HIT_DOLPHIN_SOUND_2);
+						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_2);
 					break;
 					case 3:
-						Ax.sound(Resource.HIT_DOLPHIN_SOUND_3);
+						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
 					break;
 				}
-				*/
 				AxParticleSystem.emit("bloodEffect", target.x + target.width * 0.5, target.y + target.height * 0.5);
 			}
 		}
@@ -257,11 +266,29 @@ package lgj.GameStates
 			ParticleSystemsGroup.add(AxParticleSystem.register(dashEffect));			
 		}
 		
-		private function spawnDolphin():void {
+		private function spawnDolphin():void 
+		{
 			var dolphin:Dolphin = new Dolphin(-20, Settings.WINDOW_HEIGHT - 100);
 			dolphin.velocity = new AxVector(RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.x, Settings.MAX_SPAWN_VELOCITY.x), 
 											RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.y, Settings.MAX_SPAWN_VELOCITY.y),
 											RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.a, Settings.MAX_SPAWN_VELOCITY.a));
+			
+			switch(RNG.generateNumber(0, 6))
+			{
+				case 0:
+					Ax.sound(Resource.HIT_DOLPHINSPEAK_SOUND_1);
+				break;
+				case 1:
+					Ax.sound(Resource.HIT_DOLPHINSPEAK_SOUND_2);
+				break;
+				case 2:
+					Ax.sound(Resource.HIT_DOLPHINSPEAK_SOUND_3);
+				break;
+				case 3:
+				case 4:
+				case 5:
+				break;
+			}
 			m_spawnedObjects.add(dolphin);
 		}
 		
@@ -298,7 +325,23 @@ package lgj.GameStates
 			return giblet;
 		}
 		
-		public function spawnBloodDecal(x:int, y:int, resource:Class):void {
+		public function spawnBloodDecal(x:int, y:int, resource:Class):void 
+		{
+			switch(RNG.generateNumber(0, 3))
+			{
+				case 0:
+					Ax.sound(Resource.HIT_GOREIMPACT_SOUND_0);
+				break;
+				case 1:
+					Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
+				break;
+				case 2:
+					Ax.sound(Resource.HIT_GOREIMPACT_SOUND_2);
+				break;
+				case 3:
+					Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
+				break;
+			}
 			m_backgroundDecals.add(new AxSprite(x, y, resource, 64, 64));
 		}
 			
@@ -327,7 +370,7 @@ package lgj.GameStates
 			m_pot = new Pot(Settings.POT_POSITION.x, Settings.POT_POSITION.y);
 			add(m_pot);
 			
-			m_player = new Player(150, 150, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			m_player = new Player(450, 150, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			add(m_player);
 		
 			m_playerDolphinCollider.add(m_spawnedObjects).add(m_player);
