@@ -16,6 +16,7 @@ package lgj.GameStates
 	import org.axgl.collision.AxCollisionGroup;
 	import org.axgl.text.AxText;
 	import org.axgl.util.AxRange;
+	import org.axgl.input.AxKey;
 	import org.axgl.render.AxColor;
 	import org.axgl.particle.AxParticleSystem;
 	import org.axgl.particle.AxParticleEffect;
@@ -83,25 +84,30 @@ package lgj.GameStates
         }
         
         override public function update():void {
-            super.update();
-			++m_frameCounter;
-			--m_clearDestroyedGibletsCounter;
-			
-			if(m_inputHandler.hasInputToProcess()) {
-				m_player.startDash(VectorHelper.addAxVectorToAxVector(m_inputHandler.getAndResetInputForce(), m_player.velocity));	
+			if (!Ax.keys.held(AxKey.SPACE) || m_frameCounter >= Settings.SLOWMOTION_RATE)
+			{
+				super.update();
+				checkForDolphinSpawn();
+				m_frameCounter = 0;
+			} else {
+				m_player.update();
 			}
-			
-			if(m_clearDestroyedGibletsCounter <= 0) {
-				m_finishedGiblets
-			}
-			
-			checkForDolphinSpawn();
-			
-			collidePlayerAndDolphins();
-			
-			collideGibletsAndPot();
-			
-			m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();
+				++m_frameCounter;
+				--m_clearDestroyedGibletsCounter;
+				
+				if(m_inputHandler.hasInputToProcess()) {
+					m_player.startDash(VectorHelper.addAxVectorToAxVector(m_inputHandler.getAndResetInputForce(), m_player.velocity));	
+				}
+				
+				if(m_clearDestroyedGibletsCounter <= 0) {
+					m_finishedGiblets
+				}
+				
+				collidePlayerAndDolphins();
+				
+				collideGibletsAndPot();
+				
+				m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();			
 		}
 		
 		private function collidePlayerAndDolphins():void {
