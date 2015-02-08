@@ -7,6 +7,7 @@ package lgj.GameStates
 	import org.axgl.util.AxRange;
 	import org.axgl.render.AxColor;
 	import org.axgl.particle.AxParticleSystem;
+	import org.axgl.text.AxText;
 	import org.axgl.Ax;
 	import org.axgl.input.AxKey;
 	
@@ -42,9 +43,19 @@ package lgj.GameStates
 		
 		private var m_resource:Class;
 		
+		private var m_ScoreCardStamp:AxSprite;
 		private var m_ScoreCardSprite_00:AxSprite;
 		private var m_ScoreCardSprite_01:AxSprite;
 		private var m_rng:int = 0;
+		
+		private var m_FinalStamp:int 		= -1;
+		private var m_FinalScore:int 		= 0;
+		private var m_ScoreGibSmall:int 	= 2000;
+		private var m_ScoreGibMedium:int 	= 1000;
+		private var m_ScoreGibLarge:int 	= -1000;
+		
+		private var m_scoreText:AxText;
+		private var m_scoreTextB:AxText;
 		
 		private var m_cameraShakeIntensity:Number = 1; 
 		private var m_cameraShakeIntensityIncrease:Number = 0.3;
@@ -61,8 +72,10 @@ package lgj.GameStates
 		
 		override public function create():void
 		{
-			m_ScoreCardSprite_00 = new AxSprite(0, 0, Resource.BACKGROUND_REPORTCARD, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			m_ScoreCardStamp = new AxSprite( 150, 250, null,128,128 );
 			
+			m_ScoreCardSprite_00 = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			m_ScoreCardSprite_00.load(Resource.BACKGROUND_REPORTCARD, 600, 400);
 			m_ScoreCardSprite_01 = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			m_ScoreCardSprite_01.load(Resource.READY_BG, 600, 400);
 			m_ScoreCardSprite_01.origin.x = 300;
@@ -79,6 +92,17 @@ package lgj.GameStates
 			m_scoreEffect.amount = 100;
 			m_scoreEffect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));
 			add(AxParticleSystem.register(m_scoreEffect));			
+			
+			m_scoreTextB = new AxText((Settings.WINDOW_WIDTH / 2) - 2, Settings.WINDOW_HEIGHT - 80, null, Settings.SCORE_TEXT + 0);
+			m_scoreTextB.scale.x = 2.2;
+			m_scoreTextB.scale.y = 2.2;
+			m_scoreTextB.setColor(0, 0, 0, 0.2);
+			add(m_scoreTextB);	
+			
+			m_scoreText = new AxText(Settings.WINDOW_WIDTH / 2, Settings.WINDOW_HEIGHT - 80, null, Settings.SCORE_TEXT + 0);
+			m_scoreText.scale.x = 2.0;
+			m_scoreText.scale.y = 2.0;
+			add(m_scoreText);	
 			
 			super.create();
 		}
@@ -120,6 +144,33 @@ package lgj.GameStates
 				}
 				
 				m_ScoreCardSprite_01.angle += 1;
+				var newFinalStamp:int = -1;
+				
+				switch(m_FinalStamp)
+				{
+					case -1:
+					case 0:
+						m_framesBetweenScoreCount = 20;
+					break;
+					case 1:
+						m_framesBetweenScoreCount = 17;
+					break;
+					case 2:
+						m_framesBetweenScoreCount = 15;
+					break;
+					case 3:
+						m_framesBetweenScoreCount = 13;
+					break;
+					case 4:
+						m_framesBetweenScoreCount = 8;
+					break;
+					case 5:
+						m_framesBetweenScoreCount = 5;
+					break;
+					case 6:
+						m_framesBetweenScoreCount = 2;
+					break;
+				}
 				
 				if (m_frameCounter >= m_framesBetweenScoreCount) {
 					m_frameCounter = 0;
@@ -144,6 +195,7 @@ package lgj.GameStates
 						
 						spawnScoreImage(m_finishedGibletsStartPoint.x + (m_finishedGiblets_counter * m_finishedGibletOffset), m_finishedGibletsStartPoint.y, m_resource, 64, 64);
 						++m_finishedGiblets_counter;
+						m_FinalScore += m_ScoreGibSmall;
 					} else if(m_unfinishedGiblets_counter < m_unfinishedGiblets) {
 						m_rng = RNG.generateNumber(0, 1);
 						switch(m_rng) {
@@ -159,10 +211,13 @@ package lgj.GameStates
 						
 						spawnScoreImage(m_unfinishedGibletsStartPoint.x + (m_unfinishedGiblets_counter * m_unfinishedGibletOffset), m_unfinishedGibletsStartPoint.y, m_resource, 64, 64);
 						++m_unfinishedGiblets_counter;
-					} else if (m_wholeDolphins_counter < m_wholeDolphins) {
+						m_FinalScore += m_ScoreGibMedium;
+					} else if (m_wholeDolphins_counter < m_wholeDolphins) 
+					{
 						m_resource = Resource.DOLPHIN;
 						spawnScoreImage(m_wholeDolphinsStartPoint.x + (m_wholeDolphins_counter * m_wholeDolphinOffset), m_wholeDolphinsStartPoint.y, Resource.DOLPHIN, 128, 64);
 						++m_wholeDolphins_counter;
+						m_FinalScore += m_ScoreGibLarge;
 					} else {
 						m_countingScore = false;
 					}
@@ -173,6 +228,87 @@ package lgj.GameStates
 					Ax.soundVolume = 1;
 					Ax.popState();
 					Ax.pushState(new StartMenuState(true));
+				}
+			}
+			
+			m_scoreText.angle = RNG.generateNumber( -5, 5);
+			m_scoreTextB.angle = RNG.generateNumber( -5, 5);
+			m_scoreText.text = m_FinalScore.toString();
+			m_scoreTextB.text = m_FinalScore.toString();
+			
+			m_scoreText.scale.x = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
+			m_scoreText.scale.y = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
+			
+			m_scoreText.scale.x += Number(m_FinalScore) / Number(10000);
+			m_scoreText.scale.y += Number(m_FinalScore) / Number(10000);
+			
+			m_scoreTextB.scale.x = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
+			m_scoreTextB.scale.y = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
+			
+			m_scoreTextB.scale.x += Number(m_FinalScore) / Number(10000);
+			m_scoreTextB.scale.y += Number(m_FinalScore) / Number(10000);
+			
+			if (m_FinalScore > 1000)
+			{
+				newFinalStamp = 0;
+				if (m_FinalScore > 2000)
+					newFinalStamp = 1;
+				if (m_FinalScore > 4000)
+					newFinalStamp = 2;
+				if (m_FinalScore > 8000)
+					newFinalStamp = 3;
+				if (m_FinalScore > 10000)
+					newFinalStamp = 4;
+				if (m_FinalScore > 15000)
+					newFinalStamp = 5;
+				if (m_FinalScore > 25000)
+					newFinalStamp = 6;
+			}
+			
+			if (newFinalStamp != m_FinalStamp)
+			{
+				m_FinalStamp = newFinalStamp;
+				m_ScoreCardStamp.scale.x = 4.0;
+				m_ScoreCardStamp.scale.y = 4.0;
+				m_ScoreCardStamp.grow(0.5, 1.0, 1.0);
+				
+				switch(m_FinalStamp)
+				{
+					case 0:
+						m_ScoreCardStamp.load(Resource.STAMP_0, 128, 128);
+						add(m_ScoreCardStamp);
+						Ax.sound(Resource.SCORE_SOUND_0);
+					break;
+					case 1:
+						m_ScoreCardStamp.load(Resource.STAMP_1, 128, 128);
+						add(m_ScoreCardStamp);
+						Ax.sound(Resource.SCORE_SOUND_1);
+					break;
+					case 2:
+						m_ScoreCardStamp.load(Resource.STAMP_2, 128, 128);
+						add(m_ScoreCardStamp);
+						Ax.sound(Resource.SCORE_SOUND_2);
+					break;
+					case 3:
+						m_ScoreCardStamp.load(Resource.STAMP_3, 128, 128);
+						add(m_ScoreCardStamp);
+						Ax.sound(Resource.SCORE_SOUND_3);
+					break;
+					case 4:
+						m_ScoreCardStamp.load(Resource.STAMP_4, 128, 128);
+						add(m_ScoreCardStamp);
+						Ax.sound(Resource.SCORE_SOUND_4);
+					break;
+					case 5:
+						m_ScoreCardStamp.load(Resource.STAMP_5, 128, 128);
+						add(m_ScoreCardStamp);
+						Ax.sound(Resource.SCORE_SOUND_5);
+					break;
+					case 6:
+						m_ScoreCardStamp.load(Resource.STAMP_6, 128, 128);
+						add(m_ScoreCardStamp);
+						Ax.sound(Resource.SCORE_SOUND_6);
+					break;
 				}
 			}
 		}
