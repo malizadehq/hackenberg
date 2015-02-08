@@ -8,6 +8,7 @@ package lgj.Util
 	{
 		//Backgrounds
 		[Embed(source = "/img/Main.png")] public static const BACKGROUND:Class;
+		[Embed(source = "/img/MainUI0000.png")] public static const SCORE_UI:Class;
 		
 		//Entities
 		[Embed(source = "/img/cook_idle.png")] public static const PLAYER_IDLE:Class;

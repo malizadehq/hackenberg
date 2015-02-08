@@ -36,6 +36,10 @@ package lgj
 		//Dolphin and giblets settings
 		public static var BOUNCE_VELOCITY_DECREASE:AxVector = new AxVector(15, 10, 0);
 		public static var BOUNCE_COOLDOWN_FRAMES:uint = 5;
+
+		//Score settings
+		public static var SCORE_TEXT_POSITION:AxPoint = new AxPoint(533, 4);
+		public static var SCORE_TEXT:String = "@[229,229,229] ";
 	}
 
 }
