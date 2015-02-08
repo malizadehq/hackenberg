@@ -2,10 +2,15 @@ package lgj.Entities {
     import org.axgl.AxSprite;
 	import org.axgl.AxRect;
 	import org.axgl.AxVector;
+	import org.axgl.util.AxRange;
+	import org.axgl.render.AxColor;
+	import org.axgl.particle.AxParticleEffect;
+	import org.axgl.particle.AxParticleSystem;
 	
 	import lgj.Util.VectorHelper;
 	import lgj.Util.Resource;
 	import lgj.Settings;
+	import lgj.Util.Registry;
 	
     public class Player extends AxSprite {
 		private var m_dashFramesRemaining:int = 0;
@@ -39,6 +44,7 @@ package lgj.Entities {
 					break;
 				case m_dashingState:
 					--m_dashFramesRemaining;
+					//Registry.gameState.emitParticleEffect(globalX, globalY, "dashEffect");
 					if(m_dashFramesRemaining <= 0/* || willBeAtEndOfWorld()*/) {
 						stopDash();
 					}

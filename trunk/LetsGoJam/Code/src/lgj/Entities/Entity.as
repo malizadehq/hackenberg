@@ -8,6 +8,8 @@ package lgj.Entities
 	 */
 	public class Entity extends AxSprite 
 	{
+		public var HasBeenCooked:Boolean = false;
+				
 		public function Entity(x:Number, y:Number, graphic:Class) 
 		{
 			super(x, y, graphic);

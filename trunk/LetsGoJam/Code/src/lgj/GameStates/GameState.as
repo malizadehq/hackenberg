@@ -29,6 +29,7 @@ package lgj.GameStates
 	import lgj.Util.RNG;
 	import lgj.Entities.Dolphin;
 	import lgj.Util.Registry;
+	import lgj.Entities.Entity;
 
 	public class GameState extends AxState
 	{
@@ -39,7 +40,7 @@ package lgj.GameStates
 		private var m_scoreText:AxText;
 		private var m_scoreUI:AxSprite;
 		
-		private var m_particles:AxGroup;
+		public var ParticleSystemsGroup:AxGroup;
 		//Handles mouse input
 		private var m_inputHandler:InputHandler;
 		
@@ -47,7 +48,8 @@ package lgj.GameStates
 		private var m_playerDolphinCollider:AxGroup = new AxGroup();
 		
 		//Collider group for objects that will not be interacted with
-		private var m_finishedGiblets:AxGroup = new AxGroup();
+		//private var m_finishedGiblets:AxGroup = new AxGroup();
+
 		//Decals that will always be furtherst behind in z order
 		private var m_backgroundDecals:AxGroup = new AxGroup();
 		//Dolphin group
@@ -100,12 +102,12 @@ package lgj.GameStates
 				}
 				
 				if(m_clearDestroyedGibletsCounter <= 0) {
-					m_finishedGiblets
+					//m_finishedGiblets
 				}
 				
 				collidePlayerAndDolphins();
 				
-				collideGibletsAndPot();
+				collideEntityGroupAndPot(m_spawnedObjects);
 				
 				m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();			
 		}
@@ -115,32 +117,49 @@ package lgj.GameStates
 			Ax.overlap(m_player, m_playerDolphinCollider, onPlayerHit, COLLISION_GRID);
 		}
 		
-		private function collideGibletsAndPot():void {
-			var numElements:int = m_finishedGiblets.members.length;
+		private function collideEntityGroupAndPot(group:AxGroup):void {
+			var numElements:int = group.members.length;
 			for (var i:int = 0; i < numElements; ++i ) {
-				//Don't care about the ones that have already been cooked.
-				if (!(m_finishedGiblets.members[i] as DolphinGiblet).HasBeenCooked)
+				//Don't care if they've already been cooked
+				if (!(group.members[i] as Entity).HasBeenCooked)
 				{
 					//Above Y collision plane
-					if (m_finishedGiblets.members[i].globalY < m_pot.getYCollision()) {
+					if (group.members[i].globalY < m_pot.getYCollision()) {
 						//To the right of close X-plane
-						if (m_finishedGiblets.members[i].globalX > m_pot.getXCollisionClose()) {
+						if (group.members[i].globalX > m_pot.getXCollisionClose()) {
 							//close enough to water to hit. DO IT!
-							if (Math.abs(m_pot.getYCollision() - m_finishedGiblets.members[i].globalY) <= Settings.POT_Y_COLLISION_ALLOWANCE) {
+							if (Math.abs(m_pot.getYCollision() - group.members[i].globalY) <= Settings.POT_Y_COLLISION_ALLOWANCE) {
 								//giblet is inside far x-bound as well. We have a hit!
-								if (m_finishedGiblets.members[i].globalX < m_pot.getXCollisionFar()) {
-									m_pot.hit(m_finishedGiblets.members[i].globalX, m_finishedGiblets.members[i].globalY);
-									(m_finishedGiblets.members[i] as DolphinGiblet).HasBeenCooked = true;
-									(m_finishedGiblets.members[i] as DolphinGiblet).hit();
-									AxParticleSystem.emit("waterSplashEffect", m_finishedGiblets.members[i].globalX + m_finishedGiblets.members[i].width * 0.5,
-																			   m_pot.getYCollision());
-									m_scoreManager.addFinishedGiblet();
+								if (group.members[i].globalX < m_pot.getXCollisionFar()) {
+									cookEntity(group.members[i] as Entity);
 								}
 							}
 						}
 					}
 				}
 			}
+		}
+		
+		private function cookEntity(entity:Entity):void {
+			m_pot.hit(entity.globalX, entity.globalY);
+			AxParticleSystem.emit("waterSplashEffect", entity.globalX + entity.width * 0.5, m_pot.getYCollision());
+			
+			if((entity as Dolphin) != null) {
+				(entity as Dolphin).HasBeenCooked = true;
+				(entity as Dolphin).hit();
+				m_scoreManager.addEntireDolphin();
+			} else if((entity as DolphinGiblet) != null) {
+				(entity as DolphinGiblet).HasBeenCooked = true;
+				(entity as DolphinGiblet).hit();
+				if ((entity as DolphinGiblet).getGibletPartNumber() == 0 ||
+					(entity as DolphinGiblet).getGibletPartNumber() == 3) {
+					m_scoreManager.addUnfinishedGiblet();		
+				} else {
+					m_scoreManager.addFinishedGiblet();
+				}
+			}
+
+			m_scoreManager.addFinishedGiblet();
 		}
 		
 		private function checkForDolphinSpawn():void {
@@ -209,8 +228,8 @@ package lgj.GameStates
 		
 		private function setupParticleEffects():void 
 		{
-			m_particles = new AxGroup;
-			add(m_particles);
+			ParticleSystemsGroup = new AxGroup;
+			add(ParticleSystemsGroup);
 			
 			var bloodEffect:AxParticleEffect = new AxParticleEffect("bloodEffect", Resource.RED_PARTICLE, 2);
 			bloodEffect.xVelocity = new AxRange(-100, 100);
@@ -218,7 +237,7 @@ package lgj.GameStates
 			bloodEffect.lifetime = new AxRange(0.5, 0.75);
 			bloodEffect.amount = 100;
 			bloodEffect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
-			m_particles.add(AxParticleSystem.register(bloodEffect));
+			ParticleSystemsGroup.add(AxParticleSystem.register(bloodEffect));
 			
 			var waterSplashEffect:AxParticleEffect = new AxParticleEffect("waterSplashEffect", Resource.BLUE_PARTICLE, 2);
 			waterSplashEffect.xVelocity = new AxRange(-100, 100);
@@ -226,7 +245,16 @@ package lgj.GameStates
 			waterSplashEffect.lifetime = new AxRange(0.5, 0.75);
 			waterSplashEffect.amount = 200;
 			waterSplashEffect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
-			m_particles.add(AxParticleSystem.register(waterSplashEffect));			
+			ParticleSystemsGroup.add(AxParticleSystem.register(waterSplashEffect));
+			
+			//TODO: Fix this one later.
+			var dashEffect:AxParticleEffect = new AxParticleEffect("dashEffect", Resource.YELLOW_PARTICLE, 2);
+			dashEffect.xVelocity = new AxRange(-100, 100);
+			dashEffect.yVelocity = new AxRange(-100, 0);
+			dashEffect.lifetime = new AxRange(0.5, 0.75);
+			dashEffect.amount = 100;
+			dashEffect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));
+			ParticleSystemsGroup.add(AxParticleSystem.register(dashEffect));			
 		}
 		
 		private function spawnDolphin():void {
@@ -251,8 +279,8 @@ package lgj.GameStates
 					newGibletNumber1 = 4;
 					newGibletNumber2 = 5;					
 				}
-				m_finishedGiblets.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber1));
-				m_finishedGiblets.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber2));
+				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber1));
+				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber2));
 			}
 		}
 		
@@ -295,8 +323,7 @@ package lgj.GameStates
 		
 			calculateNextDolphinSpawn();
 			add(m_spawnedObjects);
-			
-			add(m_finishedGiblets);
+
 			m_pot = new Pot(Settings.POT_POSITION.x, Settings.POT_POSITION.y);
 			add(m_pot);
 			
@@ -309,6 +336,10 @@ package lgj.GameStates
 		
 			m_scoreManager = new ScoreManager();
 			setupScoreUI();
+		}
+		
+		public function emitParticleEffect(x:int, y:int, effectName:String):void {
+			AxParticleSystem.emit(effectName, x, y);
 		}
 	}
 
