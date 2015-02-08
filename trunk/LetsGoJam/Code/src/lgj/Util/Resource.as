@@ -22,6 +22,12 @@ package lgj.Util
 		//Particle effects
 		[Embed(source = "/img/2x2_red_shaded.png")] public static const RED_PARTICLE:Class;
 		
+		//Decals
+		[Embed(source = "/img/BloodDecal_00.png")] public static const BLOOD_DECAL_LARGE_0:Class;
+		[Embed(source = "/img/BloodDecal_02.png")] public static const BLOOD_DECAL_LARGE_1:Class;
+		[Embed(source = "/img/BloodDecal_01.png")] public static const BLOOD_DECAL_SMALL_0:Class;
+		[Embed(source = "/img/BloodDecal_03.png")] public static const BLOOD_DECAL_SMALL_1:Class;		
+		
 		//Hit sounds
 		[Embed(source = "/sound/dash_hit_0.mp3")] public static const HIT_DOLPHIN_SOUND_0:Class;
 		[Embed(source = "/sound/dash_hit_1.mp3")] public static const HIT_DOLPHIN_SOUND_1:Class;

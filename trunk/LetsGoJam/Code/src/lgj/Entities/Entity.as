@@ -14,7 +14,7 @@ package lgj.Entities
 		}
 		
 		protected function isAtBottom():Boolean {
-			return globalY + height >= Settings.WINDOW_HEIGHT - Settings.FLOOR_HEIGHT;
+			return globalY + height >= worldBounds.bottom;
 		}
 	}
 }

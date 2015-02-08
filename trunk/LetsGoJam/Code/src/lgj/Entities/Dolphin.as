@@ -71,7 +71,7 @@ package lgj.Entities
 			super.update();								
 		}
 		
-		//if velocity is larger than 180, rotate to max 45 degrees. Else tween it between -45/+45 depending on velocity.
+		//if velocity is larger than 180, rotate to max degrees. Else tween it between -max/+max depending on velocity.
 		private function handleRotation():void {
 			if(velocity.y < -180) {
 				angle = -m_maxRotation;

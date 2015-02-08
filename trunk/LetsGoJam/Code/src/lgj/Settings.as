@@ -17,6 +17,8 @@ package lgj
 		public static var MIN_SPAWN_VELOCITY:AxVector = new AxVector(100, -100, 0);
 		public static var MAX_SPAWN_VELOCITY:AxVector = new AxVector(200, -500, 0);
 		public static var FLOOR_HEIGHT:int = 50;
+		public static var FLOOR_HEIGHT_RANDOM_MIN:int = -10;
+		public static var FLOOR_HEIGHT_RANDOM_MAX:int = 40;
 		
 		//Title state settings
 		public static var TITLE_FRAME_DURATION:int = 120;

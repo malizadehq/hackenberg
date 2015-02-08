@@ -2,11 +2,14 @@ package lgj.Entities
 {
 	import flash.display.Bitmap;
 	
+	import org.axgl.AxVector;
 	import org.axgl.AxRect;
 	
 	import lgj.Util.RNG;
 	import lgj.Util.Resource;
 	import lgj.Settings;
+	import lgj.Util.VectorHelper;
+	import lgj.Util.Registry;
 	
 	public class DolphinGiblet extends Entity
 	{
@@ -21,6 +24,9 @@ package lgj.Entities
 		private var m_gibletPart:uint = 0;
 		private var m_canBeHitAgain:Boolean = false;
 		private var m_bounceCooldown:uint = 0;
+		private var m_rotation:Number = 0;
+		private var m_hasSpawnedBounceBlood:Boolean = false;
+		private var m_hasSpawnedStationaryBlood:Boolean = false;
 		
 		/*
 		 * If gibletFamily isn't set, this constructor will set it and spawn the equivalent giblet.
@@ -57,7 +63,9 @@ package lgj.Entities
 			
 			super(x, y, resource);
 			
-			worldBounds = new AxRect(-100, 0, Settings.WINDOW_WIDTH + 150, Settings.WINDOW_HEIGHT - Settings.FLOOR_HEIGHT);
+			var floorHeight:int = Settings.WINDOW_HEIGHT - Settings.FLOOR_HEIGHT + (-RNG.generateNumber(Settings.FLOOR_HEIGHT_RANDOM_MIN, Settings.FLOOR_HEIGHT_RANDOM_MAX));
+			worldBounds = new AxRect( -100, 0, Settings.WINDOW_WIDTH + 150, floorHeight);
+									 
 			acceleration.y = Settings.GRAVITY;
 		}		
 		
@@ -70,7 +78,20 @@ package lgj.Entities
 			
 			if(isAtBottom() && m_bounceCooldown == 0) {
 				bounce();
+				m_rotation = 0;
+				if(angle >= 90 || angle <= -90) {
+					angle = 180;
+				} else {
+					angle = 0;
+				}
 			}
+			
+			if(velocity.x == 0 && velocity.y == 0 && m_hasSpawnedStationaryBlood == false) {
+				spawnBlood(false);
+				m_hasSpawnedStationaryBlood = true;
+			}
+			
+			angle += m_rotation;
 		}
 		
 		private function bounce():void {
@@ -89,6 +110,31 @@ package lgj.Entities
 			} else {
 				velocity.x -= Settings.BOUNCE_VELOCITY_DECREASE.x;	
 			}
+			
+			if (!m_hasSpawnedBounceBlood) {
+				spawnBlood(true);
+				m_hasSpawnedBounceBlood = true;
+			}
+		}
+		
+		private function spawnBlood(small:Boolean):void {
+			var resource:Class;
+			var rngNum:uint = RNG.generateNumber(0, 1);
+			if(small) {
+				if (rngNum == 0) {
+					resource = Resource.BLOOD_DECAL_SMALL_0;
+				} else {
+					resource = Resource.BLOOD_DECAL_SMALL_1;
+				}				
+			} else {
+				if (rngNum == 0) {
+					resource = Resource.BLOOD_DECAL_LARGE_0;
+				} else {
+					resource = Resource.BLOOD_DECAL_LARGE_1;
+				}								
+			}
+
+			Registry.gameState.spawnBloodDecal(globalX, globalY, resource);
 		}
 		
 		public function hit():void {
@@ -102,6 +148,24 @@ package lgj.Entities
 		
 		public function canBeGibbedAgain():Boolean {
 			return new Boolean(m_canBeHitAgain);
+		}
+		
+		public function giveVelocityBasedRotation(parentVelocity:AxVector):void {
+			var speed:Number = VectorHelper.getLength(parentVelocity);
+			var maxSpeed:int = 500;
+			var minSpeed:int = 10;
+			var maxAngle:int = 10;
+			
+			//cap speed to max
+			speed = speed > maxSpeed ? maxSpeed : speed;
+			//get factor of speed vs max speed
+			m_rotation = speed / maxSpeed;
+			//apply the same factor to angle;
+			m_rotation = maxAngle * m_rotation;
+
+			if(m_gibletPart == 0 || m_gibletPart == 3) {
+				m_rotation * 0.5;
+			}
 		}
 	}
 
