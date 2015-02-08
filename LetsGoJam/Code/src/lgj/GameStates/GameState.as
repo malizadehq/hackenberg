@@ -141,7 +141,6 @@ package lgj.GameStates
 		}
 		
 		private function cookEntity(entity:Entity):void {
-			m_pot.hit(entity.globalX, entity.globalY);
 			AxParticleSystem.emit("waterSplashEffect", entity.globalX + entity.width * 0.5, m_pot.getYCollision());
 			
 			if((entity as Dolphin) != null) {
@@ -180,9 +179,9 @@ package lgj.GameStates
 		 * @param player Our player
 		 * @param target The object our player collided with
 		 */
-		private function onPlayerHit(player:Player, target:AxEntity):void
+		private function onPlayerHit(player:Player, target:Entity):void
 		{
-			if (player.isDashing() && player.canHit())
+			if (player.isDashing() && target.canBeHit())
 			{
 				if((target as Dolphin) != null) {
 					(target as Dolphin).hit();

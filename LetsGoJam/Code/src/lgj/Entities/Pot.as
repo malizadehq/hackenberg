@@ -19,10 +19,6 @@ package lgj.Entities
 			Y_collision = globalY + 90;
 		}
 		
-		public function hit(x:int, y:int):void {
-			//TODO: Spawn water splash
-		}
-		
 		public function getXCollisionClose():int {
 			return new int(X_collisionClose);
 		}

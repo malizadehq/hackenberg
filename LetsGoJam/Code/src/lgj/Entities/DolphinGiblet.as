@@ -23,7 +23,6 @@ package lgj.Entities
 		 * */
 		private var m_gibletPart:uint = 0;
 		
-		private var m_canBeHitAgain:Boolean = false;
 		private var m_bounceCooldown:uint = 0;
 		private var m_rotation:Number = 0;
 		private var m_hasSpawnedBounceBlood:Boolean = false;
@@ -37,7 +36,6 @@ package lgj.Entities
 			switch(m_gibletPart) {
 				case 0:
 					resource = Resource.DOLPHIN_GIB_0;
-					m_canBeHitAgain = true;
 					break;
 				case 1:
 					resource = Resource.DOLPHIN_GIB_0_0;
@@ -47,7 +45,6 @@ package lgj.Entities
 					break;
 				case 3:
 					resource = Resource.DOLPHIN_GIB_1;
-					m_canBeHitAgain = true;
 					break;
 				case 4:
 					resource = Resource.DOLPHIN_GIB_1_0;
@@ -145,8 +142,7 @@ package lgj.Entities
 			Registry.gameState.spawnBloodDecal(globalX, globalY, resource);
 		}
 		
-		public function hit():void {
-			m_canBeHitAgain = false;
+		public override function hit():void {
 			destroy();
 		}
 		
@@ -155,7 +151,7 @@ package lgj.Entities
 		}
 		
 		public function canBeGibbedAgain():Boolean {
-			return new Boolean(m_canBeHitAgain);
+			return m_gibletPart == 0 || m_gibletPart == 3;
 		}
 		
 		public function giveVelocityBasedRotation(parentVelocity:AxVector):void {
