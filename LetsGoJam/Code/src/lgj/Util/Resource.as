@@ -93,6 +93,14 @@ package lgj.Util
 		[Embed(source = "/sound/cook.mp3")] public static const READY_SOUND_1:Class;
 		
 		[Embed(source = "/sound/scoreTick.mp3")] public static const SCORE_TICK:Class;
+		[Embed(source = "/sound/combo_0.mp3")] public static const SCORE_SOUND_0:Class;
+		[Embed(source = "/sound/combo_1.mp3")] public static const SCORE_SOUND_1:Class;
+		[Embed(source = "/sound/combo_2.mp3")] public static const SCORE_SOUND_2:Class;
+		[Embed(source = "/sound/combo_3.mp3")] public static const SCORE_SOUND_3:Class;
+		[Embed(source = "/sound/combo_4.mp3")] public static const SCORE_SOUND_4:Class;
+		[Embed(source = "/sound/combo_5.mp3")] public static const SCORE_SOUND_5:Class;
+		[Embed(source = "/sound/combo_6.mp3")] public static const SCORE_SOUND_6:Class;
+		[Embed(source = "/sound/combo_7.mp3")] public static const SCORE_SOUND_7:Class;
 		
 		//Intro
 		[Embed(source = "/sound/super.mp3")] public static const SUPER_SOUND:Class;
