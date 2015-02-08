@@ -1,5 +1,6 @@
 package lgj 
 {
+	import org.axgl.AxPoint;
 	import org.axgl.AxVector;
 	/**
 	 * ...
@@ -19,6 +20,10 @@ package lgj
 		public static var FLOOR_HEIGHT:int = 50;
 		public static var FLOOR_HEIGHT_RANDOM_MIN:int = -10;
 		public static var FLOOR_HEIGHT_RANDOM_MAX:int = 40;
+		
+		//Pot settings
+		public static var POT_POSITION:AxPoint = new AxPoint(WINDOW_WIDTH - 175, WINDOW_HEIGHT - 225);
+		public static var POT_Y_COLLISION_ALLOWANCE:int = 5;
 		
 		//Title state settings
 		public static var TITLE_FRAME_DURATION:int = 120;

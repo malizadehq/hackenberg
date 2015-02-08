@@ -2,6 +2,7 @@ package lgj.GameStates
 {
 	import flash.events.MouseEvent;
 	import lgj.Entities.DolphinGiblet;
+	import lgj.Entities.Pot;
 	import org.axgl.AxGroup;
 	import org.axgl.AxVector;
 	import org.axgl.AxEntity;
@@ -29,20 +30,22 @@ package lgj.GameStates
 	public class GameState extends AxState
 	{
 		private var m_background:AxSprite;
-
+		private var m_player:Player;
+		private var m_pot:Pot;
+		
+		private var m_particles:AxGroup;
 		//Handles mouse input
 		private var m_inputHandler:InputHandler;
 		
 		//Collider group for dolphins and player
 		private var m_playerDolphinCollider:AxGroup = new AxGroup();
-		//Collider group for objets that will not be interacted with
-		private var m_uninteractableObjects:AxGroup = new AxGroup();
+		
+		//Collider group for objects that will not be interacted with
+		private var m_finishedGiblets:AxGroup = new AxGroup();
 		//Decals that will always be furtherst behind in z order
 		private var m_backgroundDecals:AxGroup = new AxGroup();
 		//Dolphin group
 		private var m_spawnedObjects:AxGroup = new AxGroup();
-		private var m_particles:AxGroup;
-		private var m_player:Player;
 		
 		//The pre-allocated collision grid
 		private static const COLLISION_GRID:AxCollisionGroup = new AxGrid(Settings.WINDOW_WIDTH,
@@ -52,6 +55,7 @@ package lgj.GameStates
 		
 		private var m_frameCounter:uint = 0;
 		private var m_framesUntilDolphinSpawn:int = 0;
+		private var m_clearDestroyedGibletsCounter:uint = 120;
 			
 		public function GameState() 
 		{
@@ -71,14 +75,19 @@ package lgj.GameStates
 			
 			Ax.stage2D.addEventListener(MouseEvent.MOUSE_DOWN, m_inputHandler.onMouseDownHandler);
 			Ax.stage2D.addEventListener(MouseEvent.MOUSE_UP, m_inputHandler.onMouseUpHandler);
+
+			calculateNextDolphinSpawn();
+			add(m_spawnedObjects);
+			
+			add(m_finishedGiblets);
+			m_pot = new Pot(Settings.POT_POSITION.x, Settings.POT_POSITION.y);
+			add(m_pot);
 			
 			m_player = new Player(150, 150, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			add(m_player);
-			
-			calculateNextDolphinSpawn();
-			add(m_spawnedObjects);
+
 			m_playerDolphinCollider.add(m_spawnedObjects).add(m_player);
-			add(m_uninteractableObjects);
+			
 			
 			m_particles = new AxGroup;
 			add(m_particles);
@@ -90,19 +99,51 @@ package lgj.GameStates
         override public function update():void {
             super.update();
 			++m_frameCounter;
+			--m_clearDestroyedGibletsCounter;
 			
 			if(m_inputHandler.hasInputToProcess()) {
 				m_player.startDash(VectorHelper.addAxVectorToAxVector(m_inputHandler.getAndResetInputForce(), m_player.velocity));	
 			}
 			
+			if(m_clearDestroyedGibletsCounter <= 0) {
+				m_finishedGiblets
+			}
+			
 			checkForDolphinSpawn();
 			
 			collidePlayerAndDolphins();
+			
+			collideGibletsAndPot();
 		}
 		
 		private function collidePlayerAndDolphins():void {
 			//Overlap the player with enemies, enemy bullets, and powerups.
 			Ax.overlap(m_player, m_playerDolphinCollider, onPlayerHit, COLLISION_GRID);
+		}
+		
+		private function collideGibletsAndPot():void {
+			var numElements:int = m_finishedGiblets.members.length;
+			for (var i:int = 0; i < numElements; ++i ) {
+				//Don't care about the ones that have already been cooked.
+				if (!(m_finishedGiblets.members[i] as DolphinGiblet).HasBeenCooked)
+				{
+					//Above Y collision plane
+					if (m_finishedGiblets.members[i].globalY < m_pot.getYCollision()) {
+						//To the right of close X-plane
+						if (m_finishedGiblets.members[i].globalX > m_pot.getXCollisionClose()) {
+							//close enough to water to hit. DO IT!
+							if (Math.abs(m_pot.getYCollision() - m_finishedGiblets.members[i].globalY) <= Settings.POT_Y_COLLISION_ALLOWANCE) {
+								//giblet is inside far x-bound as well. We have a hit!
+								if (m_finishedGiblets.members[i].globalX < m_pot.getXCollisionFar()) {
+									m_pot.hit(m_finishedGiblets.members[i].globalX, m_finishedGiblets.members[i].globalY);
+									(m_finishedGiblets.members[i] as DolphinGiblet).HasBeenCooked = true;
+									(m_finishedGiblets.members[i] as DolphinGiblet).hit();
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		private function checkForDolphinSpawn():void {
@@ -205,8 +246,8 @@ package lgj.GameStates
 					newGibletNumber1 = 4;
 					newGibletNumber2 = 5;					
 				}
-				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber1));
-				m_spawnedObjects.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber2));
+				m_finishedGiblets.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber1));
+				m_finishedGiblets.add(createSingleGiblet(x, y, parentVelocity, m_player.velocity, newGibletNumber2));
 			}
 		}
 		
