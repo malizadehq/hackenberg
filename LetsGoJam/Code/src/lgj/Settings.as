@@ -20,6 +20,7 @@ package lgj
 		public static var FLOOR_HEIGHT:int = 50;
 		public static var FLOOR_HEIGHT_RANDOM_MIN:int = -10;
 		public static var FLOOR_HEIGHT_RANDOM_MAX:int = 40;
+		public static var SLOWMOTION_RATE:uint = 5;
 		
 		//Pot settings
 		public static var POT_POSITION:AxPoint = new AxPoint(WINDOW_WIDTH - 175, WINDOW_HEIGHT - 225);
