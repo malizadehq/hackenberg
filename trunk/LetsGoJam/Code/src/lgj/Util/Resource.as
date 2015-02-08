@@ -11,6 +11,12 @@ package lgj.Util
 		
 		//Entities
 		[Embed(source = "/img/player.png")] public static const PLAYER:Class;
+		[Embed(source = "/img/Dolphin_0.png")] public static const DOLPHIN_GIB_0:Class;
+		[Embed(source = "/img/Dolphin_0_0.png")] public static const DOLPHIN_GIB_0_0:Class;
+		[Embed(source = "/img/Dolphin_0_1.png")] public static const DOLPHIN_GIB_0_1:Class;
+		[Embed(source = "/img/Dolphin_1.png")] public static const DOLPHIN_GIB_1:Class;
+		[Embed(source = "/img/Dolphin_1_0.png")] public static const DOLPHIN_GIB_1_0:Class;
+		[Embed(source = "/img/Dolphin_1_1.png")] public static const DOLPHIN_GIB_1_1:Class;
 		[Embed(source = "/img/Dolphin0000.png")] public static const DOLPHIN:Class;
 		
 		//Particle effects

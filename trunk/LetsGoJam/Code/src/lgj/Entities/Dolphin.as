@@ -23,6 +23,8 @@ package lgj.Entities
 		private var m_flopMinTime:uint = 10;
 		private var m_flopMaxTime:uint = 20;
 		
+		private var m_maxRotation:int = 60;
+		
 		public function Dolphin(x:Number, y:Number) 
 		{
 			super(x, y, Resource.DOLPHIN);
@@ -42,6 +44,7 @@ package lgj.Entities
 			switch(m_state) {
 				case m_flyingState:
 					animate("flying");
+					handleRotation();
 					if (isAtBottom()) {
 						m_frameCounter = RNG.generateNumber(m_flopMinTime, m_flopMaxTime);
 						setFlopSpeeds();
@@ -50,6 +53,7 @@ package lgj.Entities
 					break;
 				case m_floppingState:
 					--m_frameCounter;
+					angle = 0;
 					if (m_frameCounter < 0) {
 						m_frameCounter = RNG.generateNumber(m_flopMinTime, m_flopMaxTime);
 						m_scaleY *= -1;
@@ -67,8 +71,16 @@ package lgj.Entities
 			super.update();								
 		}
 		
-		private function isAtBottom():Boolean {
-			return globalY + height >= Settings.WINDOW_HEIGHT - Settings.FLOOR_HEIGHT;
+		//if velocity is larger than 180, rotate to max 45 degrees. Else tween it between -45/+45 depending on velocity.
+		private function handleRotation():void {
+			if(velocity.y < -180) {
+				angle = -m_maxRotation;
+			} else if(velocity.y > 180) {
+				angle = m_maxRotation;
+			} else {
+				angle = m_maxRotation * (Math.abs(velocity.y) / 180);
+				angle = velocity.y < 0 ? angle * -1 : angle;
+			}
 		}
 		
 		private function setFlopSpeeds():void 

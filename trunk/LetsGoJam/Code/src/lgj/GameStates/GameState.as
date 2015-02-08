@@ -1,6 +1,7 @@
 package lgj.GameStates 
 {
 	import flash.events.MouseEvent;
+	import lgj.Entities.DolphinGiblet;
 	import org.axgl.AxGroup;
 	import org.axgl.AxVector;
 	import org.axgl.AxEntity;
@@ -33,6 +34,8 @@ package lgj.GameStates
 		
 		//Collider group for dolphins and player
 		private var m_playerDolphinCollider:AxGroup = new AxGroup();
+		//Collider group for the last level giblets that nothing else will collide with.
+		private var m_lastLevelGiblets:AxGroup = new AxGroup();
 		//Dolphin group
 		private var m_spawnedObjects:AxGroup = new AxGroup();
 		private var m_particles:AxGroup;
@@ -71,6 +74,7 @@ package lgj.GameStates
 			calculateNextDolphinSpawn();
 			add(m_spawnedObjects);
 			m_playerDolphinCollider.add(m_spawnedObjects).add(m_player);
+			add(m_lastLevelGiblets);
 			
 			m_particles = new AxGroup;
 			add(m_particles);
@@ -102,14 +106,6 @@ package lgj.GameStates
 			}
 		}
 		
-		private function spawnDolphin():void {
-			var dolphin:Dolphin = new Dolphin(-20, Settings.WINDOW_HEIGHT - 100);
-			dolphin.velocity = new AxVector(RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.x, Settings.MAX_SPAWN_VELOCITY.x), 
-											RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.y, Settings.MAX_SPAWN_VELOCITY.y),
-											RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.a, Settings.MAX_SPAWN_VELOCITY.a));
-			m_spawnedObjects.add(dolphin);
-		}
-		
 		private function calculateNextDolphinSpawn():void {
 			m_framesUntilDolphinSpawn = RNG.generateNumber(Settings.DOLPHIN_MIN_SPAWN_RATE, Settings.DOLPHIN_MAX_SPAWN_RATE);
 		}
@@ -122,11 +118,25 @@ package lgj.GameStates
 		 */
 		private function onPlayerHit(player:Player, target:AxEntity):void
 		{
-			if (player.isDashing())
+			if (player.isDashing() && player.canHit())
 			{
-				(target as Dolphin).hit();
+				if((target as Dolphin) != null) {
+					(target as Dolphin).hit();
+					player.hit();
+					spawnDolphinGiblets(target.globalX, target.globalY, target.velocity);
+				} else if ((target as DolphinGiblet) != null) {
+					if(!(target as DolphinGiblet).canBeGibbedAgain()) {
+						return;
+					} else {
+						(target as DolphinGiblet).hit();
+						player.hit();
+						spawnDolphinGiblets(target.globalX, target.globalY, target.velocity, (target as DolphinGiblet).getGibletPartNumber());
+					}
+				}
+				
 				cameraShakeEffect();
 				
+				/*
 				switch(RNG.generateNumber(0, 3))
 				{
 					case 0:
@@ -142,6 +152,7 @@ package lgj.GameStates
 						Ax.sound(Resource.HIT_DOLPHIN_SOUND_3);
 					break;
 				}
+				*/
 				AxParticleSystem.emit("bloodEffect", target.x, target.y);
 			}
 		}
@@ -163,7 +174,50 @@ package lgj.GameStates
 			effect.amount = 50;
 			effect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
 			m_particles.add(AxParticleSystem.register(effect));
-		}		
+		}
+		
+		private function spawnDolphin():void {
+			var dolphin:Dolphin = new Dolphin(-20, Settings.WINDOW_HEIGHT - 100);
+			dolphin.velocity = new AxVector(RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.x, Settings.MAX_SPAWN_VELOCITY.x), 
+											RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.y, Settings.MAX_SPAWN_VELOCITY.y),
+											RNG.generateNumber(Settings.MIN_SPAWN_VELOCITY.a, Settings.MAX_SPAWN_VELOCITY.a));
+			m_spawnedObjects.add(dolphin);
+		}
+		
+		private function spawnDolphinGiblets(x:int, y:int, parentVelocity:AxVector, gibletNumber:int = -1):void {
+			var giblet1:DolphinGiblet;
+			var giblet2:DolphinGiblet;
+			var velocityModifier:AxVector = new AxVector(RNG.generateNumber( -50, 50),
+														 RNG.generateNumber( -50, 50), 0);
+			
+			if(gibletNumber == -1) {
+				giblet1 = new DolphinGiblet(x, y, 0);
+				giblet1.velocity = new AxVector(parentVelocity.x + velocityModifier.x, parentVelocity.y + velocityModifier.y);
+				m_spawnedObjects.add(giblet1);
+			
+				
+				giblet2 = new DolphinGiblet(x, y, 3);
+				giblet2.velocity = new AxVector(parentVelocity.x - velocityModifier.x, parentVelocity.y - velocityModifier.y);
+				m_spawnedObjects.add(giblet2);
+			} else {
+				var newGibletNumber1:uint;
+				var newGibletNumber2:uint;
+				if(gibletNumber == 1) {
+					newGibletNumber1 = 2;
+					newGibletNumber2 = 3;
+				} else {
+					newGibletNumber1 = 4;
+					newGibletNumber2 = 5;					
+				}
+				giblet1 = new DolphinGiblet(x, y, newGibletNumber1);
+				giblet1.velocity = new AxVector(parentVelocity.x + velocityModifier.x, parentVelocity.y + velocityModifier.y);
+				m_lastLevelGiblets.add(giblet1);
+				
+				giblet2 = new DolphinGiblet(x, y, newGibletNumber2);
+				giblet2.velocity = new AxVector(parentVelocity.x - velocityModifier.x, parentVelocity.y - velocityModifier.y);				
+				m_lastLevelGiblets.add(giblet2);
+			}
+		}			
 	}
 
 }

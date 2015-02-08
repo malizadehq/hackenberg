@@ -16,6 +16,8 @@ package lgj.Entities {
 		private var m_dashingState:uint = 2;
 		private var m_state:uint;
 		
+		private var m_hitCooldown:uint = 0;
+		
         public function Player(x:Number, y:Number, worldWidth:Number, worldHeight:Number) {
 			super(x, y);
 
@@ -45,6 +47,9 @@ package lgj.Entities {
 			}
 			
 			animate("walk");
+			if (m_hitCooldown > 0) {
+				--m_hitCooldown;
+			}
 			
             super.update();
         }
@@ -86,8 +91,16 @@ package lgj.Entities {
             addAnimation("fall", [3], 1, false);
 		}
 		
+		public function canHit():Boolean {
+			return !(m_hitCooldown > 0);
+		}
+		
 		public function isDashing():Boolean {
 			return new Boolean(m_state == m_dashingState);
+		}
+		
+		public function hit():void {
+			m_hitCooldown = Settings.HIT_COOLDOWN_FRAMES;
 		}
     }
 }
