@@ -132,6 +132,8 @@ package lgj.GameStates
 									m_pot.hit(m_finishedGiblets.members[i].globalX, m_finishedGiblets.members[i].globalY);
 									(m_finishedGiblets.members[i] as DolphinGiblet).HasBeenCooked = true;
 									(m_finishedGiblets.members[i] as DolphinGiblet).hit();
+									AxParticleSystem.emit("waterSplashEffect", m_finishedGiblets.members[i].globalX + m_finishedGiblets.members[i].width * 0.5,
+																			   m_pot.getYCollision());
 									m_scoreManager.addFinishedGiblet();
 								}
 							}
@@ -196,7 +198,7 @@ package lgj.GameStates
 					break;
 				}
 				*/
-				AxParticleSystem.emit("bloodEffect", target.x, target.y);
+				AxParticleSystem.emit("bloodEffect", target.x + target.width * 0.5, target.y + target.height * 0.5);
 			}
 		}
 		
@@ -210,13 +212,21 @@ package lgj.GameStates
 			m_particles = new AxGroup;
 			add(m_particles);
 			
-			var effect:AxParticleEffect = new AxParticleEffect("bloodEffect", Resource.RED_PARTICLE, 2);
-			effect.xVelocity = new AxRange(0, 200);
-			effect.yVelocity = new AxRange(-30, 30);
-			effect.lifetime = new AxRange(0.5, 0.75);
-			effect.amount = 50;
-			effect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
-			m_particles.add(AxParticleSystem.register(effect));
+			var bloodEffect:AxParticleEffect = new AxParticleEffect("bloodEffect", Resource.RED_PARTICLE, 2);
+			bloodEffect.xVelocity = new AxRange(-100, 100);
+			bloodEffect.yVelocity = new AxRange(-100, 100);
+			bloodEffect.lifetime = new AxRange(0.5, 0.75);
+			bloodEffect.amount = 100;
+			bloodEffect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
+			m_particles.add(AxParticleSystem.register(bloodEffect));
+			
+			var waterSplashEffect:AxParticleEffect = new AxParticleEffect("waterSplashEffect", Resource.BLUE_PARTICLE, 2);
+			waterSplashEffect.xVelocity = new AxRange(-100, 100);
+			waterSplashEffect.yVelocity = new AxRange(-100, 0);
+			waterSplashEffect.lifetime = new AxRange(0.5, 0.75);
+			waterSplashEffect.amount = 200;
+			waterSplashEffect.color(new AxColor(0.3, 0.3, 0.3), new AxColor(0.7, 0.7, 0.7), new AxColor(0.3, 0.3, 0.3), new AxColor(1, 1, 1));			
+			m_particles.add(AxParticleSystem.register(waterSplashEffect));			
 		}
 		
 		private function spawnDolphin():void {
@@ -295,9 +305,7 @@ package lgj.GameStates
 		
 			m_playerDolphinCollider.add(m_spawnedObjects).add(m_player);
 			
-			
-			m_particles = new AxGroup;
-			add(m_particles);
+			setupParticleEffects();
 		
 			m_scoreManager = new ScoreManager();
 			setupScoreUI();

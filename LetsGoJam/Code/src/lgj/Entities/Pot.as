@@ -16,7 +16,7 @@ package lgj.Entities
 			load(Resource.POT, 256, 256);
 			X_collisionClose = globalX;
 			X_collisionFar = globalX + width;
-			Y_collision = globalY + 30;
+			Y_collision = globalY + 90;
 		}
 		
 		public function hit(x:int, y:int):void {

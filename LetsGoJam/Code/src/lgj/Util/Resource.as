@@ -23,6 +23,7 @@ package lgj.Util
 		
 		//Particle effects
 		[Embed(source = "/img/2x2_red_shaded.png")] public static const RED_PARTICLE:Class;
+		[Embed(source = "/img/2x2_blue_shaded.png")] public static const BLUE_PARTICLE:Class;
 		
 		//Decals
 		[Embed(source = "/img/BloodDecal_00.png")] public static const BLOOD_DECAL_LARGE_0:Class;
