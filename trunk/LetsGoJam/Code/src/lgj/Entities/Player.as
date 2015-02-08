@@ -23,7 +23,7 @@ package lgj.Entities {
 
 			worldBounds = new AxRect(0, 0, worldWidth, worldHeight - 50);
 
-            load(Resource.PLAYER, 32, 32);
+            load(Resource.PLAYER_IDLE, 64, 64);
 			addAnimations();
 			
 			m_state = m_readyState;
@@ -46,7 +46,7 @@ package lgj.Entities {
 					break;
 			}
 			
-			animate("walk");
+			animate("idle");
 			if (m_hitCooldown > 0) {
 				--m_hitCooldown;
 			}
@@ -85,10 +85,7 @@ package lgj.Entities {
 		}
 		
 		private function addAnimations():void {
-			addAnimation("stand", [0, 4, 0, 5], 4, true);
-            addAnimation("walk", [1,2,3,4, 5], 16, true);
-            addAnimation("jump", [2], 1, false);
-            addAnimation("fall", [3], 1, false);
+			addAnimation("idle", [0, 1, 2, 3, 4, 5], 6, true);
 		}
 		
 		public function canHit():Boolean {
