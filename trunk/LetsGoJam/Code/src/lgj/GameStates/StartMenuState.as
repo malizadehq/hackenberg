@@ -6,7 +6,7 @@ package lgj.GameStates
 	import org.axgl.Ax;
 	import org.axgl.input.AxKey;
 	
-	import lgj.Resource;
+	import lgj.Util.Resource;
 	import lgj.Settings;
 	
 	/**
