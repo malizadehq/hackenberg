@@ -1,0 +1,20 @@
+/* ----------------------------------------------------
+   created with http://www.codeandweb.com/texturepacker 
+   ----------------------------------------------------
+   $TexturePacker:SmartUpdate:bb7e0609e4340beb242af60cfd744483:c5ecad4636c425c823b3a0e1a6b63b9a:f4df963adaba3d0492107a6aba5e2fd0$
+   ----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(Dolphin.png);}
+
+.Dolphin0000 {width:128px; height:32px; background-position: -0px -0px}
+.Dolphin0001 {width:128px; height:32px; background-position: -128px -0px}
+.Dolphin0002 {width:128px; height:32px; background-position: -256px -0px}
+.Dolphin0003 {width:128px; height:32px; background-position: -384px -0px}
+.Dolphin0004 {width:128px; height:32px; background-position: -512px -0px}
+.Dolphin0005 {width:128px; height:32px; background-position: -640px -0px}
