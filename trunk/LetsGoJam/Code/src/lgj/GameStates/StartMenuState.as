@@ -51,35 +51,40 @@ package lgj.GameStates
 					{
 						m_introSpriteA.load(Resource.TITLE_0, 600, 400);
 						add(m_introSpriteA);
+						m_introSpriteA.visible = false;
 						++m_LogoCounter;
 						Ax.camera.shake(0.35, 8, null, true);
 					}
 				break;
 				case 1:
-					if (m_frameCounter > 30)
+					if (m_frameCounter > 10)
 					{
 						m_introSpriteB.load(Resource.TITLE_1, 600, 400);
 						add(m_introSpriteB);
 						++m_LogoCounter;
 						Ax.camera.shake(0.35, 8, null, true);
+						Ax.sound(Resource.SUPER_SOUND);
 					}
 				break;
 				case 2:
-					if (m_frameCounter > 50)
+					if (m_frameCounter > 60)
 					{
 						m_introSpriteC.load(Resource.TITLE_2, 600, 400);
 						add(m_introSpriteC);
 						++m_LogoCounter;
 						Ax.camera.shake(0.35, 8, null, true);
+						Ax.sound(Resource.FUKUSHIMA_SOUND);
 					}
 				break;
 				case 3:
-					if (m_frameCounter > 80)
+					if (m_frameCounter > 110)
 					{
 						m_introSpriteD.load(Resource.TITLE_3, 600, 400);
 						add(m_introSpriteD);
+						m_introSpriteA.visible = true;
 						++m_LogoCounter;
 						Ax.camera.shake(0.35, 8, null, true);
+						Ax.sound(Resource.SOUPSHACK_SOUND);
 					}
 				break;
 			}

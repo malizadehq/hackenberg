@@ -32,12 +32,6 @@ package lgj.Util
 		[Embed(source = "/img/BloodDecal_01.png")] public static const BLOOD_DECAL_SMALL_0:Class;
 		[Embed(source = "/img/BloodDecal_03.png")] public static const BLOOD_DECAL_SMALL_1:Class;		
 		
-		//Hit sounds
-		[Embed(source = "/sound/dash_hit_0.mp3")] public static const HIT_DOLPHIN_SOUND_0:Class;
-		[Embed(source = "/sound/dash_hit_1.mp3")] public static const HIT_DOLPHIN_SOUND_1:Class;
-		[Embed(source = "/sound/dash_hit_2.mp3")] public static const HIT_DOLPHIN_SOUND_2:Class;
-		[Embed(source = "/sound/dash_hit_3.mp3")] public static const HIT_DOLPHIN_SOUND_3:Class;
-		
 		// Intro
 		[Embed(source = "/sound/carl_hello.mp3")] public static const SOUND_CARL_HELLO:Class;
 		[Embed(source = "/img/Animations/Intro/intro0000.png")] public static const INTRO_0:Class;
@@ -50,6 +44,23 @@ package lgj.Util
 		[Embed(source = "/img/Animations/Title/Logo_Super.png")] public static const TITLE_1:Class;
 		[Embed(source = "/img/Animations/Title/Logo_Fukushima.png")] public static const TITLE_2:Class;
 		[Embed(source = "/img/Animations/Title/Logo_DolphinSoupShack.png")] public static const TITLE_3:Class;
+		
+		/**  Sounds  **/
+		
+		//Hit sounds
+		[Embed(source = "/sound/dash_hit_0.mp3")] public static const HIT_DOLPHIN_SOUND_0:Class;
+		[Embed(source = "/sound/dash_hit_1.mp3")] public static const HIT_DOLPHIN_SOUND_1:Class;
+		[Embed(source = "/sound/dash_hit_2.mp3")] public static const HIT_DOLPHIN_SOUND_2:Class;
+		[Embed(source = "/sound/dash_hit_3.mp3")] public static const HIT_DOLPHIN_SOUND_3:Class;
+		//[Embed(source = "/sound/GoreImpact_00.mp3")] public static const GORE_IMPACT_0:Class;
+		[Embed(source = "/sound/GoreImpact_01.mp3")] public static const GORE_IMPACT_1:Class;
+		[Embed(source = "/sound/GoreImpact_02.mp3")] public static const GORE_IMPACT_2:Class;
+		[Embed(source = "/sound/GoreImpact_03.mp3")] public static const GORE_IMPACT_3:Class;
+		
+		//Intro
+		[Embed(source = "/sound/super.mp3")] public static const SUPER_SOUND:Class;
+		[Embed(source = "/sound/fukushima.mp3")] public static const FUKUSHIMA_SOUND:Class;
+		[Embed(source = "/sound/soupshack.mp3")] public static const SOUPSHACK_SOUND:Class;		
 
 	}
 
