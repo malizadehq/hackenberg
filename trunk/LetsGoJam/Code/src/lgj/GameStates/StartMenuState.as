@@ -130,6 +130,7 @@ package lgj.GameStates
 			if (Ax.keys.pressed(AxKey.ANY) || Ax.mouse.down(0))
 			{
 			//	if(m_iStartGameTimer == 0)
+				if(m_iStartGameTimer == 0)
 					m_iStartGameTimer = 150;
 			//	else
 			//		startGame();

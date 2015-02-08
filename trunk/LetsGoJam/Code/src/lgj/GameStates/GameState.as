@@ -40,7 +40,7 @@ package lgj.GameStates
 		private var m_scoreText:AxText;
 		private var m_TimeBarBg:AxSprite;
 		private var m_TimeBar:AxSprite;
-		private var m_iFrameLeft:uint = 3000;
+		private var m_iFrameLeft:int = 3000;
 		
 		public var ParticleSystemsGroup:AxGroup;
 		//Handles mouse input
@@ -91,8 +91,8 @@ package lgj.GameStates
         override public function update():void 
 		{
 			m_iFrameLeft--;
-			m_TimeBar.scale.x = ( Number(m_iFrameLeft) / Number(3000) );
-			
+			//m_TimeBar.scale.x = ( Number(m_iFrameLeft) / Number(3000) );
+			m_TimeBar.grow(0.01, ( Number(m_iFrameLeft) / Number(3000) ), 1.0);
 			if (m_iFrameLeft < 0)
 			{
 				
@@ -354,7 +354,7 @@ package lgj.GameStates
 					Ax.sound(Resource.HIT_GOREIMPACT_SOUND_2);
 				break;
 				case 3:
-					Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
+					Ax.sound(Resource.HIT_GOREIMPACT_SOUND_3);
 				break;
 			}
 			m_backgroundDecals.add(new AxSprite(x, y, resource, 64, 64));
@@ -365,7 +365,7 @@ package lgj.GameStates
 			m_TimeBarBg = new AxSprite(Settings.WINDOW_WIDTH - 125, 0, Resource.TIME_BAR_BG, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			add(m_TimeBarBg);
 			
-			m_TimeBar = new AxSprite(Settings.WINDOW_WIDTH - 125, 0, Resource.TIME_BAR, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			m_TimeBar = new AxSprite(Settings.WINDOW_WIDTH - 125, 0, Resource.TIME_BAR, 128, 64);
 			add(m_TimeBar);
 			//m_scoreText = new AxText(Settings.SCORE_TEXT_POSITION.x,
 									// Settings.SCORE_TEXT_POSITION.y,
