@@ -30,11 +30,12 @@ package lgj.Entities {
         }
         
         override public function update():void {
+			super.update();
 			switch(m_state) {
 				case m_idleState:
 					break;
 				case m_readyState:
-					//acceleration.y = Settings.GRAVITY;
+					acceleration.y = Settings.GRAVITY * 2;
 					break;
 				case m_dashingState:
 					--m_dashFramesRemaining;
@@ -51,7 +52,9 @@ package lgj.Entities {
 				--m_hitCooldown;
 			}
 			
-            super.update();
+			if (velocity.y == 0) {
+				velocity.x = 0;
+			}
         }
 		
 		//returns whether the player will be at the end of the world at the next tick or not.
@@ -75,12 +78,14 @@ package lgj.Entities {
 			velocity = VectorHelper.multiplyVectorWithNumber(normalizedVector, Settings.DASH_SPEED);
 			
 			m_state = m_dashingState;
-			//acceleration.y = 0;
+			acceleration.y = 0;
+			
+			flip = velocity.x < 0 ? LEFT : RIGHT;
 		}
 		
 		private function stopDash():void {
 			m_state = m_readyState;
-			velocity = new AxVector();
+			velocity = VectorHelper.multiplyVectorWithNumber(VectorHelper.normalizeAxVector(velocity), 100); // new AxVector();
 			m_dashFramesRemaining = 0;
 		}
 		

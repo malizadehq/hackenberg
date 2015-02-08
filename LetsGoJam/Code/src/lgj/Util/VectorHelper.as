@@ -16,6 +16,9 @@ package lgj.Util
 		public static function normalizeAxVector(vec:AxVector):AxVector
 		{
 			var length:Number = getLength(vec);
+			if(length == 0) {
+				return new AxVector();
+			}
 			var returnValue:AxVector = new AxVector(vec.x, vec.y);
 			returnValue.x /= length;
 			returnValue.y /= length;

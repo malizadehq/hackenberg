@@ -3,6 +3,7 @@ package lgj.GameStates
 	import flash.events.MouseEvent;
 	import lgj.Entities.DolphinGiblet;
 	import lgj.Entities.Pot;
+	import lgj.Score.ScoreManager;
 	import org.axgl.AxGroup;
 	import org.axgl.AxVector;
 	import org.axgl.AxEntity;
@@ -13,6 +14,7 @@ package lgj.GameStates
 	import org.axgl.input.AxMouse;
 	import org.axgl.input.AxMouseButton;
 	import org.axgl.collision.AxCollisionGroup;
+	import org.axgl.text.AxText;
 	import org.axgl.util.AxRange;
 	import org.axgl.render.AxColor;
 	import org.axgl.particle.AxParticleSystem;
@@ -32,6 +34,9 @@ package lgj.GameStates
 		private var m_background:AxSprite;
 		private var m_player:Player;
 		private var m_pot:Pot;
+		private var m_scoreManager:ScoreManager;
+		private var m_scoreText:AxText;
+		private var m_scoreUI:AxSprite;
 		
 		private var m_particles:AxGroup;
 		//Handles mouse input
@@ -67,33 +72,14 @@ package lgj.GameStates
             trace("GameState Created");
 			
 			m_inputHandler = new InputHandler();
-
-			m_background = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
-			m_background.load(Resource.BACKGROUND, 600, 400);
-			add(m_background);
-			add(m_backgroundDecals);
-			
 			Ax.stage2D.addEventListener(MouseEvent.MOUSE_DOWN, m_inputHandler.onMouseDownHandler);
-			Ax.stage2D.addEventListener(MouseEvent.MOUSE_UP, m_inputHandler.onMouseUpHandler);
-
-			calculateNextDolphinSpawn();
-			add(m_spawnedObjects);
+			Ax.stage2D.addEventListener(MouseEvent.MOUSE_UP, m_inputHandler.onMouseUpHandler);			
 			
-			add(m_finishedGiblets);
-			m_pot = new Pot(Settings.POT_POSITION.x, Settings.POT_POSITION.y);
-			add(m_pot);
-			
-			m_player = new Player(150, 150, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
-			add(m_player);
-
-			m_playerDolphinCollider.add(m_spawnedObjects).add(m_player);
-			
-			
-			m_particles = new AxGroup;
-			add(m_particles);
+			addObjects();
 			
 			Registry.gameState = this;
 			Registry.player = m_player;
+			Registry.scoreManager = m_scoreManager;
         }
         
         override public function update():void {
@@ -114,6 +100,8 @@ package lgj.GameStates
 			collidePlayerAndDolphins();
 			
 			collideGibletsAndPot();
+			
+			m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();
 		}
 		
 		private function collidePlayerAndDolphins():void {
@@ -138,6 +126,7 @@ package lgj.GameStates
 									m_pot.hit(m_finishedGiblets.members[i].globalX, m_finishedGiblets.members[i].globalY);
 									(m_finishedGiblets.members[i] as DolphinGiblet).HasBeenCooked = true;
 									(m_finishedGiblets.members[i] as DolphinGiblet).hit();
+									m_scoreManager.addFinishedGiblet();
 								}
 							}
 						}
@@ -267,6 +256,45 @@ package lgj.GameStates
 		
 		public function spawnBloodDecal(x:int, y:int, resource:Class):void {
 			m_backgroundDecals.add(new AxSprite(x, y, resource, 64, 64));
+		}
+			
+		private function setupScoreUI():void
+		{
+			m_scoreUI = new AxSprite(Settings.WINDOW_WIDTH - 79, 0, Resource.SCORE_UI, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			add(m_scoreUI);
+			
+			m_scoreText = new AxText(Settings.SCORE_TEXT_POSITION.x,
+									 Settings.SCORE_TEXT_POSITION.y,
+									 null,
+									 Settings.SCORE_TEXT + 0);
+			add(m_scoreText);			
+		}
+		
+		private function addObjects():void 
+		{
+			m_background = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			m_background.load(Resource.BACKGROUND, 600, 400);
+			add(m_background);
+			add(m_backgroundDecals);
+		
+			calculateNextDolphinSpawn();
+			add(m_spawnedObjects);
+			
+			add(m_finishedGiblets);
+			m_pot = new Pot(Settings.POT_POSITION.x, Settings.POT_POSITION.y);
+			add(m_pot);
+			
+			m_player = new Player(150, 150, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			add(m_player);
+		
+			m_playerDolphinCollider.add(m_spawnedObjects).add(m_player);
+			
+			
+			m_particles = new AxGroup;
+			add(m_particles);
+		
+			m_scoreManager = new ScoreManager();
+			setupScoreUI();
 		}
 	}
 
