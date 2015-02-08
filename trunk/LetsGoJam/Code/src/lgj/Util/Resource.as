@@ -18,6 +18,7 @@ package lgj.Util
 		[Embed(source = "/img/Dolphin_1_0.png")] public static const DOLPHIN_GIB_1_0:Class;
 		[Embed(source = "/img/Dolphin_1_1.png")] public static const DOLPHIN_GIB_1_1:Class;
 		[Embed(source = "/img/Dolphin0000.png")] public static const DOLPHIN:Class;
+		[Embed(source = "/img/Pot.png")] public static const POT:Class;
 		
 		//Particle effects
 		[Embed(source = "/img/2x2_red_shaded.png")] public static const RED_PARTICLE:Class;

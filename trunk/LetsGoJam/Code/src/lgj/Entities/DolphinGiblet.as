@@ -22,16 +22,16 @@ package lgj.Entities
 		 * 5 = 1_1
 		 * */
 		private var m_gibletPart:uint = 0;
+		
 		private var m_canBeHitAgain:Boolean = false;
 		private var m_bounceCooldown:uint = 0;
 		private var m_rotation:Number = 0;
 		private var m_hasSpawnedBounceBlood:Boolean = false;
 		private var m_hasSpawnedStationaryBlood:Boolean = false;
+		private var m_isStationary:Boolean = false;
 		
-		/*
-		 * If gibletFamily isn't set, this constructor will set it and spawn the equivalent giblet.
-		 * if gibletFamily is set, this constructor will create sub level giblet of that family.
-		 * */
+		public var HasBeenCooked:Boolean = false;
+
 		public function DolphinGiblet(x:Number, y:Number, gibletPart:uint)
 		{
 			var resource:Class;
@@ -64,7 +64,7 @@ package lgj.Entities
 			super(x, y, resource);
 			
 			var floorHeight:int = Settings.WINDOW_HEIGHT - Settings.FLOOR_HEIGHT + (-RNG.generateNumber(Settings.FLOOR_HEIGHT_RANDOM_MIN, Settings.FLOOR_HEIGHT_RANDOM_MAX));
-			worldBounds = new AxRect( -100, 0, Settings.WINDOW_WIDTH + 150, floorHeight);
+			worldBounds = new AxRect( -100, 0, Settings.WINDOW_WIDTH, floorHeight);
 									 
 			acceleration.y = Settings.GRAVITY;
 		}		
@@ -86,9 +86,19 @@ package lgj.Entities
 				}
 			}
 			
-			if(velocity.x == 0 && velocity.y == 0 && m_hasSpawnedStationaryBlood == false) {
-				spawnBlood(false);
-				m_hasSpawnedStationaryBlood = true;
+			if (velocity.x == 0 && velocity.y == 0) {
+				m_isStationary = true;
+			}
+			
+			if (m_isStationary) {
+				if(!m_hasSpawnedStationaryBlood) {
+					spawnBlood(false);
+					m_hasSpawnedStationaryBlood = true;
+				}
+				
+				if(globalX > Settings.POT_POSITION.x) {
+					hit();
+				}
 			}
 			
 			angle += m_rotation;
