@@ -9,6 +9,7 @@ package lgj.Util
 		//Backgrounds
 		[Embed(source = "/img/Main.png")] public static const BACKGROUND:Class;
 		[Embed(source = "/img/MainUI0000.png")] public static const SCORE_UI:Class;
+		[Embed(source = "/img/InsideFull.png")] public static const BACKGROUND_INSIDE:Class;
 		
 		//Entities
 		[Embed(source = "/img/cook_idle.png")] public static const PLAYER_IDLE:Class;
@@ -36,6 +37,20 @@ package lgj.Util
 		[Embed(source = "/sound/dash_hit_1.mp3")] public static const HIT_DOLPHIN_SOUND_1:Class;
 		[Embed(source = "/sound/dash_hit_2.mp3")] public static const HIT_DOLPHIN_SOUND_2:Class;
 		[Embed(source = "/sound/dash_hit_3.mp3")] public static const HIT_DOLPHIN_SOUND_3:Class;
+		
+		// Intro
+		[Embed(source = "/sound/carl_hello.mp3")] public static const SOUND_CARL_HELLO:Class;
+		[Embed(source = "/img/Animations/Intro/intro0000.png")] public static const INTRO_0:Class;
+		[Embed(source = "/img/Animations/Intro/intro0001.png")] public static const INTRO_1:Class;
+		[Embed(source = "/img/Animations/Intro/intro0002.png")] public static const INTRO_2:Class;
+		[Embed(source = "/img/Animations/Intro/intro0003.png")] public static const INTRO_3:Class;
+		
+		// Title
+		[Embed(source = "/img/Animations/Title/Logo_BG.png")] public static const TITLE_0:Class;
+		[Embed(source = "/img/Animations/Title/Logo_Super.png")] public static const TITLE_1:Class;
+		[Embed(source = "/img/Animations/Title/Logo_Fukushima.png")] public static const TITLE_2:Class;
+		[Embed(source = "/img/Animations/Title/Logo_DolphinSoupShack.png")] public static const TITLE_3:Class;
+
 	}
 
 }
