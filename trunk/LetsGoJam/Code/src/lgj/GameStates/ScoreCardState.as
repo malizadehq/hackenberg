@@ -50,9 +50,9 @@ package lgj.GameStates
 		
 		private var m_FinalStamp:int 		= -1;
 		private var m_FinalScore:int 		= 0;
-		private var m_ScoreGibSmall:int 	= 2000;
-		private var m_ScoreGibMedium:int 	= 1000;
-		private var m_ScoreGibLarge:int 	= -1000;
+		private var m_ScoreGibSmall:int 	= 1000;
+		private var m_ScoreGibMedium:int 	= 500;
+		private var m_ScoreGibLarge:int 	= -500;
 		
 		private var m_scoreText:AxText;
 		private var m_scoreTextB:AxText;
@@ -214,8 +214,8 @@ package lgj.GameStates
 						m_FinalScore += m_ScoreGibMedium;
 					} else if (m_wholeDolphins_counter < m_wholeDolphins) 
 					{
-						m_resource = Resource.DOLPHIN;
-						spawnScoreImage(m_wholeDolphinsStartPoint.x + (m_wholeDolphins_counter * m_wholeDolphinOffset), m_wholeDolphinsStartPoint.y, Resource.DOLPHIN, 128, 64);
+						m_resource = Resource.DOLPHIN_BAD;
+						spawnScoreImage(m_wholeDolphinsStartPoint.x + (m_wholeDolphins_counter * m_wholeDolphinOffset), m_wholeDolphinsStartPoint.y, Resource.DOLPHIN_BAD, 128, 64);
 						++m_wholeDolphins_counter;
 						m_FinalScore += m_ScoreGibLarge;
 					} else {
@@ -239,29 +239,29 @@ package lgj.GameStates
 			m_scoreText.scale.x = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			m_scoreText.scale.y = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			
-			m_scoreText.scale.x += Number(m_FinalScore) / Number(10000);
-			m_scoreText.scale.y += Number(m_FinalScore) / Number(10000);
+			m_scoreText.scale.x += Number(m_FinalScore) / Number(40000);
+			m_scoreText.scale.y += Number(m_FinalScore) / Number(40000);
 			
 			m_scoreTextB.scale.x = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			m_scoreTextB.scale.y = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			
-			m_scoreTextB.scale.x += Number(m_FinalScore) / Number(10000);
-			m_scoreTextB.scale.y += Number(m_FinalScore) / Number(10000);
+			m_scoreTextB.scale.x += Number(m_FinalScore) / Number(40000);
+			m_scoreTextB.scale.y += Number(m_FinalScore) / Number(40000);
 			
 			if (m_FinalScore > 1000)
 			{
 				newFinalStamp = 0;
-				if (m_FinalScore > 2000)
-					newFinalStamp = 1;
-				if (m_FinalScore > 4000)
-					newFinalStamp = 2;
 				if (m_FinalScore > 8000)
-					newFinalStamp = 3;
-				if (m_FinalScore > 10000)
-					newFinalStamp = 4;
+					newFinalStamp = 1;
 				if (m_FinalScore > 15000)
+					newFinalStamp = 2;
+				if (m_FinalScore > 30000)
+					newFinalStamp = 3;
+				if (m_FinalScore > 50000)
+					newFinalStamp = 4;
+				if (m_FinalScore > 100000)
 					newFinalStamp = 5;
-				if (m_FinalScore > 25000)
+				if (m_FinalScore > 200000)
 					newFinalStamp = 6;
 			}
 			
@@ -277,37 +277,37 @@ package lgj.GameStates
 					case 0:
 						m_ScoreCardStamp.load(Resource.STAMP_0, 128, 128);
 						add(m_ScoreCardStamp);
-						Ax.sound(Resource.SCORE_SOUND_0);
+						Ax.sound(Resource.SCORE_SOUND_0,4.0);
 					break;
 					case 1:
 						m_ScoreCardStamp.load(Resource.STAMP_1, 128, 128);
 						add(m_ScoreCardStamp);
-						Ax.sound(Resource.SCORE_SOUND_1);
+						Ax.sound(Resource.SCORE_SOUND_1,4.0);
 					break;
 					case 2:
 						m_ScoreCardStamp.load(Resource.STAMP_2, 128, 128);
 						add(m_ScoreCardStamp);
-						Ax.sound(Resource.SCORE_SOUND_2);
+						Ax.sound(Resource.SCORE_SOUND_2,4.0);
 					break;
 					case 3:
 						m_ScoreCardStamp.load(Resource.STAMP_3, 128, 128);
 						add(m_ScoreCardStamp);
-						Ax.sound(Resource.SCORE_SOUND_3);
+						Ax.sound(Resource.SCORE_SOUND_3,4.0);
 					break;
 					case 4:
 						m_ScoreCardStamp.load(Resource.STAMP_4, 128, 128);
 						add(m_ScoreCardStamp);
-						Ax.sound(Resource.SCORE_SOUND_4);
+						Ax.sound(Resource.SCORE_SOUND_4,4.0);
 					break;
 					case 5:
 						m_ScoreCardStamp.load(Resource.STAMP_5, 128, 128);
 						add(m_ScoreCardStamp);
-						Ax.sound(Resource.SCORE_SOUND_5);
+						Ax.sound(Resource.SCORE_SOUND_5,4.0);
 					break;
 					case 6:
 						m_ScoreCardStamp.load(Resource.STAMP_6, 128, 128);
 						add(m_ScoreCardStamp);
-						Ax.sound(Resource.SCORE_SOUND_6);
+						Ax.sound(Resource.SCORE_SOUND_6,4.0);
 					break;
 				}
 			}
