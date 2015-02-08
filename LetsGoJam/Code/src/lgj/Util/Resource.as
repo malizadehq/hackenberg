@@ -8,7 +8,8 @@ package lgj.Util
 	{
 		//Backgrounds
 		[Embed(source = "/img/Main.png")] public static const BACKGROUND:Class;
-		[Embed(source = "/img/MainUI0000.png")] public static const SCORE_UI:Class;
+		[Embed(source = "/img/TimeLeft.png")] public static const TIME_BAR_BG:Class;
+		[Embed(source = "/img/TimeLeftBar.png")] public static const TIME_BAR:Class;
 		[Embed(source = "/img/InsideFull.png")] public static const BACKGROUND_INSIDE:Class;
 		[Embed(source = "/img/InsideFullB.png")] public static const BACKGROUND_INSIDE_B:Class;
 		

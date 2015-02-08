@@ -38,7 +38,9 @@ package lgj.GameStates
 		private var m_pot:Pot;
 		private var m_scoreManager:ScoreManager;
 		private var m_scoreText:AxText;
-		private var m_scoreUI:AxSprite;
+		private var m_TimeBarBg:AxSprite;
+		private var m_TimeBar:AxSprite;
+		private var m_iFrameLeft:uint = 3000;
 		
 		public var ParticleSystemsGroup:AxGroup;
 		//Handles mouse input
@@ -70,7 +72,8 @@ package lgj.GameStates
 			
 		}
 		
-        override public function create():void {
+        override public function create():void 
+		{
             super.create();
             trace("GameState Created");
 			
@@ -85,31 +88,44 @@ package lgj.GameStates
 			Registry.scoreManager = m_scoreManager;
         }
         
-        override public function update():void {
+        override public function update():void 
+		{
+			m_iFrameLeft--;
+			m_TimeBar.scale.x = ( Number(m_iFrameLeft) / Number(3000) );
+			
+			if (m_iFrameLeft < 0)
+			{
+				
+				return;
+			}
+			
 			if (!Ax.keys.held(AxKey.SPACE) || m_frameCounter >= Settings.SLOWMOTION_RATE)
 			{
 				super.update();
 				checkForDolphinSpawn();
 				m_frameCounter = 0;
-			} else {
+			} 
+			else 
+			{
 				m_player.update();
 			}
-				++m_frameCounter;
-				--m_clearDestroyedGibletsCounter;
-				
-				if(m_inputHandler.hasInputToProcess()) {
-					m_player.startDash(VectorHelper.addAxVectorToAxVector(m_inputHandler.getAndResetInputForce(), m_player.velocity));	
-				}
-				
-				if(m_clearDestroyedGibletsCounter <= 0) {
-					//m_finishedGiblets
-				}
-				
-				collidePlayerAndDolphins();
-				
-				collideEntityGroupAndPot(m_spawnedObjects);
-				
-				m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();			
+			
+			++m_frameCounter;
+			--m_clearDestroyedGibletsCounter;
+			
+			if(m_inputHandler.hasInputToProcess()) {
+				m_player.startDash(VectorHelper.addAxVectorToAxVector(m_inputHandler.getAndResetInputForce(), m_player.velocity));	
+			}
+			
+			if(m_clearDestroyedGibletsCounter <= 0) {
+				//m_finishedGiblets
+			}
+			
+			collidePlayerAndDolphins();
+			
+			collideEntityGroupAndPot(m_spawnedObjects);
+			
+			//m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();			
 		}
 		
 		private function collidePlayerAndDolphins():void {
@@ -346,14 +362,16 @@ package lgj.GameStates
 			
 		private function setupScoreUI():void
 		{
-			m_scoreUI = new AxSprite(Settings.WINDOW_WIDTH - 79, 0, Resource.SCORE_UI, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
-			add(m_scoreUI);
+			m_TimeBarBg = new AxSprite(Settings.WINDOW_WIDTH - 125, 0, Resource.TIME_BAR_BG, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			add(m_TimeBarBg);
 			
-			m_scoreText = new AxText(Settings.SCORE_TEXT_POSITION.x,
-									 Settings.SCORE_TEXT_POSITION.y,
-									 null,
-									 Settings.SCORE_TEXT + 0);
-			add(m_scoreText);			
+			m_TimeBar = new AxSprite(Settings.WINDOW_WIDTH - 125, 0, Resource.TIME_BAR, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			add(m_TimeBar);
+			//m_scoreText = new AxText(Settings.SCORE_TEXT_POSITION.x,
+									// Settings.SCORE_TEXT_POSITION.y,
+									 //null,
+									 //Settings.SCORE_TEXT + 0);
+			//add(m_scoreText);			
 		}
 		
 		private function addObjects():void 
