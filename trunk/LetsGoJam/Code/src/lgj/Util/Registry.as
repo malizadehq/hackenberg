@@ -3,6 +3,7 @@ package lgj.Util
 	import lgj.GameStates.GameState;
 	import lgj.Entities.Player;
 	import lgj.Score.ScoreManager;
+	import lgj.Util.MusicHandler;
 	
 	/**
 	 * A very simple registry to get the game state and player, without having to constantly
@@ -16,10 +17,7 @@ package lgj.Util
 		public static var player:Player;
 		/** The score manager **/
 		public static var scoreManager:ScoreManager;
-		
-		/** Score texts that pop up when the player collects points **/
-		//public static var floatingScoreTexts:AxGroup;
 		/** The music handler **/
-		//public static var musicHandler:MusicHandler;
+		public static var musicHandler:MusicHandler;
 	}
 }

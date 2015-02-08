@@ -54,7 +54,6 @@ package lgj.Util
 		[Embed(source = "/img/Ready.png")] public static const READY_0:Class;
 		[Embed(source = "/img/Cook.png")] public static const READY_1:Class;
 		[Embed(source = "/img/ReadyByg.png")] public static const READY_BG:Class;
-		/**  Sounds  **/
 		
 		// Report stamp
 		[Embed(source = "/img/UI/Stamp_D.png")] public static const STAMP_0:Class;
@@ -63,7 +62,12 @@ package lgj.Util
 		[Embed(source = "/img/UI/Stamp_A.png")] public static const STAMP_3:Class;
 		[Embed(source = "/img/UI/Stamp_S.png")] public static const STAMP_4:Class;
 		[Embed(source = "/img/UI/Stamp_SS.png")] public static const STAMP_5:Class;
-		[Embed(source = "/img/UI/Stamp_SSS.png")] public static const STAMP_6:Class;
+		[Embed(source = "/img/UI/Stamp_SSS.png")] public static const STAMP_6:Class;		
+		
+		/**  Sounds  **/
+		
+		//Music
+		[Embed(source = "/sound/strangled.mp3")] public static const MUSIC:Class;
 		
 		//Hit sounds
 		[Embed(source = "/sound/dash_hit_0.mp3")] public static const HIT_DOLPHIN_SOUND_0:Class;

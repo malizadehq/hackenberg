@@ -4,7 +4,8 @@ package lgj.GameStates
 	import lgj.Settings;
 	//import crs.Util.MusicHandler;
 	import lgj.Util.Resource;
-	//import crs.Util.Registry;
+	import lgj.Util.Registry;
+	import lgj.Util.MusicHandler;
 	
 	import org.axgl.AxSprite;
 	import org.axgl.render.AxColor;	
@@ -50,8 +51,7 @@ package lgj.GameStates
 			m_loadIntroFrameFunction = loadIntroFrame;
 			m_introSprite = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 			
-			//Registry.musicHandler = new MusicHandler();
-			//Registry.highScore = new Array();
+			Registry.musicHandler = new MusicHandler();
 		}
 		
 		override public function update():void 
@@ -161,6 +161,7 @@ package lgj.GameStates
 				Ax.camera.fadeIn(m_fadeTime);
 				Ax.popState();
 				Ax.pushState(new StartMenuState());
+				Registry.musicHandler.playMusic(Resource.MUSIC);
 			});
 		}
 	}
