@@ -1,7 +1,7 @@
 /* ----------------------------------------------------
    created with http://www.codeandweb.com/texturepacker 
    ----------------------------------------------------
-   $TexturePacker:SmartUpdate:3090e77be8ec3cf5f1d435e9ca228f47:4121bd480ee6d24eba9a1fd990e74867:eef8bdd73583e3b20a0da7bccd6a693a$
+   $TexturePacker:SmartUpdate:a48f287b4ff214227723f4362c211a4d:36e94b832580bc7ec231bd415dbc6349:eef8bdd73583e3b20a0da7bccd6a693a$
    ----------------------------------------------------
 
    usage: <span class="{-spritename-} sprite"></span>
@@ -12,15 +12,20 @@
 
 .sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(cook_Idle.png);}
 
-.cookHits0000 {width:64px; height:64px; background-position: -0px -0px}
-.cookHits0001 {width:64px; height:64px; background-position: -64px -0px}
-.cookHits0002 {width:64px; height:64px; background-position: -128px -0px}
-.cookIdle0000 {width:64px; height:64px; background-position: -192px -0px}
-.cookIdle0001 {width:64px; height:64px; background-position: -256px -0px}
-.cookIdle0002 {width:64px; height:64px; background-position: -320px -0px}
-.cookIdle0003 {width:64px; height:64px; background-position: -384px -0px}
-.cookIdle0004 {width:64px; height:64px; background-position: -384px -0px}
-.cookIdle0005 {width:64px; height:64px; background-position: -448px -0px}
-.cookIdle0006 {width:64px; height:64px; background-position: -512px -0px}
-.cookIdle0007 {width:64px; height:64px; background-position: -192px -0px}
-.cookIdle0008 {width:64px; height:64px; background-position: -192px -0px}
+.cookFall0000 {width:64px; height:64px; background-position: -0px -0px}
+.cookFall0001 {width:64px; height:64px; background-position: -64px -0px}
+.cookFall0002 {width:64px; height:64px; background-position: -128px -0px}
+.cookFall0003 {width:64px; height:64px; background-position: -192px -0px}
+.cookFall0004 {width:64px; height:64px; background-position: -256px -0px}
+.cookHits0000 {width:64px; height:64px; background-position: -320px -0px}
+.cookHits0001 {width:64px; height:64px; background-position: -384px -0px}
+.cookHits0002 {width:64px; height:64px; background-position: -448px -0px}
+.cookIdle0000 {width:64px; height:64px; background-position: -512px -0px}
+.cookIdle0001 {width:64px; height:64px; background-position: -576px -0px}
+.cookIdle0002 {width:64px; height:64px; background-position: -640px -0px}
+.cookIdle0003 {width:64px; height:64px; background-position: -704px -0px}
+.cookIdle0004 {width:64px; height:64px; background-position: -768px -0px}
+.cookIdle0005 {width:64px; height:64px; background-position: -832px -0px}
+.cookIdle0006 {width:64px; height:64px; background-position: -896px -0px}
+.cookIdle0007 {width:64px; height:64px; background-position: -960px -0px}
+.cookIdle0008 {width:64px; height:64px; background-position: -1024px -0px}

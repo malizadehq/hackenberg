@@ -51,7 +51,7 @@ package lgj.GameStates
 				m_ReadSprite_00.scale.y = 4.0;
 				add(m_ReadSprite_00);
 				m_ReadSprite_00.fadeIn(0.25, 1);
-				m_ReadSprite_00.grow(0.5, 0.5, 0.5);
+				m_ReadSprite_00.grow(0.5, 1.0, 1.0);
 			}
 				
 			if (m_frameCounter == 80)
@@ -64,7 +64,7 @@ package lgj.GameStates
 				m_ReadSprite_01.load(Resource.READY_1, 600, 400);
 				add(m_ReadSprite_01);
 				m_ReadSprite_01.fadeIn(0.25, 1);
-				m_ReadSprite_01.grow(0.5, 0.5, 0.5);
+				m_ReadSprite_01.grow(0.5, 1.0, 1.0);
 			}
 				
 			if (m_frameCounter > 120)
@@ -73,6 +73,7 @@ package lgj.GameStates
 				m_ReadSprite_BG.grow(0.25, 3, 3);
 				m_ReadSprite_01.fadeOut(0.25, 0);
 				m_ReadSprite_01.grow(1, 0.01, 0.01);
+				Ax.soundVolume = 0.5;
 				Ax.popState();
 			}
 			super.update();

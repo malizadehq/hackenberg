@@ -12,6 +12,7 @@ package lgj.Util
 		[Embed(source = "/img/TimeLeftBar.png")] public static const TIME_BAR:Class;
 		[Embed(source = "/img/InsideFull.png")] public static const BACKGROUND_INSIDE:Class;
 		[Embed(source = "/img/InsideFullB.png")] public static const BACKGROUND_INSIDE_B:Class;
+		[Embed(source = "/img/UI/ReportCard.png")] public static const BACKGROUND_REPORTCARD:Class;
 		
 		//Entities
 		[Embed(source = "/img/cook_idle.png")] public static const PLAYER_IDLE:Class;
@@ -53,6 +54,15 @@ package lgj.Util
 		[Embed(source = "/img/Cook.png")] public static const READY_1:Class;
 		[Embed(source = "/img/ReadyByg.png")] public static const READY_BG:Class;
 		/**  Sounds  **/
+		
+		// Report stamp
+		[Embed(source = "/img/UI/Stamp_D.png")] public static const STAMP_0:Class;
+		[Embed(source = "/img/UI/Stamp_C.png")] public static const STAMP_1:Class;
+		[Embed(source = "/img/UI/Stamp_B.png")] public static const STAMP_2:Class;
+		[Embed(source = "/img/UI/Stamp_A.png")] public static const STAMP_3:Class;
+		[Embed(source = "/img/UI/Stamp_S.png")] public static const STAMP_4:Class;
+		[Embed(source = "/img/UI/Stamp_SS.png")] public static const STAMP_5:Class;
+		[Embed(source = "/img/UI/Stamp_SSS.png")] public static const STAMP_6:Class;
 		
 		//Hit sounds
 		[Embed(source = "/sound/dash_hit_0.mp3")] public static const HIT_DOLPHIN_SOUND_0:Class;

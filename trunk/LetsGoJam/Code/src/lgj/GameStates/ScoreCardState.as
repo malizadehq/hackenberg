@@ -10,6 +10,7 @@ package lgj.GameStates
 	
 	import lgj.Util.Resource;
 	import lgj.Util.RNG;
+	import lgj.Settings;
 	
 	public class ScoreCardState extends AxState
 	{
@@ -32,6 +33,24 @@ package lgj.GameStates
 		
 		private var m_resource:Class;
 		
+		private var m_ScoreCardSprite_00:AxSprite;
+		private var m_ScoreCardSprite_01:AxSprite;
+		
+		override public function create():void
+		{
+			m_ScoreCardSprite_00 = new AxSprite(0, 0, Resource.BACKGROUND_REPORTCARD, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			
+			m_ScoreCardSprite_01 = new AxSprite(0, 0, null, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+			m_ScoreCardSprite_01.load(Resource.READY_BG, 600, 400);
+			m_ScoreCardSprite_01.origin.x = 300;
+			m_ScoreCardSprite_01.origin.y = 200;
+			m_ScoreCardSprite_01.scale.x = 2.0;
+			m_ScoreCardSprite_01.scale.y = 2.0;
+			add(m_ScoreCardSprite_01);
+			add(m_ScoreCardSprite_00);
+			
+			super.create();
+		}
 		public function ScoreCardState(numFinishedGiblets:uint, numUnfinishedGiblets:uint, numWholeDolphins:uint) 
 		{
 			m_finishedGiblets = numFinishedGiblets;
@@ -51,6 +70,8 @@ package lgj.GameStates
 		{
 			super.update();
 			++m_frameCounter;
+			
+			m_ScoreCardSprite_01.angle += 1;
 			
 			if (m_frameCounter >= m_framesBetweenScoreCount) {
 				m_frameCounter = 0;
@@ -94,13 +115,16 @@ package lgj.GameStates
 					m_resource = Resource.DOLPHIN;
 					spawnScoreImage(m_WholeDolphinsStartPoint.x + (m_wholeDolphins_counter * 95), m_WholeDolphinsStartPoint.y, Resource.DOLPHIN, 128, 64);
 					++m_wholeDolphins_counter;
+					
 				}
 			}
 		}
 		
 		private function spawnScoreImage(x:int, y:int, resource:Class, frameWidth:int, frameHeight:int):void
 		{
-			add(new AxSprite(x, y, resource, frameWidth, frameHeight));
+			var m_NewSprite:AxSprite = new AxSprite(x, y, resource, frameWidth, frameHeight);
+			m_NewSprite.angle += RNG.generateNumber( -30, 30);
+			add(m_NewSprite);
 			AxParticleSystem.emit("scoreEffect", x + 32, y + 32);
 		}
 	}

@@ -87,7 +87,6 @@ package lgj.GameStates
 			Registry.gameState = this;
 			Registry.player = m_player;
 			Registry.scoreManager = m_scoreManager;
-			Ax.soundVolume = 0.3;
         }
         
         override public function update():void 
