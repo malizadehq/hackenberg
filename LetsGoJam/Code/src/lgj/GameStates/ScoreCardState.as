@@ -14,7 +14,7 @@ package lgj.GameStates
 	public class ScoreCardState extends AxState
 	{
 		private var m_finishedGibletsStartPoint:AxPoint = new AxPoint(100, 100);
-		private var m_unfinishedGibletsStartPoint:AxPoint = new AxPoint(100, 150);
+		private var m_unfinishedGibletsStartPoint:AxPoint = new AxPoint(112, 145);
 		private var m_WholeDolphinsStartPoint:AxPoint = new AxPoint(100, 200);
 		
 		private var m_finishedGiblets_counter:uint = 0;
@@ -73,7 +73,7 @@ package lgj.GameStates
 							break;
 					}
 					
-					spawnScoreImage(m_finishedGibletsStartPoint.x + (m_finishedGiblets_counter * 32), m_finishedGibletsStartPoint.y, m_resource, 32, 32);
+					spawnScoreImage(m_finishedGibletsStartPoint.x + (m_finishedGiblets_counter * 32), m_finishedGibletsStartPoint.y, m_resource, 64, 64);
 					++m_finishedGiblets_counter;
 				} else if(m_unfinishedGiblets_counter < m_unfinishedGiblets) {
 					var rng:int = RNG.generateNumber(0, 1);
@@ -88,11 +88,11 @@ package lgj.GameStates
 							break;
 					}
 					
-					spawnScoreImage(m_unfinishedGibletsStartPoint.x + (m_unfinishedGiblets_counter * 55), m_unfinishedGibletsStartPoint.y, m_resource, 64, 64);
+					spawnScoreImage(m_unfinishedGibletsStartPoint.x + (m_unfinishedGiblets_counter * 52), m_unfinishedGibletsStartPoint.y, m_resource, 64, 64);
 					++m_unfinishedGiblets_counter;
 				} else if (m_wholeDolphins_counter < m_wholeDolphins) {
 					m_resource = Resource.DOLPHIN;
-					spawnScoreImage(m_WholeDolphinsStartPoint.x + (m_wholeDolphins_counter * 100), m_WholeDolphinsStartPoint.y, Resource.DOLPHIN, 128, 64);
+					spawnScoreImage(m_WholeDolphinsStartPoint.x + (m_wholeDolphins_counter * 95), m_WholeDolphinsStartPoint.y, Resource.DOLPHIN, 128, 64);
 					++m_wholeDolphins_counter;
 				}
 			}
