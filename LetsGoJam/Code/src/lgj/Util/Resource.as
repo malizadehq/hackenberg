@@ -10,7 +10,7 @@ package lgj.Util
 		[Embed(source = "/img/Main.png")] public static const BACKGROUND:Class;
 		
 		//Entities
-		[Embed(source = "/img/player.png")] public static const PLAYER:Class;
+		[Embed(source = "/img/cook_idle.png")] public static const PLAYER_IDLE:Class;
 		[Embed(source = "/img/Dolphin_0.png")] public static const DOLPHIN_GIB_0:Class;
 		[Embed(source = "/img/Dolphin_0_0.png")] public static const DOLPHIN_GIB_0_0:Class;
 		[Embed(source = "/img/Dolphin_0_1.png")] public static const DOLPHIN_GIB_0_1:Class;
