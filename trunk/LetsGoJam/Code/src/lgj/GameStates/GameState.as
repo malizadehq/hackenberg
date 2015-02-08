@@ -40,7 +40,7 @@ package lgj.GameStates
 		private var m_scoreText:AxText;
 		private var m_TimeBarBg:AxSprite;
 		private var m_TimeBar:AxSprite;
-		private var m_iFrameLeft:int = 3;// 3000;
+		private var m_iFrameLeft:int = 3000;
 		private var m_hitSoundCooldown:uint;
 		
 		public var ParticleSystemsGroup:AxGroup;
@@ -96,10 +96,10 @@ package lgj.GameStates
 			m_TimeBar.grow(0.01, ( Number(m_iFrameLeft) / Number(3000) ), 1.0);
 			if (m_iFrameLeft < 0)
 			{
-				Ax.pushState(new ScoreCardState(50, 30, 40));
-				/*Ax.pushState(new ScoreCardState(m_scoreManager.getFinishedGibletsInPot(),
+				//Ax.pushState(new ScoreCardState(50, 30, 40));
+				Ax.pushState(new ScoreCardState(m_scoreManager.getFinishedGibletsInPot(),
 												m_scoreManager.getUnfinishedGibletsInPot(),
-												m_scoreManager.getWholeDolphinsInPot()));*/
+												m_scoreManager.getWholeDolphinsInPot()));
 				return;
 			}
 			
