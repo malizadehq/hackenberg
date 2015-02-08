@@ -26,7 +26,7 @@ package lgj.GameStates
 		private var m_introSpriteBG:AxSprite;
 		
 		private var m_fadeTime:Number = 0.5;
-		private var m_skipLogoSpawning = false;
+		private var m_skipLogoSpawning:Boolean = false;
 		
 		override public function create():void
 		{
