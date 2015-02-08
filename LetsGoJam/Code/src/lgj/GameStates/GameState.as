@@ -41,6 +41,7 @@ package lgj.GameStates
 		private var m_TimeBarBg:AxSprite;
 		private var m_TimeBar:AxSprite;
 		private var m_iFrameLeft:int = 3000;
+		private var m_hitSoundCooldown:uint;
 		
 		public var ParticleSystemsGroup:AxGroup;
 		//Handles mouse input
@@ -86,6 +87,7 @@ package lgj.GameStates
 			Registry.gameState = this;
 			Registry.player = m_player;
 			Registry.scoreManager = m_scoreManager;
+			Ax.soundVolume = 0.3;
         }
         
         override public function update():void 
@@ -109,23 +111,25 @@ package lgj.GameStates
 			{
 				m_player.update();
 			}
-			
-			++m_frameCounter;
-			--m_clearDestroyedGibletsCounter;
-			
-			if(m_inputHandler.hasInputToProcess()) {
-				m_player.startDash(VectorHelper.addAxVectorToAxVector(m_inputHandler.getAndResetInputForce(), m_player.velocity));	
-			}
-			
-			if(m_clearDestroyedGibletsCounter <= 0) {
-				//m_finishedGiblets
-			}
-			
-			collidePlayerAndDolphins();
-			
-			collideEntityGroupAndPot(m_spawnedObjects);
-			
-			//m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();			
+				++m_frameCounter;
+				--m_clearDestroyedGibletsCounter;
+				if(m_hitSoundCooldown > 0) {
+					--m_hitSoundCooldown;
+				}
+				
+				if(m_inputHandler.hasInputToProcess()) {
+					m_player.startDash(VectorHelper.addAxVectorToAxVector(m_inputHandler.getAndResetInputForce(), m_player.velocity));	
+				}
+				
+				if(m_clearDestroyedGibletsCounter <= 0) {
+					//m_finishedGiblets
+				}
+				
+				collidePlayerAndDolphins();
+				
+				collideEntityGroupAndPot(m_spawnedObjects);
+				
+				m_scoreText.text = m_scoreManager.getFinishedGibletsInPot() + " / " + m_scoreManager.getTargetScore();			
 		}
 		
 		private function collidePlayerAndDolphins():void {
@@ -215,32 +219,35 @@ package lgj.GameStates
 				
 				cameraShakeEffect();
 				
-				
-				switch(RNG.generateNumber(0, 1))
-				{
-					case 0:
-						Ax.sound(Resource.HIT_SWORDIMPACT_SOUND_0);
-					break;
-					case 1:
-						Ax.sound(Resource.HIT_SWORDIMPACT_SOUND_0);
-					break;
+				if(m_hitSoundCooldown == 0) {
+					switch(RNG.generateNumber(0, 1))
+					{
+						case 0:
+							Ax.sound(Resource.HIT_SWORDIMPACT_SOUND_0);
+						break;
+						case 1:
+							Ax.sound(Resource.HIT_SWORDIMPACT_SOUND_0);
+						break;
+					}
+					
+					switch(RNG.generateNumber(0, 3))
+					{
+						case 0:
+							Ax.sound(Resource.HIT_GOREIMPACT_SOUND_0);
+						break;
+						case 1:
+							Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
+						break;
+						case 2:
+							Ax.sound(Resource.HIT_GOREIMPACT_SOUND_2);
+						break;
+						case 3:
+							Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
+						break;
+					}
+					m_hitSoundCooldown = Settings.HIT_SOUND_COOLDOWN_FRAMES;
 				}
-				
-				switch(RNG.generateNumber(0, 3))
-				{
-					case 0:
-						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_0);
-					break;
-					case 1:
-						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
-					break;
-					case 2:
-						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_2);
-					break;
-					case 3:
-						Ax.sound(Resource.HIT_GOREIMPACT_SOUND_1);
-					break;
-				}
+
 				AxParticleSystem.emit("bloodEffect", target.x + target.width * 0.5, target.y + target.height * 0.5);
 			}
 		}

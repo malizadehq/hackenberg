@@ -18,10 +18,11 @@ package lgj
 		public static var MIN_SPAWN_VELOCITY:AxVector = new AxVector(100, -100, 0);
 		public static var MAX_SPAWN_VELOCITY:AxVector = new AxVector(200, -500, 0);
 		public static var FLOOR_HEIGHT:int = 50;
-		public static var FLOOR_HEIGHT_RANDOM_MIN:int = -10;
-		public static var FLOOR_HEIGHT_RANDOM_MAX:int = 40;
+		public static var FLOOR_HEIGHT_RANDOM_MIN:int = -15;
+		public static var FLOOR_HEIGHT_RANDOM_MAX:int = 60;
 		public static var SLOWMOTION_RATE:uint = 5;
 		public static var HIT_COOLDOWN_FRAMES:uint = 20;
+		public static var HIT_SOUND_COOLDOWN_FRAMES:uint = 20;
 		
 		//Pot settings
 		public static var POT_POSITION:AxPoint = new AxPoint(WINDOW_WIDTH - 175, WINDOW_HEIGHT - 225);
