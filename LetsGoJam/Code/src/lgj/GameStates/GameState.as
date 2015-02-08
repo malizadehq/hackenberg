@@ -4,6 +4,7 @@ package lgj.GameStates
 	import lgj.Entities.DolphinGiblet;
 	import lgj.Entities.Pot;
 	import lgj.Score.ScoreManager;
+	import lgj.Util.MusicHandler;
 	import org.axgl.AxGroup;
 	import org.axgl.AxVector;
 	import org.axgl.AxEntity;
