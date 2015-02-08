@@ -92,10 +92,12 @@ package lgj.Util
 		[Embed(source = "/sound/ready.mp3")] public static const READY_SOUND_0:Class;
 		[Embed(source = "/sound/cook.mp3")] public static const READY_SOUND_1:Class;
 		
+		[Embed(source = "/sound/scoreTick.mp3")] public static const SCORE_TICK:Class;
+		
 		//Intro
 		[Embed(source = "/sound/super.mp3")] public static const SUPER_SOUND:Class;
 		[Embed(source = "/sound/fukushima.mp3")] public static const FUKUSHIMA_SOUND:Class;
-		[Embed(source = "/sound/soupshack.mp3")] public static const SOUPSHACK_SOUND:Class;		
+		[Embed(source = "/sound/soupshack.mp3")] public static const SOUPSHACK_SOUND:Class;
 
 	}
 

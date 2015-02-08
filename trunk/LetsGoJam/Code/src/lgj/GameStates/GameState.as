@@ -96,7 +96,7 @@ package lgj.GameStates
 			m_TimeBar.grow(0.01, ( Number(m_iFrameLeft) / Number(3000) ), 1.0);
 			if (m_iFrameLeft < 0)
 			{
-				Ax.pushState(new ScoreCardState(5, 3, 7));
+				Ax.pushState(new ScoreCardState(50, 30, 40));
 				/*Ax.pushState(new ScoreCardState(m_scoreManager.getFinishedGibletsInPot(),
 												m_scoreManager.getUnfinishedGibletsInPot(),
 												m_scoreManager.getWholeDolphinsInPot()));*/
