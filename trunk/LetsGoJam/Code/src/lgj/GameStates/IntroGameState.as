@@ -26,7 +26,7 @@ package lgj.GameStates
 		private var m_frameThreshold_4:uint = 740;
 		private var m_frameThreshold_5:uint = 860;
 		private var m_frameThreshold_6:uint = 980;
-		private var m_frameThreshold_7:uint = 980;
+		private var m_frameThreshold_7:uint = 1000;
 				
 		private var m_loadIntroFrameFunction:Function;
 		private var m_introSprite:AxSprite;
@@ -62,15 +62,14 @@ package lgj.GameStates
 		{
 			++m_frameCounter;
 			
-			if (m_frameCounter >= m_frameThreshold_6)
+			if (m_frameCounter >= m_frameThreshold_7)
 			{
 				if (m_introState != STATE_START_NEXT)
 				{
 					startGame();
 				}
 			} 
-			
-			if (m_frameCounter >= m_frameThreshold_5)
+			else if (m_frameCounter >= m_frameThreshold_5)
 			{
 				if (m_introState != STATE_FRAME_5)
 				{
@@ -109,7 +108,8 @@ package lgj.GameStates
 						Ax.sound(Resource.SOUND_CARL_HELLO);
 					 });
 				}
-			} else if (m_frameCounter >= m_frameThreshold_2)
+			} 
+			else if (m_frameCounter >= m_frameThreshold_2)
 			{
 				if (m_introState != STATE_FRAME_2)
 				{
@@ -122,7 +122,8 @@ package lgj.GameStates
 						
 					 });
 				}
-			} else if (m_frameCounter >= m_frameThreshold_1)
+			} 
+			else if (m_frameCounter >= m_frameThreshold_1)
 			{
 				if (m_introState != STATE_FRAME_1)
 				{
@@ -135,7 +136,8 @@ package lgj.GameStates
 						
 					 });
 				}
-			} else
+			} 
+			else
 			{
 				if (m_introState != STATE_FRAME_0)
 				{
@@ -188,7 +190,7 @@ package lgj.GameStates
 		private function startGame():void 
 		{
 			m_introState = STATE_START_NEXT;
-			m_frameCounter = m_frameThreshold_5;
+			m_frameCounter = m_frameThreshold_7;
 			Ax.camera.fadeOut(m_fadeTime, 0xff000000, function():void {
 				Ax.camera.reset();
 				Ax.camera.fadeIn(m_fadeTime);
