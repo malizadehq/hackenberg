@@ -56,7 +56,7 @@ package lgj.Entities
 					angle = 0;
 					if (m_frameCounter < 0) {
 						m_frameCounter = RNG.generateNumber(m_flopMinTime, m_flopMaxTime);
-						m_scaleY *= -1;
+						//m_scaleY *= -1;
 						scale = new AxPoint(1, m_scaleY);
 						if(isAtBottom()) {
 							setFlopSpeeds();
