@@ -39,10 +39,12 @@ package lgj.Util
 		
 		// Intro
 		[Embed(source = "/sound/carl_hello.mp3")] public static const SOUND_CARL_HELLO:Class;
-		[Embed(source = "/img/Animations/Intro/intro0000.png")] public static const INTRO_0:Class;
-		[Embed(source = "/img/Animations/Intro/intro0001.png")] public static const INTRO_1:Class;
-		[Embed(source = "/img/Animations/Intro/intro0002.png")] public static const INTRO_2:Class;
-		[Embed(source = "/img/Animations/Intro/intro0003.png")] public static const INTRO_3:Class;
+		[Embed(source = "/img/Animations/Intro/intro0004.png")] public static const INTRO_0:Class;
+		[Embed(source = "/img/Animations/Intro/intro0005.png")] public static const INTRO_1:Class;
+		[Embed(source = "/img/Animations/Intro/intro0000.png")] public static const INTRO_2:Class;
+		[Embed(source = "/img/Animations/Intro/intro0001.png")] public static const INTRO_3:Class;
+		[Embed(source = "/img/Animations/Intro/intro0002.png")] public static const INTRO_4:Class;
+		[Embed(source = "/img/Animations/Intro/intro0003.png")] public static const INTRO_5:Class;
 		
 		// Title
 		[Embed(source = "/img/Animations/Title/Logo_BG.png")] public static const TITLE_0:Class;
