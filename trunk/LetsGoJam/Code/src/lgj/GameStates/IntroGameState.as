@@ -20,12 +20,14 @@ package lgj.GameStates
 	public class IntroGameState extends AxState 
 	{
 		private var m_frameCounter:uint = 0;
-		private var m_frameThreshold_1:uint = 120;
-		private var m_frameThreshold_2:uint = 240;
-		private var m_frameThreshold_3:uint = 360;
-		private var m_frameThreshold_4:uint = 480;
-		private var m_frameThreshold_5:uint = 600;
-		
+		private var m_frameThreshold_1:uint = 300;
+		private var m_frameThreshold_2:uint = 500;
+		private var m_frameThreshold_3:uint = 620;
+		private var m_frameThreshold_4:uint = 740;
+		private var m_frameThreshold_5:uint = 860;
+		private var m_frameThreshold_6:uint = 980;
+		private var m_frameThreshold_7:uint = 980;
+				
 		private var m_loadIntroFrameFunction:Function;
 		private var m_introSprite:AxSprite;
 		
@@ -35,7 +37,9 @@ package lgj.GameStates
 		private static var STATE_FRAME_1:uint = 2;
 		private static var STATE_FRAME_2:uint = 3;
 		private static var STATE_FRAME_3:uint = 4;
-		private static var STATE_START_NEXT:uint = 5;
+		private static var STATE_FRAME_4:uint = 5;
+		private static var STATE_FRAME_5:uint = 6;
+		private static var STATE_START_NEXT:uint = 7;
 		
 		private var m_fadeTime:Number = 0.5;
 		
@@ -58,13 +62,41 @@ package lgj.GameStates
 		{
 			++m_frameCounter;
 			
-			if (m_frameCounter >= m_frameThreshold_4)
+			if (m_frameCounter >= m_frameThreshold_6)
 			{
 				if (m_introState != STATE_START_NEXT)
 				{
 					startGame();
 				}
-			} else if (m_frameCounter >= m_frameThreshold_3)
+			} 
+			
+			if (m_frameCounter >= m_frameThreshold_5)
+			{
+				if (m_introState != STATE_FRAME_5)
+				{
+					m_introState = STATE_FRAME_5;
+					Ax.camera.fadeOut(m_fadeTime, 0xff000000, function():void {
+						Ax.camera.reset();
+						Ax.camera.fadeIn(m_fadeTime);
+						m_introSprite.load(Resource.INTRO_5, 600, 400);
+						add(m_introSprite);					
+					 });
+				}
+			} 
+			else if (m_frameCounter >= m_frameThreshold_4)
+			{
+				if (m_introState != STATE_FRAME_4)
+				{
+					m_introState = STATE_FRAME_4;
+					Ax.camera.fadeOut(m_fadeTime, 0xff000000, function():void {
+						Ax.camera.reset();
+						Ax.camera.fadeIn(m_fadeTime);
+						m_introSprite.load(Resource.INTRO_4, 600, 400);
+						add(m_introSprite);					
+					 });
+				}
+			} 
+			else if (m_frameCounter >= m_frameThreshold_3)
 			{
 				if (m_introState != STATE_FRAME_3)
 				{
@@ -73,7 +105,8 @@ package lgj.GameStates
 						Ax.camera.reset();
 						Ax.camera.fadeIn(m_fadeTime);
 						m_introSprite.load(Resource.INTRO_3, 600, 400);
-						add(m_introSprite);					
+						add(m_introSprite);		
+						Ax.sound(Resource.SOUND_CARL_HELLO);
 					 });
 				}
 			} else if (m_frameCounter >= m_frameThreshold_2)
@@ -99,7 +132,7 @@ package lgj.GameStates
 						Ax.camera.fadeIn(m_fadeTime);
 						m_introSprite.load(Resource.INTRO_1, 600, 400);
 						add(m_introSprite);	
-						Ax.sound(Resource.SOUND_CARL_HELLO);
+						
 					 });
 				}
 			} else

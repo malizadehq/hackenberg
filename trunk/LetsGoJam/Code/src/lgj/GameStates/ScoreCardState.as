@@ -52,7 +52,7 @@ package lgj.GameStates
 		private var m_FinalScore:int 		= 0;
 		private var m_ScoreGibSmall:int 	= 1000;
 		private var m_ScoreGibMedium:int 	= 500;
-		private var m_ScoreGibLarge:int 	= -500;
+		private var m_ScoreGibLarge:int 	= 100;
 		
 		private var m_scoreText:AxText;
 		private var m_scoreTextB:AxText;
@@ -214,8 +214,8 @@ package lgj.GameStates
 						m_FinalScore += m_ScoreGibMedium;
 					} else if (m_wholeDolphins_counter < m_wholeDolphins) 
 					{
-						m_resource = Resource.DOLPHIN_BAD;
-						spawnScoreImage(m_wholeDolphinsStartPoint.x + (m_wholeDolphins_counter * m_wholeDolphinOffset), m_wholeDolphinsStartPoint.y, Resource.DOLPHIN_BAD, 128, 64);
+						m_resource = Resource.DOLPHIN;
+						spawnScoreImage(m_wholeDolphinsStartPoint.x + (m_wholeDolphins_counter * m_wholeDolphinOffset), m_wholeDolphinsStartPoint.y, Resource.DOLPHIN, 128, 64);
 						++m_wholeDolphins_counter;
 						m_FinalScore += m_ScoreGibLarge;
 					} else {
