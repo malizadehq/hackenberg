@@ -239,14 +239,14 @@ package lgj.GameStates
 			m_scoreText.scale.x = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			m_scoreText.scale.y = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			
-			m_scoreText.scale.x += Number(m_FinalScore) / Number(40000);
-			m_scoreText.scale.y += Number(m_FinalScore) / Number(40000);
+			m_scoreText.scale.x += Number(m_FinalScore) / Number(20000);
+			m_scoreText.scale.y += Number(m_FinalScore) / Number(20000);
 			
 			m_scoreTextB.scale.x = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			m_scoreTextB.scale.y = 2.0 + Number(RNG.generateNumber( -0.55, 0.55));
 			
-			m_scoreTextB.scale.x += Number(m_FinalScore) / Number(40000);
-			m_scoreTextB.scale.y += Number(m_FinalScore) / Number(40000);
+			m_scoreTextB.scale.x += Number(m_FinalScore) / Number(20000);
+			m_scoreTextB.scale.y += Number(m_FinalScore) / Number(20000);
 			
 			if (m_FinalScore > 1000)
 			{
